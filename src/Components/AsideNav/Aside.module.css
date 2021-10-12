@@ -1,0 +1,16 @@
+.links{
+    padding: 20px;
+}
+
+.links a{
+    text-decoration: none;
+    color: darkslategray;
+}
+
+.links a:hover{
+    color: fuchsia;
+}
+
+.links a.activeLink {
+    color: fuchsia;
+}

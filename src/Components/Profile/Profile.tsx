@@ -6,7 +6,7 @@ import MyPosts from "./MyPosts/MyPosts";
 
 const Profile = () => {
     return (
-        <main>
+        <main className={classes.container}>
             <div>
                 <img className={classes.avatar} src={userDef} alt="avatar"/>
             </div>
@@ -16,7 +16,6 @@ const Profile = () => {
             <div>
                 Info
             </div>
-
 
             <div>
                 <MyPosts/>
