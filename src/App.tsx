@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './App.module.css'
 import Header from "./Components/Header/Header";
 import AsideNav from "./Components/AsideNav/AsideNav";
-import MainSection from "./Components/MainSection/MainSection";
+import Profile from "./Components/Profile/Profile";
 import Footer from "./Components/Footer/Footer";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
             <AsideNav/>
         </div>
         <div className={classes.mainSection}>
-            <MainSection/>
+            <Profile/>
         </div>
         <div className={classes.footer}>
             <Footer/>
