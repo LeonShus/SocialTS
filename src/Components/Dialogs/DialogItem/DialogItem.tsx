@@ -1,4 +1,4 @@
-import classes from "../Dialogs.module.css";
+import classes from "./DialogItem.module.css";
 import userDef from "../../../DefaultItems/Img/userDef.png";
 import {NavLink} from "react-router-dom";
 import React from "react";
@@ -8,7 +8,7 @@ type DialogItemPropsType = {
     id: number
 }
 
-const DialogItem = (props: DialogItemPropsType) => {
+const DialogItem: React.FC<DialogItemPropsType> = (props) => {
     return (
         <div>
             <img className={classes.avatar} src={userDef} alt="avatar"/>

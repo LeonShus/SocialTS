@@ -7,7 +7,7 @@ type PostPropsType = {
     likeCount: number
 }
 
-const Post = (props : PostPropsType) => {
+const Post : React.FC<PostPropsType> = (props) => {
     return (
         <div>
             <img className={classes.avatar} src={userDef} alt="avatar"/>
