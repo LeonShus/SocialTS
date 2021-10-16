@@ -5,10 +5,16 @@ import AsideNav from "./Components/AsideNav/AsideNav";
 import Profile from "./Components/Profile/Profile";
 import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route} from "react-router-dom";
-import Dialogs from "./Components/Dialogs/Dialogs";
+import Dialogs, {MessagesType, UsersType} from "./Components/Dialogs/Dialogs";
 import Users from "./Components/Users/Users";
+import {StateType} from "./index";
 
-function App() {
+type AppPropsType = {
+    state: StateType
+}
+
+function App(props: AppPropsType) {
+    console.log(props, 'APP')
     return (
         <BrowserRouter>
             <div className={classes.container}>
@@ -20,8 +26,8 @@ function App() {
                 </div>
 
                 <div className={classes.mainSection}>
-                    <Route path="/profile" render={() => <Profile/>}/>
-                    <Route path="/dialogs" render={() => <Dialogs/>}/>
+                    <Route path="/profile" render={() => <Profile postsData={props.state.postData} />}/>
+                    <Route path="/dialogs" render={() => <Dialogs messages={props.state.message} users={props.state.users}/>}/>
                     <Route path="/users" render={() => <Users/>}/>
                 </div>
 

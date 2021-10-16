@@ -3,39 +3,32 @@ import classes from "./Dialogs.module.css"
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 
-type UsersType = {
+export type UsersType = {
     name: string
     id: number
 }
 
-let users: Array<UsersType> = [
-    {id: 1, name: "Leon"},
-    {id: 2, name: "Alex"}
-]
-
-type MessagesType = {
+export type MessagesType = {
     id: number
     message: string
 }
 
-let messages: Array<MessagesType> = [
-    { id: 1, message: "Im your father" },
-    { id: 2, message: "Hello Boy!" },
-    { id: 2, message: "It's a joke;3" }
-]
+export type DialogPropsType = {
+    users: Array<UsersType>
+    messages: Array<MessagesType>
+}
 
-const Dialogs = () => {
+
+
+const Dialogs = (props: DialogPropsType) => {
+    console.log(props,'Dialogs')
     return (
         <div className={classes.dialogs}>
             <div className={classes.users}>
-                <DialogItem name={users[0].name} id={users[0].id}/>
-                <DialogItem name={users[1].name} id={users[1].id}/>
-
+                { props.users.map(el => <DialogItem key={el.id} name={el.name} id={el.id}/>) }
             </div>
             <div className={classes.window}>
-                <Message message={messages[0].message}/>
-                <Message message={messages[1].message}/>
-                <Message message={messages[2].message}/>
+                { props.messages.map(el => <Message key={el.id} message={el.message}/>) }
             </div>
         </div>
 

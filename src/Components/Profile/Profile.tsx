@@ -1,15 +1,19 @@
 import React from "react";
 import classes from "./Profile.module.css"
-import MyPosts from "./MyPosts/MyPosts";
+import MyPosts, {PostDataType} from "./MyPosts/MyPosts";
 import ProfileInfo from "./PrfileInfo/ProfileInfo";
 
+export type ProfilePropsType = {
+    postsData: Array<PostDataType>
+}
 
-const Profile = () => {
+const Profile = (props: ProfilePropsType) => {
+    console.log(props, 'Profile')
     return (
         <main className={classes.container}>
             <ProfileInfo/>
 
-            <MyPosts/>
+            <MyPosts postsData={props.postsData}/>
         </main>
     )
 }
