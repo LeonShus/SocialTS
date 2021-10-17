@@ -1,13 +1,32 @@
 
-.users a {
-    text-decoration: none;
-    color: darkslategray;
-}
-
-
-
 .dialogs{
     display: grid;
     grid-template-columns: 1fr 4fr;
+    grid-gap: 2rem;
+    padding: 20px;
+    width: 60%;
+}
+
+.users {
+    background: hotpink;
+    padding: 5px;
+}
+
+
+.users a {
+    position: relative;
+    text-decoration: none;
+    color: darkslategray;
+    top: -12px;
+    left: 5px;
+}
+
+.window {
+    background: gainsboro;
+    padding: 10px;
+}
+
+.chatWindow {
+    background: whitesmoke;
     padding: 20px;
 }

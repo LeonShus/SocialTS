@@ -12,7 +12,11 @@ const Dialogs = (props: DialogsType) => {
                 { props.users.map(el => <DialogItem key={el.id} name={el.name} id={el.id}/>) }
             </div>
             <div className={classes.window}>
-                { props.messages.map(el => <Message key={el.id} message={el.message}/>) }
+                <div className={classes.chatWindow}>
+                    { props.messages.map(el => <Message key={el.id} message={el.message}/>) }
+                </div>
+                <textarea rows={3}></textarea>
+                <button>Send</button>
             </div>
         </div>
 

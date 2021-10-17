@@ -1,4 +1,5 @@
 import React from "react";
+import classes from "./Message.module.css"
 
 type MessagePropsType = {
     message: string
@@ -6,7 +7,7 @@ type MessagePropsType = {
 
 const Message: React.FC<MessagePropsType> = (props) => {
     return (
-        <div>
+        <div className={classes.message}>
             {props.message}
         </div>
     )
