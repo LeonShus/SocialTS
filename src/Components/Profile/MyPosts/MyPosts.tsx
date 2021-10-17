@@ -1,14 +1,10 @@
 import React from "react";
 import Post from "./Post/Post";
-import {ProfilePropsType} from "../Profile";
+import {ProfilePostsType} from "../../../Redux/MyState";
 
-export type PostDataType = {
-    id: number
-    message: string
-    likeCount: number
-}
 
-const MyPosts = (props: ProfilePropsType) => {
+
+const MyPosts = (props: ProfilePostsType) => {
     console.log(props,'MyPosts')
     return (
         <div>

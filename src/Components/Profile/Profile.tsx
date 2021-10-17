@@ -1,13 +1,12 @@
 import React from "react";
 import classes from "./Profile.module.css"
-import MyPosts, {PostDataType} from "./MyPosts/MyPosts";
+import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./PrfileInfo/ProfileInfo";
+import {ProfilePostsType} from "../../Redux/MyState";
 
-export type ProfilePropsType = {
-    postsData: Array<PostDataType>
-}
 
-const Profile = (props: ProfilePropsType) => {
+
+const Profile = (props: ProfilePostsType) => {
     console.log(props, 'Profile')
     return (
         <main className={classes.container}>

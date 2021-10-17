@@ -1,19 +1,16 @@
-import React from 'react';
-import classes from './App.module.css'
+import React from "react";
+import classes from "./App.module.css"
 import Header from "./Components/Header/Header";
 import AsideNav from "./Components/AsideNav/AsideNav";
 import Profile from "./Components/Profile/Profile";
 import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route} from "react-router-dom";
-import Dialogs, {MessagesType, UsersType} from "./Components/Dialogs/Dialogs";
+import Dialogs from "./Components/Dialogs/Dialogs";
 import Users from "./Components/Users/Users";
-import {StateType} from "./index";
+import {StateType} from "./Redux/MyState";
 
-type AppPropsType = {
-    state: StateType
-}
 
-function App(props: AppPropsType) {
+function App(props: StateType) {
     console.log(props, 'APP')
     return (
         <BrowserRouter>
@@ -26,8 +23,8 @@ function App(props: AppPropsType) {
                 </div>
 
                 <div className={classes.mainSection}>
-                    <Route path="/profile" render={() => <Profile postsData={props.state.postData} />}/>
-                    <Route path="/dialogs" render={() => <Dialogs messages={props.state.message} users={props.state.users}/>}/>
+                    <Route path="/profile" render={() => <Profile postsData={props.profile.postsData} />}/>
+                    <Route path="/dialogs" render={() => <Dialogs messages={props.dialogs.messages} users={props.dialogs.users}/>}/>
                     <Route path="/users" render={() => <Users/>}/>
                 </div>
 
