@@ -9,8 +9,12 @@ import Dialogs from "./Components/Dialogs/Dialogs";
 import Users from "./Components/Users/Users";
 import {StateType} from "./Redux/MyState";
 
+export type AppPropsType = {
+    state: StateType
+    addNewPost: (post: string) => void
+}
 
-function App(props: StateType) {
+function App(props: AppPropsType) {
     console.log(props, 'APP')
     return (
         <BrowserRouter>
@@ -23,8 +27,8 @@ function App(props: StateType) {
                 </div>
 
                 <div className={classes.mainSection}>
-                    <Route path="/profile" render={() => <Profile postsData={props.profile.postsData} />}/>
-                    <Route path="/dialogs" render={() => <Dialogs messages={props.dialogs.messages} users={props.dialogs.users}/>}/>
+                    <Route path="/profile" render={() => <Profile postsData={props.state.profile.postsData} addNewPost={props.addNewPost}/>}/>
+                    <Route path="/dialogs" render={() => <Dialogs messages={props.state.dialogs.messages} users={props.state.dialogs.users}/>}/>
                     <Route path="/users" render={() => <Users/>}/>
                 </div>
 

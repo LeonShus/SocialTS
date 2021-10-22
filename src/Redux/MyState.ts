@@ -1,5 +1,9 @@
+let rerenderEntireTree = () => {
+    console.log('start')
+}
 
-type PostDataType = {
+
+export type PostDataType = {
     id: number
     message: string
     likeCount: number
@@ -29,6 +33,10 @@ export type StateType = {
     dialogs: DialogsType
 }
 
+
+//STATE
+
+
 export const state: StateType = {
 
     profile : {
@@ -49,5 +57,21 @@ export const state: StateType = {
             {id: 2, name: "Alex"}
         ]
     }
+}
+
+//ACTIONS
+
+export const subscribe = (observer : () => void) => {
+    rerenderEntireTree = observer
+}
+
+export const addNewPost = (post : string) => {
+    let newPost : PostDataType = {
+        id: 5,
+        message: post,
+        likeCount: 0
+    }
+    state.profile.postsData.push(newPost)
+    rerenderEntireTree()
 }
 
