@@ -7,11 +7,11 @@ import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route} from "react-router-dom";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import Users from "./Components/Users/Users";
-import {StateType} from "./Redux/MyState";
+import {DispatchType, StateType} from "./Redux/MyState";
 
 export type AppPropsType = {
     state: StateType
-    addNewPost: (post: string) => void
+    dispatch: (action: DispatchType) => void
 }
 
 function App(props: AppPropsType) {
@@ -27,7 +27,7 @@ function App(props: AppPropsType) {
                 </div>
 
                 <div className={classes.mainSection}>
-                    <Route path="/profile" render={() => <Profile postsData={props.state.profile.postsData} addNewPost={props.addNewPost}/>}/>
+                    <Route path="/profile" render={() => <Profile postsData={props.state.profile.postsData} dispatch={props.dispatch}/>}/>
                     <Route path="/dialogs" render={() => <Dialogs messages={props.state.dialogs.messages} users={props.state.dialogs.users}/>}/>
                     <Route path="/users" render={() => <Users/>}/>
                 </div>

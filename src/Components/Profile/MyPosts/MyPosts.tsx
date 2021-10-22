@@ -16,7 +16,7 @@ const MyPosts = (props: ProfilePropsType) => {
     }
 
     const addPost = () => {
-        props.addNewPost(newPostText)
+        props.dispatch({ type: 'ADD-NEW-POST', text: newPostText})
     }
 
     //With Local State
