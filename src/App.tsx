@@ -8,9 +8,13 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import Users from "./Components/Users/Users";
 import {ProfileInitStateType} from "./Redux/Reducers/ProfileReducer";
+import {DialogsInitStateType} from "./Redux/Reducers/DialogsReducer";
 
 export type AppPropsType = {
-    state: { profilePage: ProfileInitStateType }
+    state: {
+        profilePage: ProfileInitStateType,
+        dialogsPage: DialogsInitStateType,
+    }
     dispatch: any
 }
 
@@ -29,7 +33,9 @@ const App: React.FC<AppPropsType> = (props) => {
                 <div className={classes.mainSection}>
                     <Route path="/profile" render={() => <Profile postsData={props.state.profilePage.postsData}
                                                                   dispatch={props.dispatch}/>}/>
-                    {/*<Route path="/dialogs" render={() => <Dialogs messages={props.state.dialogs.messages} users={props.state.dialogs.users}/>}/>*/}
+                    <Route path="/dialogs" render={() => <Dialogs messages={props.state.dialogsPage.messages}
+                                                                  users={props.state.dialogsPage.users}
+                                                                  dispatch={props.dispatch}/>}/>
                     <Route path="/users" render={() => <Users/>}/>
                 </div>
 
