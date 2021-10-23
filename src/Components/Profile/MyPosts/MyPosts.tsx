@@ -1,22 +1,20 @@
-import React, { useState} from "react";
+import React, {useState} from "react";
 import Post from "./Post/Post";
-import {ProfilePropsType} from "../Profile";
-// import {PostDataType} from "../../../Redux/MyState";
+import {addNewPost} from "../../../Redux/Reducers/ProfileReducer";
 
 
+const MyPosts = (props: any) => {
+    console.log(props, "MyPosts")
 
-const MyPosts = (props: ProfilePropsType) => {
-    console.log(props,'MyPosts')
 
-
-    let [newPostText, SetNewPostText] = useState<string>('')
+    let [newPostText, SetNewPostText] = useState<string>("")
 
     const changePostArea = (e: string) => {
         SetNewPostText(e)
     }
 
     const addPost = () => {
-        props.dispatch({ type: 'ADD-NEW-POST', text: newPostText})
+        props.dispatch(addNewPost(newPostText))
     }
 
     //With Local State
@@ -37,7 +35,7 @@ const MyPosts = (props: ProfilePropsType) => {
                 <textarea rows={3} onChange={(e) => changePostArea(e.target.value)} value={newPostText}></textarea>
                 <button onClick={addPost}>Send</button>
             </div>
-            { props.postsData.map(el => <Post key={el.id} message={el.message} likeCount={el.likeCount}/>) }
+            {props.postsData.map((el: any) => <Post key={el.id} message={el.message} likeCount={el.likeCount}/>)}
 
 
         </div>

@@ -7,15 +7,15 @@ import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route} from "react-router-dom";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import Users from "./Components/Users/Users";
-import {DispatchType, StateType} from "./Redux/MyState";
+import {ProfileInitStateType} from "./Redux/Reducers/ProfileReducer";
 
 export type AppPropsType = {
-    state: StateType
-    dispatch: (action: DispatchType) => void
+    state: { profilePage: ProfileInitStateType }
+    dispatch: any
 }
 
-function App(props: AppPropsType) {
-    console.log(props, 'APP')
+const App: React.FC<AppPropsType> = (props) => {
+    console.log(props, "APP")
     return (
         <BrowserRouter>
             <div className={classes.container}>
@@ -27,8 +27,9 @@ function App(props: AppPropsType) {
                 </div>
 
                 <div className={classes.mainSection}>
-                    <Route path="/profile" render={() => <Profile postsData={props.state.profile.postsData} dispatch={props.dispatch}/>}/>
-                    <Route path="/dialogs" render={() => <Dialogs messages={props.state.dialogs.messages} users={props.state.dialogs.users}/>}/>
+                    <Route path="/profile" render={() => <Profile postsData={props.state.profilePage.postsData}
+                                                                  dispatch={props.dispatch}/>}/>
+                    {/*<Route path="/dialogs" render={() => <Dialogs messages={props.state.dialogs.messages} users={props.state.dialogs.users}/>}/>*/}
                     <Route path="/users" render={() => <Users/>}/>
                 </div>
 

@@ -2,18 +2,17 @@ import React from "react";
 import classes from "./Dialogs.module.css"
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {DialogsType} from "../../Redux/MyState";
 
-const Dialogs = (props: DialogsType) => {
+const Dialogs = (props: any) => {
     console.log(props,'Dialogs')
     return (
         <div className={classes.dialogs}>
             <div className={classes.users}>
-                { props.users.map(el => <DialogItem key={el.id} name={el.name} id={el.id}/>) }
+                { props.users.map((el:any) => <DialogItem key={el.id} name={el.name} id={el.id}/>) }
             </div>
             <div className={classes.window}>
                 <div className={classes.chatWindow}>
-                    { props.messages.map(el => <Message key={el.id} message={el.message}/>) }
+                    { props.messages.map((el:any) => <Message key={el.id} message={el.message}/>) }
                 </div>
                 <textarea rows={3}></textarea>
                 <button>Send</button>
