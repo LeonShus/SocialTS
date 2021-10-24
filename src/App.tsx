@@ -7,14 +7,10 @@ import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route} from "react-router-dom";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import Users from "./Components/Users/Users";
-import {ProfileInitStateType} from "./Redux/Reducers/ProfileReducer";
-import {DialogsInitStateType} from "./Redux/Reducers/DialogsReducer";
+import {AppStateType} from "./Redux/ReduxStore";
 
 export type AppPropsType = {
-    state: {
-        profilePage: ProfileInitStateType,
-        dialogsPage: DialogsInitStateType,
-    }
+    state: AppStateType
     dispatch: any
 }
 
@@ -30,14 +26,14 @@ const App: React.FC<AppPropsType> = (props) => {
                     <AsideNav/>
                 </div>
 
-                <div className={classes.mainSection}>
+                <main className={classes.mainSection}>
                     <Route path="/profile" render={() => <Profile postsData={props.state.profilePage.postsData}
                                                                   dispatch={props.dispatch}/>}/>
                     <Route path="/dialogs" render={() => <Dialogs messages={props.state.dialogsPage.messages}
                                                                   users={props.state.dialogsPage.users}
                                                                   dispatch={props.dispatch}/>}/>
                     <Route path="/users" render={() => <Users/>}/>
-                </div>
+                </main>
 
                 <div className={classes.footer}>
                     <Footer/>

@@ -2,9 +2,16 @@ import React, {useState} from "react";
 import classes from "./Dialogs.module.css"
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {SendNewMessage} from "../../Redux/Reducers/DialogsReducer";
+import {MessageType, SendNewMessage, UsersType} from "../../Redux/Reducers/DialogsReducer";
 
-const Dialogs = (props: any) => {
+
+export type DialogsPropsType = {
+    messages: Array<MessageType>
+    users: Array<UsersType>
+    dispatch: any
+}
+
+const Dialogs : React.FC<DialogsPropsType> = (props) => {
     console.log(props,'Dialogs')
 
     let [newMessage, SetNewMessage] = useState('')
@@ -20,11 +27,11 @@ const Dialogs = (props: any) => {
     return (
         <div className={classes.dialogs}>
             <div className={classes.users}>
-                { props.users.map((el:any) => <DialogItem key={el.id} name={el.name} id={el.id}/>) }
+                { props.users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>) }
             </div>
             <div className={classes.window}>
                 <div className={classes.chatWindow}>
-                    { props.messages.map((el:any) => <Message key={el.id} message={el.message}/>) }
+                    { props.messages.map((el) => <Message key={el.id} message={el.message}/>) }
                 </div>
                 <textarea onChange={(e) => changeNewMessage(e.currentTarget.value)}
                           rows={3} value={newMessage}></textarea>

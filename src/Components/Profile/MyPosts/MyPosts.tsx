@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import Post from "./Post/Post";
 import {addNewPost} from "../../../Redux/Reducers/ProfileReducer";
+import {ProfilePropsType} from "../Profile";
 
 
-const MyPosts = (props: any) => {
+const MyPosts : React.FC<ProfilePropsType> = (props) => {
     console.log(props, "MyPosts")
 
 
@@ -35,7 +36,7 @@ const MyPosts = (props: any) => {
                 <textarea rows={3} onChange={(e) => changePostArea(e.target.value)} value={newPostText}></textarea>
                 <button onClick={addPost}>Send</button>
             </div>
-            {props.postsData.map((el: any) => <Post key={el.id} message={el.message} likeCount={el.likeCount}/>)}
+            {props.postsData.map((el) => <Post key={el.id} message={el.message} likeCount={el.likeCount}/>)}
 
 
         </div>
