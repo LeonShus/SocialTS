@@ -1,41 +1,42 @@
-import React, {useState} from "react";
+import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css"
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {MessageType, SendNewMessage, UsersType} from "../../Redux/Reducers/DialogsReducer";
+import {MessageType, UsersType} from "../../Redux/Reducers/DialogsReducer";
 
 
 export type DialogsPropsType = {
     messages: Array<MessageType>
     users: Array<UsersType>
-    dispatch: any
+    sendMessage: () => void
+    changeNewMessage: (text: string) => void
+    newMessage: string
 }
 
-const Dialogs : React.FC<DialogsPropsType> = (props) => {
-    console.log(props,'Dialogs')
+const Dialogs: React.FC<DialogsPropsType> = ({messages, users, sendMessage, changeNewMessage, newMessage}) => {
 
-    let [newMessage, SetNewMessage] = useState('')
+    let usersArr = users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>)
+    let messageArr = messages.map((el) => <Message key={el.id} message={el.message}/>)
 
-    const changeNewMessage = (text : string) => {
-        SetNewMessage(text)
+    const messageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        changeNewMessage(e.currentTarget.value)
     }
-
-    const SendMessage = () => {
-        props.dispatch(SendNewMessage(newMessage))
+    const send = () => {
+        sendMessage()
     }
-
     return (
         <div className={classes.dialogs}>
             <div className={classes.users}>
-                { props.users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>) }
+                {usersArr}
             </div>
             <div className={classes.window}>
                 <div className={classes.chatWindow}>
-                    { props.messages.map((el) => <Message key={el.id} message={el.message}/>) }
+                    {messageArr}
                 </div>
-                <textarea onChange={(e) => changeNewMessage(e.currentTarget.value)}
-                          rows={3} value={newMessage}></textarea>
-                <button onClick={SendMessage}>Send</button>
+                <textarea onChange={messageChange}
+                          rows={3}
+                          value={newMessage}></textarea>
+                <button onClick={send}>Send</button>
             </div>
         </div>
 
