@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import classes from "./Dialogs.module.css"
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
@@ -8,22 +8,23 @@ import {MessageType, UsersType} from "../../Redux/Reducers/DialogsReducer";
 export type DialogsPropsType = {
     messages: Array<MessageType>
     users: Array<UsersType>
-    sendMessage: () => void
-    changeNewMessage: (text: string) => void
-    newMessage: string
+    sendMessage: (text: string) => void
 }
 
-const Dialogs: React.FC<DialogsPropsType> = ({messages, users, sendMessage, changeNewMessage, newMessage}) => {
+const Dialogs = ({messages, users, sendMessage}: DialogsPropsType) => {
 
     let usersArr = users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>)
     let messageArr = messages.map((el) => <Message key={el.id} message={el.message}/>)
 
+    let [newMessage, SetNewMessage] = useState("")
+
     const messageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        changeNewMessage(e.currentTarget.value)
+        SetNewMessage(e.currentTarget.value)
     }
     const send = () => {
-        sendMessage()
+        sendMessage(newMessage)
     }
+
     return (
         <div className={classes.dialogs}>
             <div className={classes.users}>

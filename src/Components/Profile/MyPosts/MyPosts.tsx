@@ -9,7 +9,7 @@ type MyPostsType = {
     postsData: Array<PostDataType>
 }
 
-const MyPosts: React.FC<MyPostsType> = ({addPost, changePostArea, newPostText, postsData}) => {
+const MyPosts = ({addPost, changePostArea, newPostText, postsData}: MyPostsType) => {
     const changeArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         changePostArea(e.currentTarget.value)
     }

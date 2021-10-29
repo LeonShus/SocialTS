@@ -1,35 +1,30 @@
-import React, {useState} from "react";
-import {MessageType, SendNewMessage, UsersType} from "../../Redux/Reducers/DialogsReducer";
+import React from "react";
+import {sendNewMessageActionCreator} from "../../Redux/Reducers/DialogsReducer";
 import Dialogs from "./Dialogs";
+import {connect, DefaultRootState} from "react-redux";
+import {AppStateType} from "../../Redux/ReduxStore";
 
 
-export type DialogsContainerPropsType = {
-    messages: Array<MessageType>
-    users: Array<UsersType>
-    dispatch: any
+const mapStateToProps = (state: AppStateType) => {
+    return {
+        messages: state.dialogsPage.messages,
+        users: state.dialogsPage.users
+    }
 }
 
-const DialogsContainer: React.FC<DialogsContainerPropsType> = ({messages, users, dispatch}) => {
-
-    let [newMessage, SetNewMessage] = useState("")
-
-    const changeNewMessage = (text: string) => {
-        SetNewMessage(text)
-    }
-
-    const SendMessage = () => {
-        dispatch(SendNewMessage(newMessage))
-        SetNewMessage("")
-    }
-
-    return (
-        <Dialogs messages={messages}
-                 users={users}
-                 sendMessage={SendMessage}
-                 changeNewMessage={changeNewMessage}
-                 newMessage={newMessage}
-        />
-    )
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchToPropsType = {
+    sendMessage: (text: string) => void
 }
 
-export default DialogsContainer
+
+// const mapDispatchToProps = (dispatch: any) => {
+//     return {
+//         sendMessage: (text: string) => {
+//             dispatch(sendNewMessageActionCreator(text))
+//         }
+//     }
+// }
+
+export default connect(mapStateToProps,
+    {sendMessage: sendNewMessageActionCreator})(Dialogs)

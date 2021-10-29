@@ -1,12 +1,11 @@
 import React, {useState} from "react";
+import { connect } from "react-redux";
 import {addNewPost} from "../../../Redux/Reducers/ProfileReducer";
-import {ProfilePropsType} from "../Profile";
 import MyPosts from "./MyPosts";
+import {AppStateType} from "../../../Redux/ReduxStore";
 
 
-const MyPostsContainer: React.FC<ProfilePropsType> = (props) => {
-    console.log(props, "MyPosts")
-
+const MyPostsContainer = (props: any) => {
 
     let [newPostText, SetNewPostText] = useState<string>("")
 
@@ -16,7 +15,7 @@ const MyPostsContainer: React.FC<ProfilePropsType> = (props) => {
 
     const addPost = () => {
         if(newPostText.trim()){   //Перед добавлением проверяем на пустую строку
-            props.dispatch(addNewPost(newPostText.trim()))
+            props.addNewPost(newPostText.trim())
             SetNewPostText("")
         }
     }
@@ -29,4 +28,10 @@ const MyPostsContainer: React.FC<ProfilePropsType> = (props) => {
     )
 }
 
-export default MyPostsContainer
+const mapStateToProps = (state: AppStateType) => {
+    return {
+        postsData: state.profilePage.postsData
+    }
+}
+
+export default connect(mapStateToProps, {addNewPost})(MyPostsContainer)
