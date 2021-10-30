@@ -1,25 +1,29 @@
+import { v1 } from "uuid"
+
+
+
 const ADD_NEW_MESSAGE = "ADD-NEW-MESSAGE"
 
 export type MessageType = {
-    id: number
+    id: string | number
     message: string
 }
 export type UsersType = {
-    id: number
+    id: string | number
     name: string
 }
 
 const initState = {
     messages: [
-        {id: 1, message: "Hi, bro!"},
-        {id: 2, message: "GL!"},
-        {id: 3, message: "Bye;)"},
+        {id: v1(), message: "Hi, bro!"},
+        {id: v1(), message: "GL!"},
+        {id: v1(), message: "Bye;)"},
     ] as Array<MessageType>,
 
     users: [
-        {id: 1, name: "Leon"},
-        {id: 2, name: "Alex"},
-        {id: 3, name: "Bob"}
+        {id: v1(), name: "Leon"},
+        {id: v1(), name: "Alex"},
+        {id: v1(), name: "Bob"}
     ] as Array<UsersType>,
 }
 
@@ -29,7 +33,7 @@ export const dialogsReducer = (state: DialogsInitStateType = initState, action: 
     switch (action.type) {
         case "ADD-NEW-MESSAGE":
             const newMes: MessageType = {
-                id: 4,
+                id: v1(),
                 message: action.text
             }
             return {

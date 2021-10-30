@@ -1,15 +1,17 @@
+import {v1} from "uuid";
+
 const ADD_NEW_POST = "ADD-NEW-POST"
 
 export type PostDataType = {
-    id: number
+    id: string | number
     message: string
     likeCount: number
 }
 
 let initState = {
     postsData: [
-        {id: 1, message: "Hello, Boy", likeCount: 10},
-        {id: 2, message: "Boy", likeCount: 33}
+        {id: v1(), message: "Hello, Boy", likeCount: 10},
+        {id: v1(), message: "Boy", likeCount: 33}
     ] as Array<PostDataType>,
 }
 
@@ -19,7 +21,7 @@ export const profileReducer = (state: ProfileInitStateType = initState, action: 
     switch (action.type) {
         case "ADD-NEW-POST":
             let newPost: PostDataType = {
-                id: 3,
+                id: v1(),
                 message: action.text,
                 likeCount: 0
             }
