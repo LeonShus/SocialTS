@@ -5,8 +5,8 @@ import AsideNav from "./Components/AsideNav/AsideNav";
 import Profile from "./Components/Profile/Profile";
 import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route} from "react-router-dom";
-import Users from "./Components/Users/Users";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import UsersContainer from "./Components/Users/UsersContainer";
 
 
 export const App = () => {
@@ -23,7 +23,7 @@ export const App = () => {
                 <main className={classes.mainSection}>
                     <Route path="/profile" render={() => <Profile/>}/>
                     <Route path="/dialogs" render={() => <DialogsContainer/>}/>
-                    <Route path="/users" render={() => <Users/>}/>
+                    <Route path="/users" render={() => <UsersContainer/>}/>
                 </main>
 
                 <div className={classes.footer}>
