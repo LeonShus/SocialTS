@@ -10,7 +10,7 @@ type UsersPropsType = {
 }
 
 const Users = ({users, ...props}: UsersPropsType) => {
-
+    console.log(props, 'qqqqqqqqqqqqqq')
     const changeToFollow = (id: string | number) =>{
         props.followAC(id)
     }
