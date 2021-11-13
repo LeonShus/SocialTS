@@ -24,12 +24,7 @@ type UsersReducerInitType = typeof initState
 export const usersReducer = (state: UsersReducerInitType = initState, action: any) => {
 
     const followOrNot = () => {
-        return [...state.users.map(el => {
-            if (el.id === action.id) {
-                return {...el, follow: !el.follow}
-            }
-            return el
-        })]
+        return state.users.map(el => el.id === action.id ? {...el, follow: !el.follow} : el)
     }
 
     switch (action.type) {
