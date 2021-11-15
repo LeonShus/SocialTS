@@ -1,0 +1,13 @@
+.container {
+    width: 500px;
+    overflow: hidden
+}
+.cell{
+    border: 1px solid black;
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+.target{
+    background-color: hotpink;
+}

@@ -1,8 +1,8 @@
-
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
 const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
+const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 
 type UserPhotosType = {
     large: null | string
@@ -50,9 +50,11 @@ export const usersReducer = (state: UsersReducerInitType = initState, action: an
                 users: followOrNot()
             }
         case "SET-USERS":
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
         case "SET-TOTAL-USERS-COUNT":
             return {...state, totalUsersCount: action.totalUsersCount}
+        case "SET-CURRENT-PAGE":
+            return {...state, currentPage: action.currentPage}
         default :
             return state
     }
@@ -81,4 +83,13 @@ export type setTotalUsersCountACType = {
     type: typeof SET_TOTAL_USERS_COUNT
     totalUsersCount: number
 }
-export const setTotalUsersCountAC = (totalUsersCount: number) : setTotalUsersCountACType => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount })
+export const setTotalUsersCountAC = (totalUsersCount: number): setTotalUsersCountACType => ({
+    type: SET_TOTAL_USERS_COUNT,
+    totalUsersCount
+})
+
+export type setCurrentPageACType = {
+    type: typeof SET_CURRENT_PAGE
+    currentPage: number
+}
+export const setCurrentPageAC = (currentPage: number): setCurrentPageACType => ({type: SET_CURRENT_PAGE, currentPage})
