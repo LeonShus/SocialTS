@@ -1,11 +1,16 @@
 import React from "react"
 
-export const Paginator = () => {
+export type PaginatorPropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+}
+
+export const Paginator = ({totalUsersCount, pageSize}: PaginatorPropsType) => {
     return (
         <div>
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
+            <span>{pageSize}</span>
+            <span>{totalUsersCount}</span>
         </div>
 
     )

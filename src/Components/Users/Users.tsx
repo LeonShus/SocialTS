@@ -1,15 +1,13 @@
 import React from "react";
-import {FollowACType, SetUsersACType, UnFollowACType, UserType} from "../../Redux/Reducers/UsersReducer";
+import {FollowACType, UnFollowACType, UserType} from "../../Redux/Reducers/UsersReducer";
 import classes from "./Users.module.css"
 import userDef from "../../DefaultItems/Img/userDef.png"
-import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 
 
 export type UsersPropsType = {
     users: Array<UserType>
     followAC: (id: number | string) => FollowACType
     unfollowAC: (id: number | string) => UnFollowACType
-    setUsersAC: (users: Array<UserType>) => SetUsersACType
 }
 
 const Users = ({users, ...props}: UsersPropsType) => {

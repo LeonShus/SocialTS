@@ -51,6 +51,8 @@ export const usersReducer = (state: UsersReducerInitType = initState, action: an
             }
         case "SET-USERS":
             return {...state, users: [...state.users, ...action.users]}
+        case "SET-TOTAL-USERS-COUNT":
+            return {...state, totalUsersCount: action.totalUsersCount}
         default :
             return state
     }
@@ -75,8 +77,8 @@ export type SetUsersACType = {
 }
 export const setUsersAC = (users: Array<UserType>): SetUsersACType => ({type: SET_USERS, users})
 
-export type setTotalUsersCountAC = {
+export type setTotalUsersCountACType = {
     type: typeof SET_TOTAL_USERS_COUNT
     totalUsersCount: number
 }
-export const setTotalUsersCountAC = (totalUsersCount: number) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount })
+export const setTotalUsersCountAC = (totalUsersCount: number) : setTotalUsersCountACType => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount })
