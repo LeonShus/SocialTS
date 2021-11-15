@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
-import {FollowACType, setUsersAC, SetUsersACType, UnFollowACType, UserType} from "../../Redux/Reducers/UsersReducer";
+import React from "react";
+import {FollowACType, SetUsersACType, UnFollowACType, UserType} from "../../Redux/Reducers/UsersReducer";
 import classes from "./Users.module.css"
 import userDef from "../../DefaultItems/Img/userDef.png"
-import * as axios from "axios"
 
-type UsersPropsType = {
+
+export type UsersPropsType = {
     users: Array<UserType>
     followAC: (id: number | string) => FollowACType
     unfollowAC: (id: number | string) => UnFollowACType
@@ -13,19 +13,10 @@ type UsersPropsType = {
 
 const Users = ({users, ...props}: UsersPropsType) => {
 
-    useEffect(() => {
-        // @ts-ignore
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then((response: any) => props.setUsersAC(response.data.items))
-    },[])
-
-
-
-
-    const changeToFollow = (id: string | number) =>{
+    const changeToFollow = (id: string | number) => {
         props.followAC(id)
     }
-    const changeToUnfollow = (id: string | number) =>{
+    const changeToUnfollow = (id: string | number) => {
         props.unfollowAC(id)
     }
 
@@ -35,7 +26,7 @@ const Users = ({users, ...props}: UsersPropsType) => {
 
         return (
             <div key={u.id} className={classes.container}>
-                <img className={classes.avatar} src={`${!u.photos.small && userDef}`} alt="avatar"/>
+                <img className={classes.avatar} src={!u.photos.small ? userDef : u.photos.small} alt="avatar"/>
                 <div>
                     {u.name}
                 </div>
