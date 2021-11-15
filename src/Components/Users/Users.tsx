@@ -2,6 +2,7 @@ import React from "react";
 import {FollowACType, SetUsersACType, UnFollowACType, UserType} from "../../Redux/Reducers/UsersReducer";
 import classes from "./Users.module.css"
 import userDef from "../../DefaultItems/Img/userDef.png"
+import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 
 
 export type UsersPropsType = {

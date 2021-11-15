@@ -1,8 +1,8 @@
 
-
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
+const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
 
 type UserPhotosType = {
     large: null | string
@@ -20,6 +20,9 @@ export type UserType = {
 
 let initState = {
     users: [] as Array<UserType>,
+    totalUsersCount: 0,
+    pageSize: 10,
+    currentPage: 1
 }
 
 type UsersReducerInitType = typeof initState
@@ -71,3 +74,9 @@ export type SetUsersACType = {
     users: Array<UserType>
 }
 export const setUsersAC = (users: Array<UserType>): SetUsersACType => ({type: SET_USERS, users})
+
+export type setTotalUsersCountAC = {
+    type: typeof SET_TOTAL_USERS_COUNT
+    totalUsersCount: number
+}
+export const setTotalUsersCountAC = (totalUsersCount: number) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount })
