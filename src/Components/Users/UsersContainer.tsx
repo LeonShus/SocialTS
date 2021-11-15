@@ -2,7 +2,7 @@ import React from "react";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {connect} from "react-redux";
 import Users from "./Users";
-import {followAC, unfollowAC} from "../../Redux/Reducers/UsersReducer";
+import {followAC, setUsersAC, unfollowAC} from "../../Redux/Reducers/UsersReducer";
 
 const mapStateToProps = (state: AppStateType) => {
     return {
@@ -10,4 +10,4 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, { followAC, unfollowAC })(Users)
+export default connect(mapStateToProps, { followAC, unfollowAC, setUsersAC })(Users)

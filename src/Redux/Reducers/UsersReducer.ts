@@ -4,19 +4,22 @@ const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
 
+type UserPhotosType = {
+    large: null | string
+    small: null | string
+}
+
 export type UserType = {
-    id: string | number
-    name: string
-    country: string
-    avatar: string
-    follow: boolean
+    followed: boolean | null
+    id: number
+    name: string | null
+    photos: UserPhotosType
+    status: string | null
+    uniqueUrlName: string | null
 }
 
 let initState = {
-    users: [
-        {id: v1(), name: "Leon", country: "Moscow", avatar: "", follow: true},
-        {id: v1(), name: "Alex", country: "Moscow", avatar: "", follow: false}
-    ] as Array<UserType>,
+    users: [] as Array<UserType>,
 }
 
 type UsersReducerInitType = typeof initState
@@ -26,7 +29,7 @@ export const usersReducer = (state: UsersReducerInitType = initState, action: an
     const followOrNot = () => {
         return [...state.users.map(el => {
             if (el.id === action.id) {
-                return {...el, follow: !el.follow}
+                return {...el, follow: !el.followed}
             }
             return el
         })]
@@ -36,13 +39,15 @@ export const usersReducer = (state: UsersReducerInitType = initState, action: an
         case "FOLLOW":
             return {
                 ...state,
-                users: followOrNot() }
+                users: followOrNot()
+            }
         case "UNFOLLOW":
             return {
                 ...state,
-                users: followOrNot() }
+                users: followOrNot()
+            }
         case "SET-USERS":
-            return { ... state, users: [ ...state.users, action.users]}
+            return {...state, users: [...state.users, ...action.users]}
         default :
             return state
     }
