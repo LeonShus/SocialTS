@@ -37,6 +37,7 @@ const UsersContainer = (props: UsersContainerPropsType) => {
         // @ts-ignore
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
             .then((response: any) => {
+                console.log(response.data)
                 props.setUsersAC(response.data.items)
                 props.setTotalUsersCountAC(response.data.totalCount)
             })

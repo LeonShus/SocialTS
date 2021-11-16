@@ -32,7 +32,7 @@ export const usersReducer = (state: UsersReducerInitType = initState, action: an
     const followOrNot = () => {
         return [...state.users.map(el => {
             if (el.id === action.id) {
-                return {...el, follow: !el.followed}
+                return {...el, followed: !el.followed}
             }
             return el
         })]

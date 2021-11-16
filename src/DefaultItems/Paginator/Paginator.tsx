@@ -13,7 +13,7 @@ export const Paginator = ({totalUsersCount, pageSize, currentPage, setCurrentPag
     const allPages = []
     const pages = Math.ceil(totalUsersCount / pageSize)
 
-    for (let i = 1; i < pages + 1; i++) { //Must be without + 1
+    for (let i = 1; i <= pages; i++) {
         allPages.push(i)
     }
 
