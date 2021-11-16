@@ -2,7 +2,7 @@ import {v1} from "uuid";
 import {UserPhotosType} from "./UsersReducer";
 
 const ADD_NEW_POST = "ADD-NEW-POST"
-const SET_USER_TO_PROFILE_PAGE = 'SET-USER-TO-PROFILE-PAGE'
+const SET_USER_TO_PROFILE_PAGE = "SET-USER-TO-PROFILE-PAGE"
 
 export type PostDataType = {
     id: string | number
@@ -52,15 +52,27 @@ export const profileReducer = (state: ProfileInitStateType = initState, action: 
                 ...state,
                 postsData: [...state.postsData, newPost]
             }
+        case "SET-USER-TO-PROFILE-PAGE":
+            return {
+                ...state,
+                user: action.user
+            }
         default :
             return state
     }
 }
 
-type AddNewPostActionCreatorType = {
+export type AddNewPostActionCreatorType = {
     type: typeof ADD_NEW_POST
     text: string
 }
-export const addNewPost = (text: string): AddNewPostActionCreatorType => ({type: ADD_NEW_POST, text: text})
+export const addNewPostAC = (text: string): AddNewPostActionCreatorType => ({type: ADD_NEW_POST, text: text})
 
-export const setUserToProfilePage = (user: UserType) => ({ type: SET_USER_TO_PROFILE_PAGE, user})
+export type SetUserToProfilePageACType = {
+    type: typeof SET_USER_TO_PROFILE_PAGE
+    user: UserType
+}
+export const setUserToProfilePageAC = (user: UserType): SetUserToProfilePageACType => ({
+    type: SET_USER_TO_PROFILE_PAGE,
+    user
+})

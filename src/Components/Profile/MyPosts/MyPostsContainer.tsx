@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { connect } from "react-redux";
-import {addNewPost} from "../../../Redux/Reducers/ProfileReducer";
+import {addNewPostAC} from "../../../Redux/Reducers/ProfileReducer";
 import MyPosts from "./MyPosts";
 import {AppStateType} from "../../../Redux/ReduxStore";
 
@@ -34,4 +34,4 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {addNewPost})(MyPostsContainer)
+export default connect(mapStateToProps, {addNewPost: addNewPostAC})(MyPostsContainer)

@@ -4,25 +4,29 @@ import ProfileInfo from "./PrfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {connect} from "react-redux";
-import {UserType} from "../../Redux/Reducers/ProfileReducer";
+import {setUserToProfilePageAC, SetUserToProfilePageACType, UserType} from "../../Redux/Reducers/ProfileReducer";
 import axios from "axios";
 
 
 type ProfileContainerPropsType = {
     user: UserType
+    setUserToProfilePageAC: (user: UserType) => SetUserToProfilePageACType
 }
 
-const ProfileContainer = (props: ProfileContainerPropsType) => {
-    console.log(props.user)
+const ProfileContainer = ({user, setUserToProfilePageAC}: ProfileContainerPropsType) => {
 
     useEffect(() => {
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
-            .then(response => console.log(response.data))
-    })
+            .then(response => {
+
+                console.log(response.data)
+                setUserToProfilePageAC(response.data)
+            })
+    },[])
 
     return (
         <div className={classes.container}>
-            <ProfileInfo/>
+            <ProfileInfo />
             <MyPostsContainer/>
         </div>
     )
@@ -35,4 +39,4 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 
-export default connect(mapStateToProps, {})(ProfileContainer)
+export default connect(mapStateToProps, {setUserToProfilePageAC})(ProfileContainer)
