@@ -3,8 +3,9 @@ const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
 const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
+const SET_IS_FETCHING = "SET-IS-FETCHING"
 
-type UserPhotosType = {
+export type UserPhotosType = {
     large: null | string
     small: null | string
 }
@@ -56,6 +57,8 @@ export const usersReducer = (state: UsersReducerInitType = initState, action: an
             return {...state, totalUsersCount: action.totalUsersCount}
         case "SET-CURRENT-PAGE":
             return {...state, currentPage: action.currentPage}
+        case "SET-IS-FETCHING":
+            return {...state, isFetching: action.isFetching}
         default :
             return state
     }
@@ -94,3 +97,9 @@ export type setCurrentPageACType = {
     currentPage: number
 }
 export const setCurrentPageAC = (currentPage: number): setCurrentPageACType => ({type: SET_CURRENT_PAGE, currentPage})
+
+export type setIsFetchingACType = {
+    type: typeof SET_IS_FETCHING
+    isFetching: boolean
+}
+export const setIsFetchingAC = (isFetching: boolean) : setIsFetchingACType => ({ type: SET_IS_FETCHING, isFetching })

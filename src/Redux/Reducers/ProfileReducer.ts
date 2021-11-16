@@ -1,6 +1,8 @@
 import {v1} from "uuid";
+import {UserPhotosType} from "./UsersReducer";
 
 const ADD_NEW_POST = "ADD-NEW-POST"
+const SET_USER_TO_PROFILE_PAGE = 'SET-USER-TO-PROFILE-PAGE'
 
 export type PostDataType = {
     id: string | number
@@ -8,7 +10,28 @@ export type PostDataType = {
     likeCount: number
 }
 
+type ContactsType = {
+    facebook: null | string
+    website: null | string
+    vk: null | string
+    twitter: null | string
+    instagram: null | string
+    youtube: null | string
+    github: null | string
+    mainLink: null | string
+}
+export type UserType = {
+    aboutMe: null | string
+    contacts: ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: null | string
+    fullName: string
+    userId: number
+    photos: UserPhotosType
+}
+
 let initState = {
+    user: {} as UserType,
     postsData: [
         {id: v1(), message: "Hello, Boy", likeCount: 10},
         {id: v1(), message: "Boy", likeCount: 33}
@@ -27,7 +50,7 @@ export const profileReducer = (state: ProfileInitStateType = initState, action: 
             }
             return {
                 ...state,
-                postsData: [ ...state.postsData, newPost ]
+                postsData: [...state.postsData, newPost]
             }
         default :
             return state
@@ -39,3 +62,5 @@ type AddNewPostActionCreatorType = {
     text: string
 }
 export const addNewPost = (text: string): AddNewPostActionCreatorType => ({type: ADD_NEW_POST, text: text})
+
+export const setUserToProfilePage = (user: UserType) => ({ type: SET_USER_TO_PROFILE_PAGE, user})

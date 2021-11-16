@@ -6,7 +6,7 @@ import {
     followAC,
     FollowACType,
     setCurrentPageAC,
-    setCurrentPageACType,
+    setCurrentPageACType, setIsFetchingAC, setIsFetchingACType,
     setTotalUsersCountAC,
     setTotalUsersCountACType,
     setUsersAC,
@@ -15,7 +15,7 @@ import {
     UnFollowACType,
     UserType
 } from "../../Redux/Reducers/UsersReducer";
-import * as axios from "axios";
+import axios from "axios";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 
@@ -30,26 +30,29 @@ type UsersContainerPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
+    isFetching: boolean
+    setIsFetchingAC: (isFetching: boolean) => setIsFetchingACType
 }
 
 
 const UsersContainer = (props: UsersContainerPropsType) => {
 
     useEffect(() => {
+        props.setIsFetchingAC(true)
         // Must Change!!!!!!!!!!!
-        // @ts-ignore
+
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
             .then((response: any) => {
-
                 props.setUsersAC(response.data.items)
                 props.setTotalUsersCountAC(response.data.totalCount)
+                props.setIsFetchingAC(false)
             })
-
     }, [props.currentPage])
 
     return (
         <>
-            <Preloader/>
+            {props.isFetching && <Preloader/>}
+
             <Paginator totalUsersCount={props.totalUsersCount}
                        pageSize={props.pageSize}
                        currentPage={props.currentPage}
@@ -69,7 +72,8 @@ const mapStateToProps = (state: AppStateType) => {
         users: state.usersPage.users,
         totalUsersCount: state.usersPage.totalUsersCount,
         pageSize: state.usersPage.pageSize,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching
     }
 }
 
@@ -78,5 +82,6 @@ export default connect(mapStateToProps, {
     unfollowAC,
     setUsersAC,
     setTotalUsersCountAC,
-    setCurrentPageAC
+    setCurrentPageAC,
+    setIsFetchingAC
 })(UsersContainer)
