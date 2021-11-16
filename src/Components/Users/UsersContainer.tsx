@@ -4,7 +4,9 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import {
     followAC,
-    FollowACType, setCurrentPageAC, setCurrentPageACType,
+    FollowACType,
+    setCurrentPageAC,
+    setCurrentPageACType,
     setTotalUsersCountAC,
     setTotalUsersCountACType,
     setUsersAC,
@@ -15,6 +17,7 @@ import {
 } from "../../Redux/Reducers/UsersReducer";
 import * as axios from "axios";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
+import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 
 
 type UsersContainerPropsType = {
@@ -37,7 +40,7 @@ const UsersContainer = (props: UsersContainerPropsType) => {
         // @ts-ignore
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
             .then((response: any) => {
-                console.log(response.data)
+
                 props.setUsersAC(response.data.items)
                 props.setTotalUsersCountAC(response.data.totalCount)
             })
@@ -46,6 +49,7 @@ const UsersContainer = (props: UsersContainerPropsType) => {
 
     return (
         <>
+            <Preloader/>
             <Paginator totalUsersCount={props.totalUsersCount}
                        pageSize={props.pageSize}
                        currentPage={props.currentPage}

@@ -22,7 +22,8 @@ let initState = {
     users: [] as Array<UserType>,
     totalUsersCount: 0,
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 type UsersReducerInitType = typeof initState
