@@ -6,6 +6,7 @@ import {AppStateType} from "../../Redux/ReduxStore";
 import {connect} from "react-redux";
 import {setUserToProfilePageAC, SetUserToProfilePageACType, UserType} from "../../Redux/Reducers/ProfileReducer";
 import axios from "axios";
+import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 
 
 type ProfileContainerPropsType = {
@@ -22,11 +23,15 @@ const ProfileContainer = ({user, setUserToProfilePageAC}: ProfileContainerPropsT
                 console.log(response.data)
                 setUserToProfilePageAC(response.data)
             })
-    },[])
+    }, [])
+
+    if (!user) {
+        return <Preloader/>
+    }
 
     return (
         <div className={classes.container}>
-            <ProfileInfo />
+            <ProfileInfo user={user}/>
             <MyPostsContainer/>
         </div>
     )

@@ -1,21 +1,28 @@
 import classes from "./ProfileInfo.module.css";
 import userDef from "../../../DefaultItems/Img/userDef.png";
-
 import React from "react";
+import {UserType} from "../../../Redux/Reducers/ProfileReducer";
 
+type ProfileInfoPropsType = {
+    user: UserType
+}
 
+const ProfileInfo = ({user}: ProfileInfoPropsType) => {
 
-const ProfileInfo = () => {
+    const getUserPhoto = () => {
+        return user.photos && user.photos.small ? user.photos.small : userDef
+    }
+
     return (
         <main className={classes.container}>
             <div>
-                <img className={classes.avatar} src={userDef} alt="avatar"/>
+                <img className={classes.avatar} src={getUserPhoto()} alt="avatar"/>
             </div>
             <div>
-                Name
+                {user.fullName}
             </div>
             <div>
-                Info
+                {user.aboutMe}
             </div>
 
         </main>
