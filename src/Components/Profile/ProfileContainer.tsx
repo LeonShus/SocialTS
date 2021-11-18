@@ -19,8 +19,6 @@ const ProfileContainer = ({user, setUserToProfilePageAC}: ProfileContainerPropsT
     useEffect(() => {
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
             .then(response => {
-
-                console.log(response.data)
                 setUserToProfilePageAC(response.data)
             })
     }, [])
