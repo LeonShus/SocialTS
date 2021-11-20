@@ -1,6 +1,7 @@
 import React, {ChangeEvent} from "react";
 import Post from "./Post/Post";
 import {PostDataType} from "../../../Redux/Reducers/ProfileReducer";
+import Button from "@mui/material/Button"
 
 type MyPostsType = {
     changePostArea: (e: string) => void
@@ -19,7 +20,8 @@ const MyPosts = ({addPost, changePostArea, newPostText, postsData}: MyPostsType)
         <div>
             <div>
                 <textarea rows={3} onChange={changeArea} value={newPostText}></textarea>
-                <button onClick={addPost}>Send</button>
+
+                <Button onClick={addPost} size={"small"} variant="contained">Send</Button>
             </div>
             {posts}
 

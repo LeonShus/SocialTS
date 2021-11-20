@@ -3,6 +3,7 @@ import classes from "./Dialogs.module.css"
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {MessageType, UsersType} from "../../Redux/Reducers/DialogsReducer";
+import Button from "@mui/material/Button";
 
 
 export type DialogsPropsType = {
@@ -37,7 +38,7 @@ const Dialogs = ({messages, users, sendMessage}: DialogsPropsType) => {
                 <textarea onChange={messageChange}
                           rows={3}
                           value={newMessage}></textarea>
-                <button onClick={send}>Send</button>
+                <Button onClick={send} size={"small"} variant="contained">Send</Button>
             </div>
         </div>
 

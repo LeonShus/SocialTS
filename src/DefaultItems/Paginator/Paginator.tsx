@@ -1,6 +1,8 @@
 import React from "react"
 import {setCurrentPageACType} from "../../Redux/Reducers/UsersReducer";
 import classes from "./Paginator.module.css"
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Button from "@mui/material/Button";
 
 export type PaginatorPropsType = {
     totalUsersCount: number
@@ -20,17 +22,16 @@ export const Paginator = ({totalUsersCount, pageSize, currentPage, setCurrentPag
 
     const pagesJSX = allPages.map(p => {
         return (
-            <span className={`${classes.cell} ${currentPage === p && classes.target}`}
-                  onClick={() => setCurrentPageAC(p)}
-            >
-                {p}
-            </span>
+            <Button size={'small'} onClick={() => setCurrentPageAC(p)}>{p}</Button>
         )
     })
 
     return (
         <div className={classes.container}>
-            {pagesJSX}
+            {/*Создаем группу кнопок*/}
+            <ButtonGroup variant="text" aria-label="text button group">
+                {pagesJSX}
+            </ButtonGroup>
         </div>
 
     )

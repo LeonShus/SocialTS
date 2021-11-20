@@ -2,6 +2,7 @@ import React from "react";
 import {FollowACType, UnFollowACType, UserType} from "../../Redux/Reducers/UsersReducer";
 import classes from "./Users.module.css"
 import userDef from "../../DefaultItems/Img/userDef.png"
+import Button from "@mui/material/Button";
 
 
 export type UsersPropsType = {
@@ -20,8 +21,12 @@ const Users = ({users, ...props}: UsersPropsType) => {
     }
 
     const usersJsxArray = users.map(u => {
-        const followButton = !u.followed ? <button onClick={() => changeToFollow(u.id)}>follow</button>
-            : <button onClick={() => changeToUnfollow(u.id)}>Unfollow</button>
+        const followButton = !u.followed ? <Button onClick={() => changeToFollow(u.id)}
+                                                   size={"small"}
+                                                   variant="contained">follow</Button>
+            : <Button onClick={() => changeToUnfollow(u.id)}
+                      size={"small"}
+                      variant="contained">Unfollow</Button>
 
         return (
             <div key={u.id} className={classes.container}>
