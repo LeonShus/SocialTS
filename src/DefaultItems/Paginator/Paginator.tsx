@@ -1,4 +1,4 @@
-import React from "react"
+import React, {ChangeEvent, useState} from "react"
 import {setCurrentPageACType} from "../../Redux/Reducers/UsersReducer";
 import classes from "./Paginator.module.css"
 import {Pagination} from "@mui/material";
@@ -12,29 +12,25 @@ export type PaginatorPropsType = {
 }
 
 export const Paginator = ({totalUsersCount, pageSize, currentPage, setCurrentPageAC}: PaginatorPropsType) => {
-    const allPages = []
+
+    const [page, setPage] = useState<number>(1)
+
     const pages = Math.ceil(totalUsersCount / pageSize)
 
-    for (let i = 1; i <= pages; i++) {
-        allPages.push(i)
+    const pageChangeHandler = (e: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value)
+        setCurrentPageAC(value)
     }
 
-
-    const pagesJSX = allPages.map(p => {
-        return (
-            <button onClick={() => setCurrentPageAC(p)}>{p}</button>
-        )
-    })
-
     return (
-        <div className={classes.container}>
-            {/*Создаем группу кнопок*/}
-            {/*<ButtonGroup variant="text" aria-label="text button group">*/}
-            {/*    {pagesJSX}*/}
-            {/*</ButtonGroup>*/}
-            <Pagination count={10} color="secondary" />
 
-        </div>
+        <Pagination count={pages}
+                    variant={"outlined"}
+                    color="secondary"
+                    page={page}
+                    onChange={pageChangeHandler}
+        />
+
 
     )
 }
