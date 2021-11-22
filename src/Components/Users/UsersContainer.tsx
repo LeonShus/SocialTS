@@ -18,6 +18,7 @@ import {
 import axios from "axios";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
+import {Grid} from "@mui/material";
 
 
 type UsersContainerPropsType = {
@@ -58,10 +59,13 @@ const UsersContainer = (props: UsersContainerPropsType) => {
                        currentPage={props.currentPage}
                        setCurrentPageAC={props.setCurrentPageAC}
             />
-            <Users users={props.users}
-                   followAC={props.followAC}
-                   unfollowAC={props.unfollowAC}
-            />
+            <Grid container spacing={2} columns={16}>
+                <Users users={props.users}
+                       followAC={props.followAC}
+                       unfollowAC={props.unfollowAC}
+                />
+            </Grid>
+
         </>
 
     )

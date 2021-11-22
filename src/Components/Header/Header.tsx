@@ -1,20 +1,37 @@
 import React from "react";
 import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu'
+import MenuIcon from "@mui/icons-material/Menu"
 
 const Header = () => {
     return (
         <header>
-            <AppBar>
+            <AppBar position={"static"}>
                 <Toolbar>
 
-                    <IconButton>
+                    <IconButton
+                        size={"large"}
+                        edge={"start"}
+                        color="inherit"
+                    >
                         <MenuIcon/>
                     </IconButton>
 
-                    <Typography>
+                    <Typography
+                        variant={"h6"}
+                        component={"span"}
+                        sx={{flexGrow: 1}}
+                    >
                         WebSocial
                     </Typography>
+
+                    <Typography
+                        variant={"h6"}
+                        component={"span"}
+
+                    >
+                        login, ava
+                    </Typography>
+
 
                 </Toolbar>
             </AppBar>

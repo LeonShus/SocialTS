@@ -7,15 +7,15 @@ import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
+import {Container} from "@mui/material";
 
 
 export const App = () => {
     return (
         <BrowserRouter>
-            <div className={classes.container}>
-                <div className={classes.header}>
-                    <Header/>
-                </div>
+            <Header/>
+
+            <Container sx={{ mt: '1rem' }}>
                 <div className={classes.asideNav}>
                     <AsideNav/>
                 </div>
@@ -26,10 +26,8 @@ export const App = () => {
                     <Route path="/users" render={() => <UsersContainer/>}/>
                 </main>
 
-                <div className={classes.footer}>
-                    <Footer/>
-                </div>
-            </div>
+            </Container>
+
         </BrowserRouter>
 
     );

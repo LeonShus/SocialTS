@@ -3,7 +3,7 @@ import {FollowACType, UnFollowACType, UserType} from "../../Redux/Reducers/Users
 import classes from "./Users.module.css"
 import userDef from "../../DefaultItems/Img/userDef.png"
 import Button from "@mui/material/Button";
-import {Avatar} from "@mui/material";
+import {Avatar, ButtonBase, Grid, Paper, Typography} from "@mui/material";
 
 
 export type UsersPropsType = {
@@ -32,29 +32,52 @@ const Users = ({users, ...props}: UsersPropsType) => {
                       variant="contained">Unfollow</Button>
 
         return (
-            <div key={u.id} className={classes.container}>
+            <Grid item xs={8}>
+                <Paper sx={{p: 2, maxWidth: 400, flexGrow: 1, mt: 2}}>
+                    <Grid container spacing={3}>
 
-                <Avatar alt={u.name ? u.name : undefined}
-                        src={!u.photos.small ? userDef : u.photos.small}
-                        sx={{width: 80, height: 80}}
-                />
-                <div>
-                    {u.name}
-                </div>
-                <div>
-                    {u.status}
-                </div>
-                <div>
-                    {followButton}
-                </div>
-            </div>
+                        <Grid item>
+                            <ButtonBase sx={{width: 80, height: 80, position: "relative", top: 10}}>
+                                <Avatar alt={u.name ? u.name : undefined}
+                                        src={!u.photos.small ? userDef : u.photos.small}
+                                        sx={{width: 80, height: 80}}
+                                />
+                            </ButtonBase>
+                        </Grid>
+
+                        <Grid item xs={12} sm container>
+                            <Grid item xs container direction="column" spacing={2}>
+                                <Grid item xs>
+
+                                    <Typography
+                                        gutterBottom
+                                        variant={"subtitle1"}
+                                        component={"div"}
+                                        sx={{fontSize: "1.3rem"}}
+                                    >
+                                        {u.name}
+                                    </Typography>
+
+                                    <Typography variant={"body2"}>
+                                        {u.status}
+                                    </Typography>
+
+                                </Grid>
+                                <Grid item>
+                                    {followButton}
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </Grid>
         )
     })
 
     return (
-        <div>
+        <>
             {usersJsxArray}
-        </div>
+        </>
     )
 }
 
