@@ -1,38 +1,38 @@
-body{
-    margin: 0;
-    padding: 0;
-}
+/*body{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
-.container {
-    display: grid;
-    grid-gap: 5px;
-    grid-template-areas:
-        "header header"
-        "aside main"
-        "footer footer";
-    grid-template-columns: 1fr 4fr
-}
+/*.container {*/
+/*    display: grid;*/
+/*    grid-gap: 5px;*/
+/*    grid-template-areas:*/
+/*        "header header"*/
+/*        "aside main"*/
+/*        "footer footer";*/
+/*    grid-template-columns: 1fr 4fr*/
+/*}*/
 
-.header {
-    background: gray;
-    grid-area: header;
-    height: 10vh;
-    min-height: 50px;
-}
+/*.header {*/
+/*    background: gray;*/
+/*    grid-area: header;*/
+/*    height: 10vh;*/
+/*    min-height: 50px;*/
+/*}*/
 
-.asideNav {
-    background: paleturquoise;
-    grid-area: aside;
-    height: 83vh;
-}
+/*.asideNav {*/
+/*    background: paleturquoise;*/
+/*    grid-area: aside;*/
+/*    height: 83vh;*/
+/*}*/
 
-.mainSection {
-    background: antiquewhite;
-    grid-area: main;
-}
+/*.mainSection {*/
+/*    background: antiquewhite;*/
+/*    grid-area: main;*/
+/*}*/
 
-.footer {
-    background: aqua;
-    grid-area: footer;
-    height: 5vh;
-}
+/*.footer {*/
+/*    background: aqua;*/
+/*    grid-area: footer;*/
+/*    height: 5vh;*/
+/*}*/

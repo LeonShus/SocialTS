@@ -3,6 +3,7 @@ import {FollowACType, UnFollowACType, UserType} from "../../Redux/Reducers/Users
 import classes from "./Users.module.css"
 import userDef from "../../DefaultItems/Img/userDef.png"
 import Button from "@mui/material/Button";
+import {Avatar} from "@mui/material";
 
 
 export type UsersPropsType = {
@@ -21,16 +22,22 @@ const Users = ({users, ...props}: UsersPropsType) => {
     }
 
     const usersJsxArray = users.map(u => {
-        const followButton = !u.followed ? <Button onClick={() => changeToFollow(u.id)}
-                                                   size={"small"}
-                                                   variant="contained">follow</Button>
+
+        const followButton = !u.followed
+            ? <Button onClick={() => changeToFollow(u.id)}
+                      size={"small"}
+                      variant="contained">follow</Button>
             : <Button onClick={() => changeToUnfollow(u.id)}
                       size={"small"}
                       variant="contained">Unfollow</Button>
 
         return (
             <div key={u.id} className={classes.container}>
-                <img className={classes.avatar} src={!u.photos.small ? userDef : u.photos.small} alt="avatar"/>
+
+                <Avatar alt={u.name ? u.name : undefined}
+                        src={!u.photos.small ? userDef : u.photos.small}
+                        sx={{width: 80, height: 80}}
+                />
                 <div>
                     {u.name}
                 </div>
