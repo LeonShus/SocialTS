@@ -1,8 +1,7 @@
 import React from "react";
 import classes from "./App.module.css"
 import Header from "./Components/Header/Header";
-import AsideNav from "./Components/AsideNav/AsideNav";
-import Footer from "./Components/Footer/Footer";
+import SideNav from "./Components/SideNav/SideNav";
 import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
@@ -15,10 +14,7 @@ export const App = () => {
         <BrowserRouter>
             <Header/>
 
-            <Container sx={{ mt: '1rem' }}>
-                <div className={classes.asideNav}>
-                    <AsideNav/>
-                </div>
+            <Container sx={{ mt: '4.5rem'}}>
 
                 <main className={classes.mainSection}>
                     <Route path="/profile" render={() => <ProfileContainer/>}/>

@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
-import {Grid} from "@mui/material";
+import {Container, Grid} from "@mui/material";
 
 
 type UsersContainerPropsType = {
@@ -53,12 +53,13 @@ const UsersContainer = (props: UsersContainerPropsType) => {
     return (
         <>
             {props.isFetching && <Preloader/>}
+                <Paginator totalUsersCount={props.totalUsersCount}
+                           pageSize={props.pageSize}
+                           currentPage={props.currentPage}
+                           setCurrentPageAC={props.setCurrentPageAC}
+                />
 
-            <Paginator totalUsersCount={props.totalUsersCount}
-                       pageSize={props.pageSize}
-                       currentPage={props.currentPage}
-                       setCurrentPageAC={props.setCurrentPageAC}
-            />
+
             <Grid container spacing={2} columns={16}>
                 <Users users={props.users}
                        followAC={props.followAC}

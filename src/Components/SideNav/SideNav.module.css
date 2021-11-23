@@ -1,5 +1,6 @@
 .links{
     padding: 20px;
+    font-size: 1.2rem;
 }
 
 .links a{
@@ -8,9 +9,9 @@
 }
 
 .links a:hover{
-    color: fuchsia;
+    color: #1976d2;
 }
 
-.links a.activeLink {
-    color: fuchsia;
+ a.activeLink {
+    color: #1976d2;
 }
