@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {setUserToProfilePageAC, SetUserToProfilePageACType, UserType} from "../../Redux/Reducers/ProfileReducer";
 import axios from "axios";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
+import {Grid, Paper} from "@mui/material";
 
 
 type ProfileContainerPropsType = {
@@ -28,10 +29,18 @@ const ProfileContainer = ({user, setUserToProfilePageAC}: ProfileContainerPropsT
     }
 
     return (
-        <div className={classes.container}>
-            <ProfileInfo user={user}/>
-            <MyPostsContainer/>
-        </div>
+        <Paper>
+            <Grid container
+                  sx={{padding: "20px"}}
+            >
+
+                <ProfileInfo user={user}/>
+
+                <Grid container>
+                    <MyPostsContainer/>
+                </Grid>
+            </Grid>
+        </Paper>
     )
 }
 
