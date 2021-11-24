@@ -3,8 +3,7 @@ import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {MessageType, UsersType} from "../../Redux/Reducers/DialogsReducer";
 import Button from "@mui/material/Button";
-import {Grid, Paper} from "@mui/material";
-import { makeStyles } from '@mui/styles';
+import {Grid, Paper, TextField} from "@mui/material";
 
 
 export type DialogsPropsType = {
@@ -12,12 +11,6 @@ export type DialogsPropsType = {
     users: Array<UsersType>
     sendMessage: (text: string) => void
 }
-
-const Styles= makeStyles({
-    dialogsUsersContainer: {
-        margin: "8px 20px 0 10px",
-    }
-})
 
 
 const Dialogs = ({messages, users, sendMessage}: DialogsPropsType) => {
@@ -35,33 +28,48 @@ const Dialogs = ({messages, users, sendMessage}: DialogsPropsType) => {
     }
 
 
-    const style = Styles()
     return (
 
         <Grid container>
             {/*Users Container*/}
             <Grid
                 item
-                className={style.dialogsUsersContainer}
+                sx={{margin: "8px 20px 0 10px"}}
             >
                 {usersArr}
             </Grid>
 
             {/*Dialog Window*/}
             <Paper elevation={3}>
-                <Grid item sx={{width: "500px",}}>
+                <Grid item
+                      sx={{
+                          width: "500px",
+                          padding: "20px"
+                      }}
+                >
                     {/*Messages window*/}
-                    <Grid container sx={{ padding: '20px' }}>
+                    <Grid container
+                          sx={{
+                              padding: "20px",
+                              border: "2px solid gray",
+                              borderRadius: "5px",
+                              mb: "10px"
+                          }}>
                         {messageArr}
                     </Grid>
                     {/*Send item*/}
                     <Grid item>
-                    <textarea onChange={messageChange}
-                              rows={3}
-                              value={newMessage}
-                    />
+                        <TextField
+                            multiline
+                            onChange={messageChange}
+                            rows={4}
+                            value={newMessage}
+                        />
 
-                        <Button onClick={send} size={"small"} variant="contained">Send</Button>
+                        <Button onClick={send}
+                                size={"small"}
+                                variant="contained"
+                        >Send</Button>
                     </Grid>
 
                 </Grid>
