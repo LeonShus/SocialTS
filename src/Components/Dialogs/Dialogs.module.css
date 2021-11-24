@@ -30,3 +30,10 @@
     background: whitesmoke;
     padding: 20px;
 }
+
+/*NEW*/
+
+.paperUserItem{
+    margin-bottom: 5px;
+    min-width: 200px;
+}

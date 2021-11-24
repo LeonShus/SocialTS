@@ -1,7 +1,8 @@
+import React from "react";
 import classes from "./DialogItem.module.css";
 import userDef from "../../../DefaultItems/Img/userDef.png";
 import {NavLink} from "react-router-dom";
-import React from "react";
+import {Avatar, Grid, Paper} from "@mui/material";
 
 type DialogItemPropsType = {
     name: string
@@ -10,10 +11,19 @@ type DialogItemPropsType = {
 
 const DialogItem: React.FC<DialogItemPropsType> = (props) => {
     return (
-        <div className={classes.item}>
-            <img className={classes.avatar} src={userDef} alt="avatar"/>
-            <NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink>
-        </div>
+        <Paper className={classes.paperStyle}
+               elevation={3}
+        >
+            <Grid container sx={{padding: "10px"}} spacing={1}>
+                <Grid item>
+                    <Avatar alt={props.name} src={userDef}/>
+                </Grid>
+                <Grid item>
+                    <NavLink className={classes.navLinkStyle} to={`/dialogs/${props.id}`}>{props.name}</NavLink>
+                </Grid>
+            </Grid>
+        </Paper>
+
     )
 }
 

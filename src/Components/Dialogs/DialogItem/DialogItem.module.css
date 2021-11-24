@@ -1,9 +1,9 @@
-.avatar {
-    height: 30px;
+.paperStyle {
+    margin-bottom: 5px;
+    min-width: 200px;
 }
 
-.item {
-    background: gainsboro;
-    margin-top: 5px;
-    padding: 10px;
+.navLinkStyle {
+    text-decoration: none;
+    color: red
 }

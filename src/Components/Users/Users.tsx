@@ -33,7 +33,7 @@ const Users = ({users, ...props}: UsersPropsType) => {
 
         return (
             <Grid item xs={8}>
-                <Paper sx={{p: 2, maxWidth: 400, flexGrow: 1, mt: 2}}>
+                <Paper elevation={3} sx={{p: 2, maxWidth: 400, flexGrow: 1, mt: 2}}>
                     <Grid container spacing={3}>
 
                         <Grid item>

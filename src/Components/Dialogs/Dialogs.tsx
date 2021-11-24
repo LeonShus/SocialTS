@@ -4,6 +4,7 @@ import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {MessageType, UsersType} from "../../Redux/Reducers/DialogsReducer";
 import Button from "@mui/material/Button";
+import {Grid} from "@mui/material";
 
 
 export type DialogsPropsType = {
@@ -27,20 +28,31 @@ const Dialogs = ({messages, users, sendMessage}: DialogsPropsType) => {
     }
 
     return (
-        <div className={classes.dialogs}>
-            <div className={classes.users}>
+
+        <Grid container>
+            {/*Users Bar*/}
+            <Grid item>
                 {usersArr}
-            </div>
-            <div className={classes.window}>
-                <div className={classes.chatWindow}>
+            </Grid>
+
+            {/*Dialog Window*/}
+            <Grid container sx={{width: "500px"}}>
+                {/*Messages window*/}
+                <Grid container>
                     {messageArr}
-                </div>
-                <textarea onChange={messageChange}
-                          rows={3}
-                          value={newMessage}></textarea>
-                <Button onClick={send} size={"small"} variant="contained">Send</Button>
-            </div>
-        </div>
+                </Grid>
+                {/*Send item*/}
+                <Grid item>
+                    <textarea onChange={messageChange}
+                              rows={3}
+                              value={newMessage}
+                    />
+
+                    <Button onClick={send} size={"small"} variant="contained">Send</Button>
+                </Grid>
+
+            </Grid>
+        </Grid>
 
     )
 }

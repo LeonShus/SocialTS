@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import React from "react";
 import classes from "./Message.module.css"
 
@@ -7,9 +8,12 @@ type MessagePropsType = {
 
 const Message: React.FC<MessagePropsType> = (props) => {
     return (
-        <div className={classes.message}>
-            {props.message}
-        </div>
+        <Grid container>
+            <Grid item>
+                {props.message}
+            </Grid>
+
+        </Grid>
     )
 }
 
