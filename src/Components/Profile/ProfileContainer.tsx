@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import classes from "./Profile.module.css"
 import ProfileInfo from "./PrfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {AppStateType} from "../../Redux/ReduxStore";
@@ -33,12 +32,11 @@ const ProfileContainer = ({user, setUserToProfilePageAC}: ProfileContainerPropsT
             <Grid container
                   sx={{padding: "20px"}}
             >
-
                 <ProfileInfo user={user}/>
 
-                <Grid container>
-                    <MyPostsContainer/>
-                </Grid>
+
+                <MyPostsContainer/>
+
             </Grid>
         </Paper>
     )

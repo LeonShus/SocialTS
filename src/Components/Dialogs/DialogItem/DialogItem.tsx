@@ -11,7 +11,7 @@ type DialogItemPropsType = {
 
 const DialogItem: React.FC<DialogItemPropsType> = (props) => {
     return (
-        <Paper className={classes.paperStyle}
+        <Paper sx={{minWidth: "200px", mb: "15px"}}
                elevation={3}
         >
             <Grid container sx={{padding: "10px"}} spacing={1}>

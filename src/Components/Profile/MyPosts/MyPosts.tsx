@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
-import Post from "./Post/Post";
+import {Post} from "./Post/Post";
 import {PostDataType} from "../../../Redux/Reducers/ProfileReducer";
-import Button from "@mui/material/Button"
+import {Button, Grid, TextField} from "@mui/material";
 
 type MyPostsType = {
     changePostArea: (e: string) => void
@@ -17,16 +17,25 @@ const MyPosts = ({addPost, changePostArea, newPostText, postsData}: MyPostsType)
     let posts = postsData.map((el) => <Post key={el.id} message={el.message} likeCount={el.likeCount}/>)
 
     return (
-        <div>
-            <div>
-                <textarea rows={3} onChange={changeArea} value={newPostText}></textarea>
+        <Grid container>
+            <Grid item>
+                <TextField multiline
+                           rows={4}
+                           onChange={changeArea}
+                           value={newPostText}
+                />
 
                 <Button onClick={addPost} size={"small"} variant="contained">Send</Button>
-            </div>
-            {posts}
+            </Grid>
+
+            <Grid container>
+                <Grid item>
+                    {posts}
+                </Grid>
+            </Grid>
 
 
-        </div>
+        </Grid>
     )
 }
 
