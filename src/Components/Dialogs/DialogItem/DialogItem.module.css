@@ -1,9 +1,9 @@
 .paperStyle {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     min-width: 200px;
 }
 
 .navLinkStyle {
     text-decoration: none;
-    color: red
+    color: darkslategray
 }

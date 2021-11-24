@@ -14,9 +14,9 @@ export const App = () => {
         <BrowserRouter>
             <Header/>
 
-            <Container sx={{ mt: '4.5rem'}}>
+            <Container sx={{ mt: '5.5rem'}}>
 
-                <main className={classes.mainSection}>
+                <main>
                     <Route path="/profile" render={() => <ProfileContainer/>}/>
                     <Route path="/dialogs" render={() => <DialogsContainer/>}/>
                     <Route path="/users" render={() => <UsersContainer/>}/>

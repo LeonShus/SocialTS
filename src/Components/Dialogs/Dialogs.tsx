@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from "react";
-import classes from "./Dialogs.module.css"
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {MessageType, UsersType} from "../../Redux/Reducers/DialogsReducer";
 import Button from "@mui/material/Button";
-import {Grid} from "@mui/material";
+import {Grid, Paper} from "@mui/material";
+import { makeStyles } from '@mui/styles';
 
 
 export type DialogsPropsType = {
@@ -12,6 +12,13 @@ export type DialogsPropsType = {
     users: Array<UsersType>
     sendMessage: (text: string) => void
 }
+
+const Styles= makeStyles({
+    dialogsUsersContainer: {
+        margin: "8px 20px 0 10px",
+    }
+})
+
 
 const Dialogs = ({messages, users, sendMessage}: DialogsPropsType) => {
 
@@ -27,31 +34,39 @@ const Dialogs = ({messages, users, sendMessage}: DialogsPropsType) => {
         sendMessage(newMessage)
     }
 
+
+    const style = Styles()
     return (
 
         <Grid container>
-            {/*Users Bar*/}
-            <Grid item>
+            {/*Users Container*/}
+            <Grid
+                item
+                className={style.dialogsUsersContainer}
+            >
                 {usersArr}
             </Grid>
 
             {/*Dialog Window*/}
-            <Grid container sx={{width: "500px"}}>
-                {/*Messages window*/}
-                <Grid container>
-                    {messageArr}
-                </Grid>
-                {/*Send item*/}
-                <Grid item>
+            <Paper elevation={3}>
+                <Grid item sx={{width: "500px",}}>
+                    {/*Messages window*/}
+                    <Grid container sx={{ padding: '20px' }}>
+                        {messageArr}
+                    </Grid>
+                    {/*Send item*/}
+                    <Grid item>
                     <textarea onChange={messageChange}
                               rows={3}
                               value={newMessage}
                     />
 
-                    <Button onClick={send} size={"small"} variant="contained">Send</Button>
-                </Grid>
+                        <Button onClick={send} size={"small"} variant="contained">Send</Button>
+                    </Grid>
 
-            </Grid>
+                </Grid>
+            </Paper>
+
         </Grid>
 
     )
