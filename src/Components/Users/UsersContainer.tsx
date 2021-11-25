@@ -6,7 +6,9 @@ import {
     followAC,
     FollowACType,
     setCurrentPageAC,
-    setCurrentPageACType, setIsFetchingAC, setIsFetchingACType,
+    setCurrentPageACType,
+    setIsFetchingAC,
+    setIsFetchingACType,
     setTotalUsersCountAC,
     setTotalUsersCountACType,
     setUsersAC,
@@ -18,22 +20,27 @@ import {
 import axios from "axios";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
-import {Container, Grid} from "@mui/material";
+import {Grid} from "@mui/material";
 
 
-type UsersContainerPropsType = {
+type MapStateToPropsType = {
     users: Array<UserType>
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
+}
+
+type MapDispatchToPropsType = {
     followAC: (id: number | string) => FollowACType
     unfollowAC: (id: number | string) => UnFollowACType
     setTotalUsersCountAC: (totalUsersCount: number) => setTotalUsersCountACType
     setUsersAC: (users: Array<UserType>) => SetUsersACType
     setCurrentPageAC: (currentPage: number) => setCurrentPageACType
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    isFetching: boolean
     setIsFetchingAC: (isFetching: boolean) => setIsFetchingACType
 }
+
+type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 
 const UsersContainer = (props: UsersContainerPropsType) => {
@@ -72,13 +79,13 @@ const UsersContainer = (props: UsersContainerPropsType) => {
     )
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         users: state.usersPage.users,
         totalUsersCount: state.usersPage.totalUsersCount,
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
     }
 }
 

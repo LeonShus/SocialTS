@@ -3,11 +3,19 @@ import ProfileInfo from "./PrfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {connect} from "react-redux";
-import {setUserToProfilePageAC, SetUserToProfilePageACType, UserType} from "../../Redux/Reducers/ProfileReducer";
+import {
+    ProfileInitStateType,
+    setUserToProfilePageAC,
+    SetUserToProfilePageACType,
+    UserType
+} from "../../Redux/Reducers/ProfileReducer";
 import axios from "axios";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid, Paper} from "@mui/material";
 
+type MapStatePropsType = {
+    user: UserType
+}
 
 type ProfileContainerPropsType = {
     user: UserType
@@ -42,7 +50,7 @@ const ProfileContainer = ({user, setUserToProfilePageAC}: ProfileContainerPropsT
     )
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         user: state.profilePage.user
     }
