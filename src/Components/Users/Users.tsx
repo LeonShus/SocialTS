@@ -1,6 +1,5 @@
 import React from "react";
 import {FollowACType, UnFollowACType, UserType} from "../../Redux/Reducers/UsersReducer";
-import classes from "./Users.module.css"
 import userDef from "../../DefaultItems/Img/userDef.png"
 import Button from "@mui/material/Button";
 import {Avatar, ButtonBase, Grid, Paper, Typography} from "@mui/material";

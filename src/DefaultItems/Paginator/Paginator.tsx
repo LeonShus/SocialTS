@@ -1,6 +1,5 @@
-import React, {ChangeEvent, useState} from "react"
+import React, {useState} from "react"
 import {setCurrentPageACType} from "../../Redux/Reducers/UsersReducer";
-import classes from "./Paginator.module.css"
 import {Pagination} from "@mui/material";
 
 

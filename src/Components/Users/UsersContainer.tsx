@@ -60,11 +60,11 @@ const UsersContainer = (props: UsersContainerPropsType) => {
     return (
         <>
             {props.isFetching && <Preloader/>}
-                <Paginator totalUsersCount={props.totalUsersCount}
-                           pageSize={props.pageSize}
-                           currentPage={props.currentPage}
-                           setCurrentPageAC={props.setCurrentPageAC}
-                />
+            <Paginator totalUsersCount={props.totalUsersCount}
+                       pageSize={props.pageSize}
+                       currentPage={props.currentPage}
+                       setCurrentPageAC={props.setCurrentPageAC}
+            />
 
 
             <Grid container spacing={2} columns={16}>
@@ -89,11 +89,14 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, {
-    followAC,
-    unfollowAC,
-    setUsersAC,
-    setTotalUsersCountAC,
-    setCurrentPageAC,
-    setIsFetchingAC
-})(UsersContainer)
+export default connect<MapStateToPropsType,
+    MapDispatchToPropsType, {},
+    AppStateType>(mapStateToProps,
+    {
+        followAC,
+        unfollowAC,
+        setUsersAC,
+        setTotalUsersCountAC,
+        setCurrentPageAC,
+        setIsFetchingAC
+    })(UsersContainer)

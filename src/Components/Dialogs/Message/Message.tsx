@@ -1,6 +1,5 @@
-import {Box, Grid, Typography} from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import React from "react";
-import classes from "./Message.module.css"
 
 type MessagePropsType = {
     message: string

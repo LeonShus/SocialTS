@@ -1,11 +1,20 @@
 import React, {useState} from "react";
-import { connect } from "react-redux";
-import {addNewPostAC} from "../../../Redux/Reducers/ProfileReducer";
+import {connect} from "react-redux";
+import {addNewPostAC, AddNewPostActionCreatorType, PostDataType} from "../../../Redux/Reducers/ProfileReducer";
 import MyPosts from "./MyPosts";
 import {AppStateType} from "../../../Redux/ReduxStore";
 
+type MapStateToPropsType = {
+    postsData: Array<PostDataType>
+}
 
-const MyPostsContainer = (props: any) => {
+type MapDispatchToPropsType = {
+    addNewPostAC: (text: string) => AddNewPostActionCreatorType
+}
+
+type MyPostsContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+const MyPostsContainer = (props: MyPostsContainerPropsType) => {
 
     let [newPostText, SetNewPostText] = useState<string>("")
 
@@ -14,8 +23,8 @@ const MyPostsContainer = (props: any) => {
     }
 
     const addPost = () => {
-        if(newPostText.trim()){   //Перед добавлением проверяем на пустую строку
-            props.addNewPost(newPostText.trim())
+        if (newPostText.trim()) {   //Перед добавлением проверяем на пустую строку
+            props.addNewPostAC(newPostText.trim())
             SetNewPostText("")
         }
     }
@@ -34,4 +43,6 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {addNewPost: addNewPostAC})(MyPostsContainer)
+export default connect<MapStateToPropsType,
+    MapDispatchToPropsType, {},
+    AppStateType>(mapStateToProps, {addNewPostAC})(MyPostsContainer)

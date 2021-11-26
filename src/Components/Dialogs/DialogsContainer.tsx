@@ -1,9 +1,16 @@
 import React from "react";
-import {sendNewMessageActionCreator} from "../../Redux/Reducers/DialogsReducer";
+import {MessageType, sendNewMessageActionCreator, UsersType} from "../../Redux/Reducers/DialogsReducer";
 import Dialogs from "./Dialogs";
-import {connect, DefaultRootState} from "react-redux";
+import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
 
+type MapStateToPropsType = {
+    messages: Array<MessageType>
+    users: Array<UsersType>
+}
+type MapDispatchToPropsType = {
+    sendMessage: (text: string) => void
+}
 
 const mapStateToProps = (state: AppStateType) => {
     return {
@@ -11,12 +18,6 @@ const mapStateToProps = (state: AppStateType) => {
         users: state.dialogsPage.users
     }
 }
-
-type MapStateToPropsType = ReturnType<typeof mapStateToProps>
-type MapDispatchToPropsType = {
-    sendMessage: (text: string) => void
-}
-
 
 // const mapDispatchToProps = (dispatch: any) => {
 //     return {
@@ -26,5 +27,8 @@ type MapDispatchToPropsType = {
 //     }
 // }
 
-export default connect(mapStateToProps,
+export default connect<MapStateToPropsType,
+    MapDispatchToPropsType,
+    {},
+    AppStateType>(mapStateToProps,
     {sendMessage: sendNewMessageActionCreator})(Dialogs)

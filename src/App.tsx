@@ -1,7 +1,5 @@
 import React from "react";
-import classes from "./App.module.css"
 import Header from "./Components/Header/Header";
-import SideNav from "./Components/SideNav/SideNav";
 import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
@@ -14,7 +12,7 @@ export const App = () => {
         <BrowserRouter>
             <Header/>
 
-            <Container sx={{ mt: '5.5rem'}}>
+            <Container sx={{mt: "5.5rem"}}>
 
                 <main>
                     <Route path="/profile" render={() => <ProfileContainer/>}/>
