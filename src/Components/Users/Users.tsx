@@ -3,6 +3,7 @@ import {FollowACType, UnFollowACType, UserType} from "../../Redux/Reducers/Users
 import userDef from "../../DefaultItems/Img/userDef.png"
 import Button from "@mui/material/Button";
 import {Avatar, ButtonBase, Grid, Paper, Typography} from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 
 export type UsersPropsType = {
@@ -37,10 +38,12 @@ const Users = ({users, ...props}: UsersPropsType) => {
 
                         <Grid item>
                             <ButtonBase sx={{width: 80, height: 80, position: "relative", top: 10}}>
-                                <Avatar alt={u.name ? u.name : undefined}
-                                        src={!u.photos.small ? userDef : u.photos.small}
-                                        sx={{width: 80, height: 80}}
-                                />
+                                <NavLink to={`/profile/${u.id}`}>
+                                    <Avatar alt={u.name ? u.name : undefined}
+                                            src={!u.photos.small ? userDef : u.photos.small}
+                                            sx={{width: 80, height: 80}}
+                                    />
+                                </NavLink>
                             </ButtonBase>
                         </Grid>
 
