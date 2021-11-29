@@ -44,18 +44,49 @@ type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 
 const UsersContainer = (props: UsersContainerPropsType) => {
-
+    //Получаем пользователей
     useEffect(() => {
         props.setIsFetchingAC(true)
         // Must Change!!!!!!!!!!!
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`, {
+            withCredentials: true
+        })
             .then((response: any) => {
                 props.setUsersAC(response.data.items)
                 props.setTotalUsersCountAC(response.data.totalCount)
                 props.setIsFetchingAC(false)
             })
     }, [props.currentPage])
+
+
+    const followUser = (id: number) => {
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
+            withCredentials: true,
+            headers: {
+                "API-KEY": "099be23b-024b-4d04-8aea-ded1a22de046"
+            }
+        })
+            .then(response => {
+                if(response.data.resultCode === 0){
+                    props.followAC(id)
+                }
+            })
+    }
+
+    const unfollowUser = (id: number) => {
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
+            withCredentials: true,
+            headers: {
+                "API-KEY": "099be23b-024b-4d04-8aea-ded1a22de046"
+            }
+        })
+            .then(response => {
+                if(response.data.resultCode === 0){
+                    props.unfollowAC(id)
+                }
+            })
+    }
 
     return (
         <>
@@ -69,8 +100,8 @@ const UsersContainer = (props: UsersContainerPropsType) => {
 
             <Grid container spacing={2} columns={16}>
                 <Users users={props.users}
-                       followAC={props.followAC}
-                       unfollowAC={props.unfollowAC}
+                       followUser={followUser}
+                       unfollowUser={unfollowUser}
                 />
             </Grid>
 

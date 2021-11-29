@@ -8,17 +8,17 @@ import { NavLink } from "react-router-dom";
 
 export type UsersPropsType = {
     users: Array<UserType>
-    followAC: (id: number | string) => FollowACType
-    unfollowAC: (id: number | string) => UnFollowACType
+    followUser: (id: number) => void
+    unfollowUser: (id: number) => void
 }
 
 const Users = ({users, ...props}: UsersPropsType) => {
 
-    const changeToFollow = (id: string | number) => {
-        props.followAC(id)
+    const changeToFollow = (id: number) => {
+        props.followUser(id)
     }
-    const changeToUnfollow = (id: string | number) => {
-        props.unfollowAC(id)
+    const changeToUnfollow = (id: number) => {
+        props.unfollowUser(id)
     }
 
     const usersJsxArray = users.map(u => {
