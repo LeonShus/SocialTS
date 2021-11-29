@@ -32,7 +32,7 @@ const Users = ({users, ...props}: UsersPropsType) => {
                       variant="contained">Unfollow</Button>
 
         return (
-            <Grid item xs={8}>
+            <Grid item xs={8} key={u.id}>
                 <Paper elevation={3} sx={{p: 2, maxWidth: 400, flexGrow: 1, mt: 2}}>
                     <Grid container spacing={3}>
 

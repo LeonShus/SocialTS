@@ -7,6 +7,8 @@ import {setUserToProfilePageAC, SetUserToProfilePageACType, UserType} from "../.
 import axios from "axios";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid, Paper} from "@mui/material";
+import {withRouter} from "react-router-dom";
+import {RouteComponentProps} from "react-router"
 
 type MapStatePropsType = {
     user: UserType
@@ -16,13 +18,19 @@ type MapDispatchToProps = {
     setUserToProfilePageAC: (user: UserType) => SetUserToProfilePageACType
 }
 
-type ProfileContainerPropsType = MapStatePropsType & MapDispatchToProps
+type ProfileContainerPropsType = MapStatePropsType & MapDispatchToProps & RouteComponentProps<any>
 
 
-const ProfileContainer = ({user, setUserToProfilePageAC}: ProfileContainerPropsType) => {
+const ProfileContainer = ({user, setUserToProfilePageAC, ...props}: ProfileContainerPropsType) => {
+
+    let userId = props.match.params.userId
+
+    if(!userId){
+        userId = "2"
+    }
 
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {
                 setUserToProfilePageAC(response.data)
             })
@@ -54,6 +62,10 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 
+type PropsType = {
+    userId: string
+}
+
 export default connect<MapStatePropsType,
     MapDispatchToProps, {},
-    AppStateType>(mapStateToProps, {setUserToProfilePageAC})(ProfileContainer)
+    AppStateType>(mapStateToProps, {setUserToProfilePageAC})(withRouter(ProfileContainer))
