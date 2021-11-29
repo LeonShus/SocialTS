@@ -40,7 +40,9 @@ let initState = {
 
 export type ProfileInitStateType = typeof initState
 
-export const profileReducer = (state: ProfileInitStateType = initState, action: any): ProfileInitStateType => {
+type ProfileReducerActionType = AddNewPostActionCreatorType | SetUserToProfilePageACType
+
+export const profileReducer = (state: ProfileInitStateType = initState, action: ProfileReducerActionType): ProfileInitStateType => {
     switch (action.type) {
         case "ADD-NEW-POST":
             let newPost: PostDataType = {

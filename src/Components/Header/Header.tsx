@@ -3,11 +3,14 @@ import classes from "./Header.module.css"
 import {AppBar, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu"
 import {Chat, Home, PeopleAlt} from "@mui/icons-material";
-
 import {NavLink} from "react-router-dom";
 import SideNav from "../SideNav/SideNav";
 
-const Header = () => {
+type HeaderPropsType = {
+    userLogin: string | null
+}
+
+export const Header = (props: HeaderPropsType) => {
 
     const [isSideNavOpen, setSideNavOpen] = useState<boolean>(false)
 
@@ -62,19 +65,28 @@ const Header = () => {
                         </IconButton>
                     </Grid>
 
-                    <Typography
-                        variant={"h6"}
-                        component={"span"}
+                    {/*LoginName or LoginButton*/}
+                    {!props.userLogin
+                        ?
+                        <Typography
+                            variant={"h6"}
+                            component={"span"}
 
-                    >
-                        login, ava
-                    </Typography>
+                        >
+                            login, ava
+                        </Typography>
+                        :
+                        <Typography
+                            variant={"h6"}
+                            component={"span"}
 
+                        >
+                            {props.userLogin}
+                        </Typography>
+                    }
 
                 </Toolbar>
             </AppBar>
         </header>
     )
 }
-
-export default Header

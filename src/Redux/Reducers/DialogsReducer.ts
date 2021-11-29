@@ -29,7 +29,9 @@ const initState = {
 
 export type DialogsInitStateType = typeof initState
 
-export const dialogsReducer = (state: DialogsInitStateType = initState, action: any) => {
+type DialogsReducerActionType = SendNewMessageActionCreatorTYpe
+
+export const dialogsReducer = (state: DialogsInitStateType = initState, action: DialogsReducerActionType) => {
     switch (action.type) {
         case "ADD-NEW-MESSAGE":
             const newMes: MessageType = {

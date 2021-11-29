@@ -29,27 +29,29 @@ let initState = {
 
 type UsersReducerInitType = typeof initState
 
-export const usersReducer = (state: UsersReducerInitType = initState, action: any) => {
+type UsersReducerActionType =
+    FollowACType
+    | UnFollowACType
+    | SetUsersACType
+    | setTotalUsersCountACType
+    | setCurrentPageACType
+    | setIsFetchingACType
 
-    const followOrNot = () => {
-        return [...state.users.map(el => {
-            if (el.id === action.id) {
-                return {...el, followed: !el.followed}
-            }
-            return el
-        })]
-    }
-
+export const usersReducer = (state: UsersReducerInitType = initState, action: UsersReducerActionType): UsersReducerInitType => {
     switch (action.type) {
         case "FOLLOW":
             return {
                 ...state,
-                users: followOrNot()
+                users: state.users.map(el => {
+                    return el.id === action.id ? {...el, followed: true} : el
+                })
             }
         case "UNFOLLOW":
             return {
                 ...state,
-                users: followOrNot()
+                users: state.users.map(el => {
+                    return el.id === action.id ? {...el, followed: false} : el
+                })
             }
         case "SET-USERS":
             return {...state, users: action.users}
@@ -102,4 +104,4 @@ export type setIsFetchingACType = {
     type: typeof SET_IS_FETCHING
     isFetching: boolean
 }
-export const setIsFetchingAC = (isFetching: boolean) : setIsFetchingACType => ({ type: SET_IS_FETCHING, isFetching })
+export const setIsFetchingAC = (isFetching: boolean): setIsFetchingACType => ({type: SET_IS_FETCHING, isFetching})
