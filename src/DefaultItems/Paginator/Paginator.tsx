@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {setCurrentPageACType} from "../../Redux/Reducers/UsersReducer";
+import {SetCurrentPageACType} from "../../Redux/Reducers/UsersReducer";
 import {Pagination} from "@mui/material";
 
 
@@ -7,7 +7,7 @@ export type PaginatorPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    setCurrentPageAC: (currentPage: number) => setCurrentPageACType
+    setCurrentPageAC: (currentPage: number) => SetCurrentPageACType
 }
 
 export const Paginator = ({totalUsersCount, pageSize, currentPage, setCurrentPageAC}: PaginatorPropsType) => {

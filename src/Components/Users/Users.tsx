@@ -8,6 +8,7 @@ import {NavLink} from "react-router-dom";
 
 export type UsersPropsType = {
     users: Array<UserType>
+    followInProgress: Array<number>
     followUserCallBack: (id: number) => void
     unfollowUserCallBack: (id: number) => void
 }
@@ -24,10 +25,12 @@ const Users = ({users, ...props}: UsersPropsType) => {
     const usersJsxArray = users.map(u => {
 
         const followButton = !u.followed
-            ? <Button onClick={() => changeToFollow(u.id)}
+            ? <Button disabled={props.followInProgress.some(el => el === u.id)}
+                      onClick={() => changeToFollow(u.id)}
                       size={"small"}
                       variant="contained">follow</Button>
-            : <Button onClick={() => changeToUnfollow(u.id)}
+            : <Button disabled={props.followInProgress.some(el => el === u.id)}
+                      onClick={() => changeToUnfollow(u.id)}
                       size={"small"}
                       variant="contained">Unfollow</Button>
 

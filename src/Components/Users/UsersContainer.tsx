@@ -6,16 +6,16 @@ import {
     followAC,
     FollowACType,
     setCurrentPageAC,
-    setCurrentPageACType,
+    SetCurrentPageACType, SetFollowProgressStartACType, setFollowProgressStartAC,
     setIsFetchingAC,
-    setIsFetchingACType,
+    SetIsFetchingACType,
     setTotalUsersCountAC,
-    setTotalUsersCountACType,
+    SetTotalUsersCountACType,
     setUsersAC,
     SetUsersACType,
     unfollowAC,
     UnFollowACType,
-    UserType
+    UserType, setFollowProgressEndAC, SetFollowProgressEndACType
 } from "../../Redux/Reducers/UsersReducer";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
@@ -29,15 +29,18 @@ type MapStateToPropsType = {
     pageSize: number
     currentPage: number
     isFetching: boolean
+    followInProgress: Array<number>
 }
 
 type MapDispatchToPropsType = {
     followAC: (id: number | string) => FollowACType
     unfollowAC: (id: number | string) => UnFollowACType
-    setTotalUsersCountAC: (totalUsersCount: number) => setTotalUsersCountACType
+    setTotalUsersCountAC: (totalUsersCount: number) => SetTotalUsersCountACType
     setUsersAC: (users: Array<UserType>) => SetUsersACType
-    setCurrentPageAC: (currentPage: number) => setCurrentPageACType
-    setIsFetchingAC: (isFetching: boolean) => setIsFetchingACType
+    setCurrentPageAC: (currentPage: number) => SetCurrentPageACType
+    setIsFetchingAC: (isFetching: boolean) => SetIsFetchingACType
+    setFollowProgressStartAC: (id: number) => SetFollowProgressStartACType
+    setFollowProgressEndAC: (id: number) => SetFollowProgressEndACType
 }
 
 type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -59,20 +62,26 @@ const UsersContainer = (props: UsersContainerPropsType) => {
 
     //Подписываемся на поьзователя
     const followUserCallBack = (id: number) => {
+        props.setFollowProgressStartAC(id)
+
         usersAPI.followToUser(id)
             .then(response => {
                 if (response.resultCode === 0) {
                     props.followAC(id)
                 }
+                props.setFollowProgressEndAC(id)
             })
     }
     //Отписываемся от пользователя
     const unfollowUserCallBack = (id: number) => {
+        props.setFollowProgressStartAC(id)
+
         usersAPI.unfollowUser(id)
             .then(response => {
                 if (response.resultCode === 0) {
                     props.unfollowAC(id)
                 }
+                props.setFollowProgressEndAC(id)
             })
     }
 
@@ -88,6 +97,7 @@ const UsersContainer = (props: UsersContainerPropsType) => {
 
             <Grid container spacing={2} columns={16}>
                 <Users users={props.users}
+                       followInProgress={props.followInProgress}
                        followUserCallBack={followUserCallBack}
                        unfollowUserCallBack={unfollowUserCallBack}
                 />
@@ -105,6 +115,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followInProgress: state.usersPage.followInProgress
     }
 }
 
@@ -117,5 +128,7 @@ export default connect<MapStateToPropsType,
         setUsersAC,
         setTotalUsersCountAC,
         setCurrentPageAC,
-        setIsFetchingAC
+        setIsFetchingAC,
+        setFollowProgressStartAC,
+        setFollowProgressEndAC
     })(UsersContainer)

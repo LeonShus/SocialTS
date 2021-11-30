@@ -17,7 +17,7 @@ const HeaderContainer = (props: HeaderContainerPropsType) => {
             withCredentials: true
         })
             .then(response => {
-                console.log(response.data.resultCode)
+
                 if (response.data.resultCode === 0) {
                     const {email, id, login} = response.data.data
                     props.setAuthAC({email, id, login})

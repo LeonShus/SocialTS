@@ -4,6 +4,8 @@ const SET_USERS = "SET-USERS"
 const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 const SET_IS_FETCHING = "SET-IS-FETCHING"
+const SET_FOLLOW_PROGRESS_START = "SET-FOLLOW-PROGRESS-START"
+const SET_FOLLOW_PROGRESS_END = "SET-FOLLOW-PROGRESS-END"
 
 export type UserPhotosType = {
     large: null | string
@@ -24,7 +26,8 @@ let initState = {
     totalUsersCount: 0,
     pageSize: 10,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followInProgress: [] as Array<number>
 }
 
 type UsersReducerInitType = typeof initState
@@ -33,9 +36,11 @@ type UsersReducerActionType =
     FollowACType
     | UnFollowACType
     | SetUsersACType
-    | setTotalUsersCountACType
-    | setCurrentPageACType
-    | setIsFetchingACType
+    | SetTotalUsersCountACType
+    | SetCurrentPageACType
+    | SetIsFetchingACType
+    | SetFollowProgressStartACType
+    | SetFollowProgressEndACType
 
 export const usersReducer = (state: UsersReducerInitType = initState, action: UsersReducerActionType): UsersReducerInitType => {
     switch (action.type) {
@@ -61,6 +66,16 @@ export const usersReducer = (state: UsersReducerInitType = initState, action: Us
             return {...state, currentPage: action.currentPage}
         case "SET-IS-FETCHING":
             return {...state, isFetching: action.isFetching}
+        case "SET-FOLLOW-PROGRESS-START":
+            return {
+                ...state,
+                followInProgress: [...state.followInProgress, action.id]
+            }
+        case "SET-FOLLOW-PROGRESS-END":
+            return {
+                ...state,
+                followInProgress: state.followInProgress.filter(el => el !== action.id)
+            }
         default :
             return state
     }
@@ -85,23 +100,38 @@ export type SetUsersACType = {
 }
 export const setUsersAC = (users: Array<UserType>): SetUsersACType => ({type: SET_USERS, users})
 
-export type setTotalUsersCountACType = {
+export type SetTotalUsersCountACType = {
     type: typeof SET_TOTAL_USERS_COUNT
     totalUsersCount: number
 }
-export const setTotalUsersCountAC = (totalUsersCount: number): setTotalUsersCountACType => ({
+export const setTotalUsersCountAC = (totalUsersCount: number): SetTotalUsersCountACType => ({
     type: SET_TOTAL_USERS_COUNT,
     totalUsersCount
 })
 
-export type setCurrentPageACType = {
+export type SetCurrentPageACType = {
     type: typeof SET_CURRENT_PAGE
     currentPage: number
 }
-export const setCurrentPageAC = (currentPage: number): setCurrentPageACType => ({type: SET_CURRENT_PAGE, currentPage})
+export const setCurrentPageAC = (currentPage: number): SetCurrentPageACType => ({type: SET_CURRENT_PAGE, currentPage})
 
-export type setIsFetchingACType = {
+export type SetIsFetchingACType = {
     type: typeof SET_IS_FETCHING
     isFetching: boolean
 }
-export const setIsFetchingAC = (isFetching: boolean): setIsFetchingACType => ({type: SET_IS_FETCHING, isFetching})
+export const setIsFetchingAC = (isFetching: boolean): SetIsFetchingACType => ({type: SET_IS_FETCHING, isFetching})
+
+export type SetFollowProgressStartACType = {
+    type: typeof SET_FOLLOW_PROGRESS_START
+    id: number
+}
+export const setFollowProgressStartAC = (id: number): SetFollowProgressStartACType => ({
+    type: SET_FOLLOW_PROGRESS_START,
+    id
+})
+
+export type SetFollowProgressEndACType = {
+    type: typeof SET_FOLLOW_PROGRESS_END
+    id: number
+}
+export const setFollowProgressEndAC = (id: number): SetFollowProgressEndACType => ({type: SET_FOLLOW_PROGRESS_END, id})
