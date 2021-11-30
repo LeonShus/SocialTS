@@ -1,24 +1,24 @@
 import React from "react";
-import {FollowACType, UnFollowACType, UserType} from "../../Redux/Reducers/UsersReducer";
+import {UserType} from "../../Redux/Reducers/UsersReducer";
 import userDef from "../../DefaultItems/Img/userDef.png"
 import Button from "@mui/material/Button";
 import {Avatar, ButtonBase, Grid, Paper, Typography} from "@mui/material";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 
 export type UsersPropsType = {
     users: Array<UserType>
-    followUser: (id: number) => void
-    unfollowUser: (id: number) => void
+    followUserCallBack: (id: number) => void
+    unfollowUserCallBack: (id: number) => void
 }
 
 const Users = ({users, ...props}: UsersPropsType) => {
 
     const changeToFollow = (id: number) => {
-        props.followUser(id)
+        props.followUserCallBack(id)
     }
     const changeToUnfollow = (id: number) => {
-        props.unfollowUser(id)
+        props.unfollowUserCallBack(id)
     }
 
     const usersJsxArray = users.map(u => {

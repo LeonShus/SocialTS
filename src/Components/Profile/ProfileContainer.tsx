@@ -4,11 +4,11 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {connect} from "react-redux";
 import {setUserToProfilePageAC, SetUserToProfilePageACType, UserType} from "../../Redux/Reducers/ProfileReducer";
-import axios from "axios";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid, Paper} from "@mui/material";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router"
+import {profileAPI} from "../../DAL/API";
 
 type MapStatePropsType = {
     user: UserType
@@ -25,14 +25,14 @@ const ProfileContainer = ({user, setUserToProfilePageAC, ...props}: ProfileConta
 
     let userId = props.match.params.userId
 
-    if(!userId){
+    if (!userId) {
         userId = "2"
     }
 
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        profileAPI.getUserProfile(userId)
             .then(response => {
-                setUserToProfilePageAC(response.data)
+                setUserToProfilePageAC(response)
             })
     }, [])
 

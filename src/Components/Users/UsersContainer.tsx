@@ -17,10 +17,10 @@ import {
     UnFollowACType,
     UserType
 } from "../../Redux/Reducers/UsersReducer";
-import axios from "axios";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid} from "@mui/material";
+import {usersAPI} from "../../DAL/API";
 
 
 type MapStateToPropsType = {
@@ -49,40 +49,28 @@ const UsersContainer = (props: UsersContainerPropsType) => {
         props.setIsFetchingAC(true)
         // Must Change!!!!!!!!!!!
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`, {
-            withCredentials: true
-        })
+        usersAPI.getUsers(props.currentPage, props.pageSize)
             .then((response: any) => {
-                props.setUsersAC(response.data.items)
-                props.setTotalUsersCountAC(response.data.totalCount)
+                props.setUsersAC(response.items)
+                props.setTotalUsersCountAC(response.totalCount)
                 props.setIsFetchingAC(false)
             })
     }, [props.currentPage])
 
-
-    const followUser = (id: number) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "099be23b-024b-4d04-8aea-ded1a22de046"
-            }
-        })
+    //Подписываемся на поьзователя
+    const followUserCallBack = (id: number) => {
+        usersAPI.followToUser(id)
             .then(response => {
-                if(response.data.resultCode === 0){
+                if (response.resultCode === 0) {
                     props.followAC(id)
                 }
             })
     }
-
-    const unfollowUser = (id: number) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "099be23b-024b-4d04-8aea-ded1a22de046"
-            }
-        })
+    //Отписываемся от пользователя
+    const unfollowUserCallBack = (id: number) => {
+        usersAPI.unfollowUser(id)
             .then(response => {
-                if(response.data.resultCode === 0){
+                if (response.resultCode === 0) {
                     props.unfollowAC(id)
                 }
             })
@@ -100,8 +88,8 @@ const UsersContainer = (props: UsersContainerPropsType) => {
 
             <Grid container spacing={2} columns={16}>
                 <Users users={props.users}
-                       followUser={followUser}
-                       unfollowUser={unfollowUser}
+                       followUserCallBack={followUserCallBack}
+                       unfollowUserCallBack={unfollowUserCallBack}
                 />
             </Grid>
 
