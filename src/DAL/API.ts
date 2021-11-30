@@ -32,3 +32,10 @@ export const profileAPI = {
             .then(response => response.data)
     }
 }
+
+export const authAPI = {
+    getAuthMe(){
+        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+            .then(response => response.data)
+    }
+}

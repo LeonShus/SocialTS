@@ -4,6 +4,7 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {AuthStateType, setAuthAC, SetAuthACType} from "../../Redux/Reducers/AuthReducer";
+import {authAPI} from "../../DAL/API";
 
 type HeaderContainerPropsType = {
     auth: AuthStateType
@@ -13,13 +14,11 @@ type HeaderContainerPropsType = {
 const HeaderContainer = (props: HeaderContainerPropsType) => {
     // Получаем залогиненого пользователя
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
+        authAPI.getAuthMe()
             .then(response => {
 
-                if (response.data.resultCode === 0) {
-                    const {email, id, login} = response.data.data
+                if (response.resultCode === 0) {
+                    const {email, id, login} = response.data
                     props.setAuthAC({email, id, login})
                 }
             })
