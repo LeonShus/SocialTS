@@ -8,6 +8,7 @@ import {
     SetCurrentPageACType,
     setUsersT,
     unfollowUserT,
+    UserReducerThunkType,
     UserType
 } from "../../Redux/Reducers/UsersReducer";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
@@ -28,8 +29,8 @@ type MapDispatchToPropsType = {
     setCurrentPageAC: (currentPage: number) => SetCurrentPageACType
 
     setUsersT: (currentPage: number, pageSize: number) => any
-    followUserT: (id: number) => any
-    unfollowUserT: (id: number) => any
+    followUserT: (id: number) => UserReducerThunkType
+    unfollowUserT: (id: number) => UserReducerThunkType
 }
 
 type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType

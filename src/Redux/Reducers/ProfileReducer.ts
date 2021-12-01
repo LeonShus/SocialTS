@@ -1,6 +1,8 @@
 import {v1} from "uuid";
 import {UserPhotosType} from "./UsersReducer";
 import {profileAPI} from "../../DAL/API";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../ReduxStore";
 
 const ADD_NEW_POST = "ADD-NEW-POST"
 const SET_USER_TO_PROFILE_PAGE = "SET-USER-TO-PROFILE-PAGE"
@@ -82,7 +84,9 @@ export const setUserToProfilePageAC = (user: UserType): SetUserToProfilePageACTy
 
 //THUNK
 
-export const setProfileT = (userId: number) => (dispatch: any) => {
+export type ProfileReducerThunkType = ThunkAction<any, AppStateType, unknown, ProfileReducerActionType>
+
+export const setProfileT = (userId: number): ProfileReducerThunkType => (dispatch) => {
     profileAPI.getUserProfile(userId)
         .then(response => {
             dispatch(setUserToProfilePageAC(response))

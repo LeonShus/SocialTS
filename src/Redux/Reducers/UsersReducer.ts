@@ -1,4 +1,7 @@
 import {usersAPI} from "../../DAL/API";
+import {Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../ReduxStore";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
@@ -34,7 +37,7 @@ let initState = {
 
 type UsersReducerInitType = typeof initState
 
-type UsersReducerActionType =
+export type UsersReducerActionType =
     FollowACType
     | UnFollowACType
     | SetUsersACType
@@ -141,37 +144,42 @@ export const setFollowProgressEndAC = (id: number): SetFollowProgressEndACType =
 
 //THUNK
 
-export const setUsersT = (currentPage: number, pageSize: number) => (dispatch: any) => {
-    dispatch(setIsFetchingAC(true))
+export type UserReducerThunkType = ThunkAction<any, AppStateType, unknown, UsersReducerActionType>
 
-    usersAPI.getUsers(currentPage, pageSize)
-        .then((response: any) => {
-            dispatch(setUsersAC(response.items))
-            dispatch(setTotalUsersCountAC(response.totalCount))
-            dispatch(setIsFetchingAC(false))
-        })
-}
+export const setUsersT = (currentPage: number, pageSize: number): UserReducerThunkType =>
+    (dispatch) => {
+        dispatch(setIsFetchingAC(true))
 
-export const followUserT = (id: number) => (dispatch: any) => {
-    dispatch(setFollowProgressStartAC(id))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then((response: any) => {
+                dispatch(setUsersAC(response.items))
+                dispatch(setTotalUsersCountAC(response.totalCount))
+                dispatch(setIsFetchingAC(false))
+            })
+    }
 
-    usersAPI.followToUser(id)
-        .then(response => {
-            if (response.resultCode === 0) {
-                dispatch(followAC(id))
-            }
-            dispatch(setFollowProgressEndAC(id))
-        })
-}
+export const followUserT = (id: number): UserReducerThunkType =>
+    (dispatch) => {
+        dispatch(setFollowProgressStartAC(id))
 
-export const unfollowUserT = (id: number) => (dispatch: any) => {
-    dispatch(setFollowProgressStartAC(id))
+        usersAPI.followToUser(id)
+            .then(response => {
+                if (response.resultCode === 0) {
+                    dispatch(followAC(id))
+                }
+                dispatch(setFollowProgressEndAC(id))
+            })
+    }
 
-    usersAPI.unfollowUser(id)
-        .then(response => {
-            if (response.resultCode === 0) {
-                dispatch(unfollowAC(id))
-            }
-            dispatch(setFollowProgressEndAC(id))
-        })
-}
+export const unfollowUserT = (id: number): UserReducerThunkType =>
+    (dispatch) => {
+        dispatch(setFollowProgressStartAC(id))
+
+        usersAPI.unfollowUser(id)
+            .then(response => {
+                if (response.resultCode === 0) {
+                    dispatch(unfollowAC(id))
+                }
+                dispatch(setFollowProgressEndAC(id))
+            })
+    }

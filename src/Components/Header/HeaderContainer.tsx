@@ -2,14 +2,14 @@ import React, {useEffect} from "react"
 import {Header} from "./Header"
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
-import {AuthStateType, getAuthUserT} from "../../Redux/Reducers/AuthReducer";
+import {AuthReducerThunkType, AuthStateType, getAuthUserT} from "../../Redux/Reducers/AuthReducer";
 
 type MapStateToProps = {
     auth: AuthStateType
 }
 
 type MapDispatchToPops = {
-    getAuthUserT: () => any
+    getAuthUserT: () => AuthReducerThunkType
 }
 
 type HeaderContainerPropsType = MapStateToProps & MapDispatchToPops

@@ -3,7 +3,7 @@ import ProfileInfo from "./PrfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {connect} from "react-redux";
-import {setProfileT, UserType} from "../../Redux/Reducers/ProfileReducer";
+import {ProfileReducerThunkType, setProfileT, UserType} from "../../Redux/Reducers/ProfileReducer";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid, Paper} from "@mui/material";
 import {withRouter} from "react-router-dom";
@@ -12,11 +12,9 @@ import {RouteComponentProps} from "react-router"
 type MapStatePropsType = {
     user: UserType
 }
-
 type MapDispatchToProps = {
-    setProfileT: (userId: number) => any
+    setProfileT: (userId: number) => ProfileReducerThunkType
 }
-
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchToProps & RouteComponentProps<any>
 
 
@@ -43,23 +41,17 @@ const ProfileContainer = ({user, setProfileT, ...props}: ProfileContainerPropsTy
             >
                 <ProfileInfo user={user}/>
 
-
                 <MyPostsContainer/>
-
             </Grid>
         </Paper>
     )
 }
 
+
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         user: state.profilePage.user
     }
-}
-
-
-type PropsType = {
-    userId: string
 }
 
 export default connect<MapStatePropsType,

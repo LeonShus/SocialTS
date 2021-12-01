@@ -1,4 +1,6 @@
 import {authAPI} from "../../DAL/API";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../ReduxStore";
 
 const SET_AUTH = "SET-AUTH"
 
@@ -39,7 +41,9 @@ export const setAuthAC = (data: AuthStateType): SetAuthACType => ({type: SET_AUT
 
 ///THUNK
 
-export const getAuthUserT = () => (dispatch: any) => {
+export type AuthReducerThunkType = ThunkAction<any, AppStateType, unknown, AuthReducerActionType>
+
+export const getAuthUserT = (): AuthReducerThunkType => (dispatch) => {
     authAPI.getAuthMe()
         .then(response => {
             if (response.resultCode === 0) {
