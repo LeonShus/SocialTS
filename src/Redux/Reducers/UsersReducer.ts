@@ -1,4 +1,4 @@
-import {usersAPI} from "../../DAL/API";
+import {ResultCodeEnum, usersAPI} from "../../DAL/API";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
@@ -164,7 +164,7 @@ export const followUserT = (id: number): UserReducerThunkType =>
 
         usersAPI.followToUser(id)
             .then(response => {
-                if (response.resultCode === 0) {
+                if (response.resultCode === ResultCodeEnum.Success) {
                     dispatch(followAC(id))
                 }
                 dispatch(setFollowProgressEndAC(id))
@@ -177,7 +177,7 @@ export const unfollowUserT = (id: number): UserReducerThunkType =>
 
         usersAPI.unfollowUser(id)
             .then(response => {
-                if (response.resultCode === 0) {
+                if (response.resultCode === ResultCodeEnum.Success) {
                     dispatch(unfollowAC(id))
                 }
                 dispatch(setFollowProgressEndAC(id))

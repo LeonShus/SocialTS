@@ -13,7 +13,7 @@ export type PostDataType = {
     likeCount: number
 }
 
-type ContactsType = {
+export type ContactsType = {
     facebook: null | string
     website: null | string
     vk: null | string

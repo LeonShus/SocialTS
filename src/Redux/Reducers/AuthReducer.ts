@@ -1,4 +1,4 @@
-import {authAPI} from "../../DAL/API";
+import {authAPI, ResultCodeEnum} from "../../DAL/API";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
 
@@ -46,7 +46,7 @@ export type AuthReducerThunkType = ThunkAction<any, AppStateType, unknown, AuthR
 export const getAuthUserT = (): AuthReducerThunkType => (dispatch) => {
     authAPI.getAuthMe()
         .then(response => {
-            if (response.resultCode === 0) {
+            if (response.resultCode === ResultCodeEnum.Success) {
                 const {email, id, login} = response.data
                 dispatch(setAuthAC({email, id, login}))
             }
