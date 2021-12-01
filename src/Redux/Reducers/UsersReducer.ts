@@ -1,3 +1,5 @@
+import {usersAPI} from "../../DAL/API";
+
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
@@ -139,3 +141,37 @@ export const setFollowProgressEndAC = (id: number): SetFollowProgressEndACType =
 
 //THUNK
 
+export const setUsersT = (currentPage: number, pageSize: number) => (dispatch: any) => {
+    dispatch(setIsFetchingAC(true))
+
+    usersAPI.getUsers(currentPage, pageSize)
+        .then((response: any) => {
+            dispatch(setUsersAC(response.items))
+            dispatch(setTotalUsersCountAC(response.totalCount))
+            dispatch(setIsFetchingAC(false))
+        })
+}
+
+export const followUserT = (id: number) => (dispatch: any) => {
+    dispatch(setFollowProgressStartAC(id))
+
+    usersAPI.followToUser(id)
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(followAC(id))
+            }
+            dispatch(setFollowProgressEndAC(id))
+        })
+}
+
+export const unfollowUserT = (id: number) => (dispatch: any) => {
+    dispatch(setFollowProgressStartAC(id))
+
+    usersAPI.unfollowUser(id)
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(unfollowAC(id))
+            }
+            dispatch(setFollowProgressEndAC(id))
+        })
+}

@@ -15,7 +15,7 @@ import {
     SetUsersACType,
     unfollowAC,
     UnFollowACType,
-    UserType, setFollowProgressEndAC, SetFollowProgressEndACType
+    UserType, setFollowProgressEndAC, SetFollowProgressEndACType, setUsersT, followUserT, unfollowUserT
 } from "../../Redux/Reducers/UsersReducer";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
@@ -33,14 +33,11 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    followAC: (id: number | string) => FollowACType
-    unfollowAC: (id: number | string) => UnFollowACType
-    setTotalUsersCountAC: (totalUsersCount: number) => SetTotalUsersCountACType
-    setUsersAC: (users: Array<UserType>) => SetUsersACType
     setCurrentPageAC: (currentPage: number) => SetCurrentPageACType
-    setIsFetchingAC: (isFetching: boolean) => SetIsFetchingACType
-    setFollowProgressStartAC: (id: number) => SetFollowProgressStartACType
-    setFollowProgressEndAC: (id: number) => SetFollowProgressEndACType
+
+    setUsersT: (currentPage: number, pageSize: number) => any
+    followUserT: (id: number) => any
+    unfollowUserT: (id: number) => any
 }
 
 type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -49,40 +46,16 @@ type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
 const UsersContainer = (props: UsersContainerPropsType) => {
     //Получаем пользователей
     useEffect(() => {
-        props.setIsFetchingAC(true)
-        // Must Change!!!!!!!!!!!
-
-        usersAPI.getUsers(props.currentPage, props.pageSize)
-            .then((response: any) => {
-                props.setUsersAC(response.items)
-                props.setTotalUsersCountAC(response.totalCount)
-                props.setIsFetchingAC(false)
-            })
+        props.setUsersT(props.currentPage, props.pageSize)
     }, [props.currentPage])
 
     //Подписываемся на поьзователя
     const followUserCallBack = (id: number) => {
-        props.setFollowProgressStartAC(id)
-
-        usersAPI.followToUser(id)
-            .then(response => {
-                if (response.resultCode === 0) {
-                    props.followAC(id)
-                }
-                props.setFollowProgressEndAC(id)
-            })
+        props.followUserT(id)
     }
     //Отписываемся от пользователя
     const unfollowUserCallBack = (id: number) => {
-        props.setFollowProgressStartAC(id)
-
-        usersAPI.unfollowUser(id)
-            .then(response => {
-                if (response.resultCode === 0) {
-                    props.unfollowAC(id)
-                }
-                props.setFollowProgressEndAC(id)
-            })
+        props.unfollowUserT(id)
     }
 
     return (
@@ -123,12 +96,9 @@ export default connect<MapStateToPropsType,
     MapDispatchToPropsType, {},
     AppStateType>(mapStateToProps,
     {
-        followAC,
-        unfollowAC,
-        setUsersAC,
-        setTotalUsersCountAC,
         setCurrentPageAC,
-        setIsFetchingAC,
-        setFollowProgressStartAC,
-        setFollowProgressEndAC
+
+        setUsersT,
+        followUserT,
+        unfollowUserT
     })(UsersContainer)

@@ -43,7 +43,6 @@ export const getAuthUserT = () => (dispatch: any) => {
     authAPI.getAuthMe()
         .then(response => {
             if (response.resultCode === 0) {
-                console.log(response)
                 const {email, id, login} = response.data
                 dispatch(setAuthAC({email, id, login}))
             }
