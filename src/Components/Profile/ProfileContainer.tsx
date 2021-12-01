@@ -3,25 +3,24 @@ import ProfileInfo from "./PrfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {connect} from "react-redux";
-import {setUserToProfilePageAC, SetUserToProfilePageACType, UserType} from "../../Redux/Reducers/ProfileReducer";
+import {setProfileT, UserType} from "../../Redux/Reducers/ProfileReducer";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid, Paper} from "@mui/material";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router"
-import {profileAPI} from "../../DAL/API";
 
 type MapStatePropsType = {
     user: UserType
 }
 
 type MapDispatchToProps = {
-    setUserToProfilePageAC: (user: UserType) => SetUserToProfilePageACType
+    setProfileT: (userId: number) => any
 }
 
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchToProps & RouteComponentProps<any>
 
 
-const ProfileContainer = ({user, setUserToProfilePageAC, ...props}: ProfileContainerPropsType) => {
+const ProfileContainer = ({user, setProfileT, ...props}: ProfileContainerPropsType) => {
 
     let userId = props.match.params.userId
 
@@ -30,10 +29,7 @@ const ProfileContainer = ({user, setUserToProfilePageAC, ...props}: ProfileConta
     }
 
     useEffect(() => {
-        profileAPI.getUserProfile(userId)
-            .then(response => {
-                setUserToProfilePageAC(response)
-            })
+        setProfileT(userId)
     }, [])
 
     if (!user) {
@@ -68,4 +64,4 @@ type PropsType = {
 
 export default connect<MapStatePropsType,
     MapDispatchToProps, {},
-    AppStateType>(mapStateToProps, {setUserToProfilePageAC})(withRouter(ProfileContainer))
+    AppStateType>(mapStateToProps, {setProfileT})(withRouter(ProfileContainer))

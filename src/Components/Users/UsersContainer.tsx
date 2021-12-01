@@ -3,24 +3,16 @@ import {AppStateType} from "../../Redux/ReduxStore";
 import {connect} from "react-redux";
 import Users from "./Users";
 import {
-    followAC,
-    FollowACType,
+    followUserT,
     setCurrentPageAC,
-    SetCurrentPageACType, SetFollowProgressStartACType, setFollowProgressStartAC,
-    setIsFetchingAC,
-    SetIsFetchingACType,
-    setTotalUsersCountAC,
-    SetTotalUsersCountACType,
-    setUsersAC,
-    SetUsersACType,
-    unfollowAC,
-    UnFollowACType,
-    UserType, setFollowProgressEndAC, SetFollowProgressEndACType, setUsersT, followUserT, unfollowUserT
+    SetCurrentPageACType,
+    setUsersT,
+    unfollowUserT,
+    UserType
 } from "../../Redux/Reducers/UsersReducer";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid} from "@mui/material";
-import {usersAPI} from "../../DAL/API";
 
 
 type MapStateToPropsType = {

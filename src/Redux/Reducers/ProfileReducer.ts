@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {UserPhotosType} from "./UsersReducer";
+import {profileAPI} from "../../DAL/API";
 
 const ADD_NEW_POST = "ADD-NEW-POST"
 const SET_USER_TO_PROFILE_PAGE = "SET-USER-TO-PROFILE-PAGE"
@@ -78,3 +79,12 @@ export const setUserToProfilePageAC = (user: UserType): SetUserToProfilePageACTy
     type: SET_USER_TO_PROFILE_PAGE,
     user
 })
+
+//THUNK
+
+export const setProfileT = (userId: number) => (dispatch: any) => {
+    profileAPI.getUserProfile(userId)
+        .then(response => {
+            dispatch(setUserToProfilePageAC(response))
+        })
+}
