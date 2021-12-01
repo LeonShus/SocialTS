@@ -1,27 +1,23 @@
 import React, {useEffect} from "react"
 import {Header} from "./Header"
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
-import {AuthStateType, setAuthAC, SetAuthACType} from "../../Redux/Reducers/AuthReducer";
-import {authAPI} from "../../DAL/API";
+import {AuthStateType, getAuthUserT} from "../../Redux/Reducers/AuthReducer";
 
-type HeaderContainerPropsType = {
+type MapStateToProps = {
     auth: AuthStateType
-    setAuthAC: (data: AuthStateType) => SetAuthACType
 }
+
+type MapDispatchToPops = {
+    getAuthUserT: () => any
+}
+
+type HeaderContainerPropsType = MapStateToProps & MapDispatchToPops
 
 const HeaderContainer = (props: HeaderContainerPropsType) => {
     // Получаем залогиненого пользователя
     useEffect(() => {
-        authAPI.getAuthMe()
-            .then(response => {
-
-                if (response.resultCode === 0) {
-                    const {email, id, login} = response.data
-                    props.setAuthAC({email, id, login})
-                }
-            })
+        props.getAuthUserT()
     }, [])
 
     return (
@@ -35,4 +31,4 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {setAuthAC})(HeaderContainer)
+export default connect<MapStateToProps, MapDispatchToPops, {}, AppStateType>(mapStateToProps, {getAuthUserT})(HeaderContainer)

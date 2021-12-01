@@ -1,3 +1,5 @@
+import {authAPI} from "../../DAL/API";
+
 const SET_AUTH = "SET-AUTH"
 
 export type AuthStateType = {
@@ -14,7 +16,7 @@ const initState: AuthStateType = {
 
 type AuthReducerActionType = SetAuthACType
 
-export const authReducer = (state: AuthStateType = initState, action: AuthReducerActionType) => {
+export const authReducer = (state: AuthStateType = initState, action: AuthReducerActionType) : AuthStateType => {
     switch (action.type) {
         case "SET-AUTH":
             return {
@@ -32,3 +34,18 @@ export type SetAuthACType = {
     data: AuthStateType
 }
 export const setAuthAC = (data: AuthStateType): SetAuthACType => ({type: SET_AUTH, data})
+
+
+
+///THUNK
+
+export const getAuthUserT = () => (dispatch: any) => {
+    authAPI.getAuthMe()
+        .then(response => {
+            if (response.resultCode === 0) {
+                console.log(response)
+                const {email, id, login} = response.data
+                dispatch(setAuthAC({email, id, login}))
+            }
+        })
+}

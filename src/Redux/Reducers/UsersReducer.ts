@@ -135,3 +135,7 @@ export type SetFollowProgressEndACType = {
     id: number
 }
 export const setFollowProgressEndAC = (id: number): SetFollowProgressEndACType => ({type: SET_FOLLOW_PROGRESS_END, id})
+
+
+//THUNK
+
