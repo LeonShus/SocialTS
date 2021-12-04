@@ -1,16 +1,29 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {Post} from "./Post/Post";
-import {PostDataType} from "../../../Redux/Reducers/ProfileReducer";
 import {Button, Grid, TextField} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../../Redux/ReduxStore";
+import {addNewPostAC} from "../../../Redux/Reducers/ProfileReducer";
 
-type MyPostsType = {
-    changePostArea: (e: string) => void
-    addPost: () => void
-    newPostText: string
-    postsData: Array<PostDataType>
-}
 
-const MyPosts = ({addPost, changePostArea, newPostText, postsData}: MyPostsType) => {
+export const MyPosts = () => {
+    const dispatch = useDispatch()
+    const postsData = useSelector((state: AppStateType) => state.profilePage.postsData)
+
+    const [newPostText, SetNewPostText] = useState<string>("")
+
+    const changePostArea = (e: string) => {
+        SetNewPostText(e)
+    }
+
+    const addPost = () => {
+        if (newPostText.trim()) {   //Перед добавлением проверяем на пустую строку
+            dispatch(addNewPostAC(newPostText.trim()))
+            SetNewPostText("")
+        }
+    }
+
+
     const changeArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         changePostArea(e.currentTarget.value)
     }
