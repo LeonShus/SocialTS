@@ -1,34 +1,20 @@
 import React, {useEffect} from "react"
 import {Header} from "./Header"
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
-import {AuthReducerThunkType, AuthStateType, getAuthUserT} from "../../Redux/Reducers/AuthReducer";
+import {getAuthUserT} from "../../Redux/Reducers/AuthReducer";
 
-type MapStateToProps = {
-    auth: AuthStateType
-}
+export const HeaderContainer = () => {
 
-type MapDispatchToPops = {
-    getAuthUserT: () => AuthReducerThunkType
-}
-
-type HeaderContainerPropsType = MapStateToProps & MapDispatchToPops
-
-const HeaderContainer = (props: HeaderContainerPropsType) => {
+    const dispatch = useDispatch()
+    const userLogin = useSelector((state: AppStateType) => state.authUser.login)
     // Получаем залогиненого пользователя
     useEffect(() => {
-        props.getAuthUserT()
+        dispatch(getAuthUserT())
     }, [])
 
     return (
-        <Header userLogin={props.auth.login}/>
+        <Header userLogin={userLogin}/>
     )
 }
 
-const mapStateToProps = (state: AppStateType) => {
-    return {
-        auth: state.authUser
-    }
-}
-
-export default connect<MapStateToProps, MapDispatchToPops, {}, AppStateType>(mapStateToProps, {getAuthUserT})(HeaderContainer)
