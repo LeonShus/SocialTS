@@ -1,36 +1,31 @@
 import React from "react";
-import {UserType} from "../../Redux/Reducers/UsersReducer";
 import userDef from "../../DefaultItems/Img/userDef.png"
 import Button from "@mui/material/Button";
 import {Avatar, ButtonBase, Grid, Paper, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/ReduxStore";
 
 
 export type UsersPropsType = {
-    users: Array<UserType>
-    followInProgress: Array<number>
     followUserCallBack: (id: number) => void
     unfollowUserCallBack: (id: number) => void
 }
 
-const Users = ({users, ...props}: UsersPropsType) => {
+const Users = ({followUserCallBack, unfollowUserCallBack}: UsersPropsType) => {
+    const users = useSelector((state: AppStateType) => state.usersPage.users)
+    const followInProgress = useSelector((state: AppStateType) => state.usersPage.followInProgress)
 
-    const changeToFollow = (id: number) => {
-        props.followUserCallBack(id)
-    }
-    const changeToUnfollow = (id: number) => {
-        props.unfollowUserCallBack(id)
-    }
 
     const usersJsxArray = users.map(u => {
 
         const followButton = !u.followed
-            ? <Button disabled={props.followInProgress.some(el => el === u.id)}
-                      onClick={() => changeToFollow(u.id)}
+            ? <Button disabled={followInProgress.some(el => el === u.id)}
+                      onClick={() => followUserCallBack(u.id)}
                       size={"small"}
                       variant="contained">follow</Button>
-            : <Button disabled={props.followInProgress.some(el => el === u.id)}
-                      onClick={() => changeToUnfollow(u.id)}
+            : <Button disabled={followInProgress.some(el => el === u.id)}
+                      onClick={() => unfollowUserCallBack(u.id)}
                       size={"small"}
                       variant="contained">Unfollow</Button>
 

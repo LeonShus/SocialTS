@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter, Route} from "react-router-dom";
-import UsersContainer from "./Components/Users/UsersContainer";
+import {UsersContainer} from "./Components/Users/UsersContainer";
 import {Profile} from "./Components/Profile/Profile";
 import {Container} from "@mui/material";
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
