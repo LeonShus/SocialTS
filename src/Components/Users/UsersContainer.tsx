@@ -90,7 +90,6 @@ export default connect<MapStateToPropsType,
     AppStateType>(mapStateToProps,
     {
         setCurrentPageAC,
-
         setUsersT,
         followUserT,
         unfollowUserT

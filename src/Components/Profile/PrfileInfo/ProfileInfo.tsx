@@ -31,7 +31,7 @@ const ProfileInfo = ({user}: ProfileInfoPropsType) => {
             <Grid item
                   sx={{ml: "20px"}}
             >
-                <Typography sx={{fontSize: "2.2rem", fontWeight: '300'}}>
+                <Typography sx={{fontSize: "2.2rem", fontWeight: "300"}}>
                     {user.fullName}
                 </Typography>
 
