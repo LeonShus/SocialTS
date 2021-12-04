@@ -51,7 +51,7 @@ type SendNewMessageActionCreatorTYpe = {
     type: typeof ADD_NEW_MESSAGE
     text: string
 }
-export const sendNewMessageActionCreator = (text: string): SendNewMessageActionCreatorTYpe => ({
+export const sendNewMessageAC = (text: string): SendNewMessageActionCreatorTYpe => ({
     type: ADD_NEW_MESSAGE,
     text
 })

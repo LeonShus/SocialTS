@@ -1,32 +1,29 @@
 import React, {ChangeEvent, useState} from "react";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {MessageType, UsersType} from "../../Redux/Reducers/DialogsReducer";
+import {sendNewMessageAC} from "../../Redux/Reducers/DialogsReducer";
 import Button from "@mui/material/Button";
 import {Grid, Paper, TextField} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/ReduxStore";
 
+export const Dialogs = () => {
 
-export type DialogsPropsType = {
-    messages: Array<MessageType>
-    users: Array<UsersType>
-    sendMessage: (text: string) => void
-}
+    const users = useSelector((state: AppStateType) => state.dialogsPage.users)
+    const messages = useSelector((state: AppStateType) => state.dialogsPage.messages)
+    const dispatch = useDispatch()
 
+    const usersArr = users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>)
+    const messageArr = messages.map((el) => <Message key={el.id} message={el.message}/>)
 
-const Dialogs = ({messages, users, sendMessage}: DialogsPropsType) => {
-
-    let usersArr = users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>)
-    let messageArr = messages.map((el) => <Message key={el.id} message={el.message}/>)
-
-    let [newMessage, SetNewMessage] = useState("")
+    const [newMessage, SetNewMessage] = useState("")
 
     const messageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         SetNewMessage(e.currentTarget.value)
     }
     const send = () => {
-        sendMessage(newMessage)
+        dispatch(sendNewMessageAC(newMessage))
     }
-
 
     return (
 
