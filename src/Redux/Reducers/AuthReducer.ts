@@ -8,12 +8,14 @@ export type AuthStateType = {
     id: null | number
     email: null | string
     login: null | string
+    isAuth?: boolean
 }
 
 const initState: AuthStateType = {
     email: null,
     id: null,
-    login: null
+    login: null,
+    isAuth: false
 }
 
 type AuthReducerActionType = SetAuthACType
@@ -48,7 +50,7 @@ export const getAuthUserT = (): AuthReducerThunkType => (dispatch) => {
         .then(response => {
             if (response.resultCode === ResultCodeEnum.Success) {
                 const {email, id, login} = response.data
-                dispatch(setAuthAC({email, id, login}))
+                dispatch(setAuthAC({email, id, login, isAuth: true}))
             }
         })
 }
