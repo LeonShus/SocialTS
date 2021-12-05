@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import classes from "./Header.module.css"
-import {AppBar, Grid, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu"
 import {Chat, Home, PeopleAlt} from "@mui/icons-material";
 import {NavLink} from "react-router-dom";
@@ -68,13 +68,11 @@ export const Header = (props: HeaderPropsType) => {
                     {/*LoginName or LoginButton*/}
                     {!props.userLogin
                         ?
-                        <Typography
-                            variant={"h6"}
-                            component={"span"}
-
-                        >
-                            login, ava
-                        </Typography>
+                        <NavLink to={"/login"}>
+                            <Button variant={"contained"} sx={{border: "1px solid white", color: "white"}}>
+                                Login
+                            </Button>
+                        </NavLink>
                         :
                         <Typography
                             variant={"h6"}
