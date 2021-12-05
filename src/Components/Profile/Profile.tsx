@@ -5,15 +5,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {setProfileT} from "../../Redux/Reducers/ProfileReducer";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid, Paper} from "@mui/material";
-import {Redirect, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import MyPosts from "./MyPosts/MyPosts";
+import {WithAuthHOC} from "../../HOC/WithAuth";
 
 
-export const Profile = withRouter((props: any) => {
+export const Profile = WithAuthHOC(withRouter((props: any) => {
 
     let user = useSelector((state: AppStateType) => state.profilePage.user)
     let dispatch = useDispatch()
-    let isAuth = useSelector((state: AppStateType) => state.authUser.isAuth)
+
 
     let userId = props.match.params.userId
 
@@ -29,9 +30,7 @@ export const Profile = withRouter((props: any) => {
     if (!user) {
         return <Preloader/>
     }
-    if(!isAuth){
-        return <Redirect to={'/login'}/>
-    }
+
     return (
         <Paper>
             <Grid container
@@ -42,4 +41,4 @@ export const Profile = withRouter((props: any) => {
             </Grid>
         </Paper>
     )
-})
+}))

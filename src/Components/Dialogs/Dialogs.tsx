@@ -6,8 +6,9 @@ import Button from "@mui/material/Button";
 import {Grid, Paper, TextField} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
+import {WithAuthHOC} from "../../HOC/WithAuth";
 
-export const Dialogs = () => {
+export const Dialogs = WithAuthHOC(() => {
 
     const users = useSelector((state: AppStateType) => state.dialogsPage.users)
     const messages = useSelector((state: AppStateType) => state.dialogsPage.messages)
@@ -75,6 +76,4 @@ export const Dialogs = () => {
         </Grid>
 
     )
-}
-
-export default Dialogs
+})
