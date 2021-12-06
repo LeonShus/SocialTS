@@ -19,7 +19,7 @@ export const Profile = WithAuthHOC(withRouter((props: any) => {
     let userId = props.match.params.userId
 
     if (!userId) {
-        userId = 2
+        userId = 19076
     }
 
     useEffect(() => {

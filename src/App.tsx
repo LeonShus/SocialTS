@@ -14,7 +14,6 @@ export const App = () => {
             <HeaderContainer/>
 
             <Container sx={{mt: "5.5rem"}}>
-
                 <main>
                     <Route path="/profile/:userId?" render={() => <Profile/>}/>
                     <Route path="/dialogs" render={() => <Dialogs/>}/>

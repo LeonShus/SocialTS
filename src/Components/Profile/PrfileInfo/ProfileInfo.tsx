@@ -1,17 +1,32 @@
 import classes from "./ProfileInfo.module.css";
 import userDef from "../../../DefaultItems/Img/userDef.png";
-import React from "react";
+import React, {ChangeEvent, memo, useState} from "react";
 import {UserType} from "../../../Redux/Reducers/ProfileReducer";
-import {Avatar, Grid, Typography} from "@mui/material";
+import {Avatar, Grid, TextField, Typography} from "@mui/material";
 
 type ProfileInfoPropsType = {
     user: UserType
 }
 
-const ProfileInfo = ({user}: ProfileInfoPropsType) => {
-
+const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
+    const [status, setStatus] = useState(user.aboutMe)
+    const [editStatus, setEditStatus] = useState(false)
     const getUserPhoto = () => {
         return user.photos && user.photos.small ? user.photos.small : userDef
+    }
+    const editModeOn = () => {
+        setEditStatus(true)
+    }
+    const editModeOff = (e: any) => {
+        if(e.charCode === 13) {
+
+        }
+    }
+    const onBlurHandler = () => {
+        setEditStatus(false)
+    }
+    const changeStatusText = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setStatus(e.currentTarget.value)
     }
 
     return (
@@ -36,9 +51,22 @@ const ProfileInfo = ({user}: ProfileInfoPropsType) => {
                 </Typography>
 
                 <Grid container>
-                    <Typography sx={{fontSize: "1.2rem"}}>
-                        {user.aboutMe}
-                    </Typography>
+                    {editStatus
+                        ? <TextField autoFocus
+                                     size={"small"}
+                                     variant={"outlined"}
+                                     onKeyPress={editModeOff}
+                                     onChange={changeStatusText}
+                                     onBlur={onBlurHandler}
+                        />
+
+                        : <Typography
+                            onDoubleClick={editModeOn}
+                            sx={{fontSize: "1.2rem"}}
+                        >
+                            {user.aboutMe}
+                        </Typography>
+                    }
 
                 </Grid>
             </Grid>
@@ -46,6 +74,6 @@ const ProfileInfo = ({user}: ProfileInfoPropsType) => {
 
         </Grid>
     )
-}
+})
 
 export default ProfileInfo
