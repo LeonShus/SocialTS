@@ -3,13 +3,7 @@ import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
 
-const FOLLOW = "FOLLOW"
-const UNFOLLOW = "UNFOLLOW"
-const SET_USERS = "SET-USERS"
-const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
-const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
-const SET_IS_FETCHING = "SET-IS-FETCHING"
-const SET_FOLLOW_PROGRESS_START = "SET-FOLLOW-PROGRESS-START"
+
 const SET_FOLLOW_PROGRESS_END = "SET-FOLLOW-PROGRESS-END"
 
 export type UserPhotosType = {
@@ -87,59 +81,35 @@ export const usersReducer = (state: UsersReducerInitType = initState, action: Us
 }
 
 
-export type FollowACType = {
-    type: typeof FOLLOW
-    id: string | number
-}
-export const followAC = (id: string | number): FollowACType => ({type: FOLLOW, id})
+export type FollowACType = ReturnType<typeof followAC>
+export const followAC = (id: string | number) => ({type: "FOLLOW", id} as const)
 
-export type UnFollowACType = {
-    type: typeof UNFOLLOW
-    id: string | number
-}
-export const unfollowAC = (id: string | number): UnFollowACType => ({type: UNFOLLOW, id})
+export type UnFollowACType = ReturnType<typeof unfollowAC>
+export const unfollowAC = (id: string | number) => ({type: "UNFOLLOW", id} as const)
 
-export type SetUsersACType = {
-    type: typeof SET_USERS
-    users: Array<UserType>
-}
-export const setUsersAC = (users: Array<UserType>): SetUsersACType => ({type: SET_USERS, users})
+export type SetUsersACType = ReturnType<typeof setUsersAC>
+export const setUsersAC = (users: Array<UserType>) => ({type: "SET-USERS", users} as const)
 
-export type SetTotalUsersCountACType = {
-    type: typeof SET_TOTAL_USERS_COUNT
-    totalUsersCount: number
-}
-export const setTotalUsersCountAC = (totalUsersCount: number): SetTotalUsersCountACType => ({
-    type: SET_TOTAL_USERS_COUNT,
+export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
+export const setTotalUsersCountAC = (totalUsersCount: number)=> ({
+    type: "SET-TOTAL-USERS-COUNT",
     totalUsersCount
-})
+} as const)
 
-export type SetCurrentPageACType = {
-    type: typeof SET_CURRENT_PAGE
-    currentPage: number
-}
-export const setCurrentPageAC = (currentPage: number): SetCurrentPageACType => ({type: SET_CURRENT_PAGE, currentPage})
+export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
+export const setCurrentPageAC = (currentPage: number) => ({type: "SET-CURRENT-PAGE", currentPage} as const)
 
-export type SetIsFetchingACType = {
-    type: typeof SET_IS_FETCHING
-    isFetching: boolean
-}
-export const setIsFetchingAC = (isFetching: boolean): SetIsFetchingACType => ({type: SET_IS_FETCHING, isFetching})
+export type SetIsFetchingACType = ReturnType<typeof setIsFetchingAC>
+export const setIsFetchingAC = (isFetching: boolean) => ({type: "SET-IS-FETCHING", isFetching} as const)
 
-export type SetFollowProgressStartACType = {
-    type: typeof SET_FOLLOW_PROGRESS_START
-    id: number
-}
-export const setFollowProgressStartAC = (id: number): SetFollowProgressStartACType => ({
-    type: SET_FOLLOW_PROGRESS_START,
+export type SetFollowProgressStartACType = ReturnType<typeof setFollowProgressStartAC>
+export const setFollowProgressStartAC = (id: number) => ({
+    type: "SET-FOLLOW-PROGRESS-START",
     id
-})
+} as const)
 
-export type SetFollowProgressEndACType = {
-    type: typeof SET_FOLLOW_PROGRESS_END
-    id: number
-}
-export const setFollowProgressEndAC = (id: number): SetFollowProgressEndACType => ({type: SET_FOLLOW_PROGRESS_END, id})
+export type SetFollowProgressEndACType = ReturnType<typeof setFollowProgressEndAC>
+export const setFollowProgressEndAC = (id: number)=> ({type: SET_FOLLOW_PROGRESS_END, id} as const)
 
 
 //THUNK

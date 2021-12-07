@@ -4,9 +4,6 @@ import {profileAPI} from "../../DAL/API";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
 
-const ADD_NEW_POST = "ADD-NEW-POST"
-const SET_USER_TO_PROFILE_PAGE = "SET-USER-TO-PROFILE-PAGE"
-
 export type PostDataType = {
     id: string | number
     message: string
@@ -67,20 +64,16 @@ export const profileReducer = (state: ProfileInitStateType = initState, action: 
     }
 }
 
-export type AddNewPostActionCreatorType = {
-    type: typeof ADD_NEW_POST
-    text: string
-}
-export const addNewPostAC = (text: string): AddNewPostActionCreatorType => ({type: ADD_NEW_POST, text: text})
+export type AddNewPostActionCreatorType = ReturnType<typeof addNewPostAC>
+export const addNewPostAC = (text: string) => ({type: "ADD-NEW-POST", text: text} as const)
 
-export type SetUserToProfilePageACType = {
-    type: typeof SET_USER_TO_PROFILE_PAGE
-    user: UserType
-}
-export const setUserToProfilePageAC = (user: UserType): SetUserToProfilePageACType => ({
-    type: SET_USER_TO_PROFILE_PAGE,
+export type SetUserToProfilePageACType = ReturnType<typeof setUserToProfilePageAC>
+export const setUserToProfilePageAC = (user: UserType) => ({
+    type: "SET-USER-TO-PROFILE-PAGE",
     user
-})
+} as const)
+
+// export const setUserAboutMe = (status: string) => ({ type:  })
 
 //THUNK
 
@@ -90,5 +83,12 @@ export const setProfileT = (userId: number): ProfileReducerThunkType => (dispatc
     profileAPI.getUserProfile(userId)
         .then(response => {
             dispatch(setUserToProfilePageAC(response))
+        })
+}
+
+export const changeAboutMeT = (status: string): ProfileReducerThunkType  => (dispatch) => {
+    profileAPI.changeAboutMe(status)
+        .then(response => {
+            console.log(response)
         })
 }

@@ -1,9 +1,5 @@
 import { v1 } from "uuid"
 
-
-
-const ADD_NEW_MESSAGE = "ADD-NEW-MESSAGE"
-
 export type MessageType = {
     id: string | number
     message: string
@@ -47,11 +43,8 @@ export const dialogsReducer = (state: DialogsInitStateType = initState, action: 
     }
 }
 
-type SendNewMessageActionCreatorTYpe = {
-    type: typeof ADD_NEW_MESSAGE
-    text: string
-}
-export const sendNewMessageAC = (text: string): SendNewMessageActionCreatorTYpe => ({
-    type: ADD_NEW_MESSAGE,
+type SendNewMessageActionCreatorTYpe = ReturnType<typeof sendNewMessageAC>
+export const sendNewMessageAC = (text: string) => ({
+    type: "ADD-NEW-MESSAGE",
     text
-})
+} as const)

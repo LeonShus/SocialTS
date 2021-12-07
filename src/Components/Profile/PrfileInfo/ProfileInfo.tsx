@@ -3,12 +3,14 @@ import userDef from "../../../DefaultItems/Img/userDef.png";
 import React, {ChangeEvent, memo, useState} from "react";
 import {UserType} from "../../../Redux/Reducers/ProfileReducer";
 import {Avatar, Grid, TextField, Typography} from "@mui/material";
+import {useDispatch} from "react-redux";
 
 type ProfileInfoPropsType = {
     user: UserType
 }
 
 const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
+    const dispatch = useDispatch()
     const [status, setStatus] = useState(user.aboutMe)
     const [editStatus, setEditStatus] = useState(false)
     const getUserPhoto = () => {

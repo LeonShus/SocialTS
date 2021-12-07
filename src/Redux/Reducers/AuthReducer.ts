@@ -2,8 +2,6 @@ import {authAPI, ResultCodeEnum} from "../../DAL/API";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
 
-const SET_AUTH = "SET-AUTH"
-
 export type AuthStateType = {
     id: null | number
     email: null | string
@@ -33,11 +31,8 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
 }
 
 
-export type SetAuthACType = {
-    type: typeof SET_AUTH
-    data: AuthStateType
-}
-export const setAuthAC = (data: AuthStateType): SetAuthACType => ({type: SET_AUTH, data})
+export type SetAuthACType = ReturnType<typeof setAuthAC>
+export const setAuthAC = (data: AuthStateType) => ({type: "SET-AUTH", data} as const)
 
 
 

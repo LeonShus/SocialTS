@@ -57,6 +57,9 @@ export const profileAPI = {
     getUserProfile(id: number) {
         return instance.get<GetUserProfileType>(`profile/${id}`)
             .then(response => response.data)
+    },
+    changeAboutMe(status: string){
+        return instance.put('status', {status})
     }
 }
 
@@ -71,7 +74,7 @@ type GetAuthMeType = {
 }
 export const authAPI = {
     getAuthMe(){
-        return instance.get<GetAuthMeType>(`/auth/me`)
+        return instance.get<GetAuthMeType>(`auth/me`)
             .then(response => response.data)
     }
 }
