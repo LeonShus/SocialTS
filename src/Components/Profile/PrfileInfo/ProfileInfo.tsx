@@ -1,9 +1,10 @@
 import classes from "./ProfileInfo.module.css";
 import userDef from "../../../DefaultItems/Img/userDef.png";
 import React, {ChangeEvent, memo, useState} from "react";
-import {UserType} from "../../../Redux/Reducers/ProfileReducer";
+import {changeStatusT, UserType} from "../../../Redux/Reducers/ProfileReducer";
 import {Avatar, Grid, TextField, Typography} from "@mui/material";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../../Redux/ReduxStore";
 
 type ProfileInfoPropsType = {
     user: UserType
@@ -11,8 +12,13 @@ type ProfileInfoPropsType = {
 
 const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
     const dispatch = useDispatch()
-    const [status, setStatus] = useState(user.aboutMe)
+    const userStatus = useSelector((state: AppStateType) => state.profilePage.status)
+
+    const [status, setStatus] = useState(userStatus)
     const [editStatus, setEditStatus] = useState(false)
+    console.log(user)
+    console.log(userStatus)
+
     const getUserPhoto = () => {
         return user.photos && user.photos.small ? user.photos.small : userDef
     }
@@ -20,12 +26,14 @@ const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
         setEditStatus(true)
     }
     const editModeOff = (e: any) => {
-        if(e.charCode === 13) {
-
+        if (e.charCode === 13) {
+            setEditStatus(false)
+            dispatch(changeStatusT(status))
         }
     }
     const onBlurHandler = () => {
         setEditStatus(false)
+        dispatch(changeStatusT(status))
     }
     const changeStatusText = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setStatus(e.currentTarget.value)
@@ -66,10 +74,9 @@ const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
                             onDoubleClick={editModeOn}
                             sx={{fontSize: "1.2rem"}}
                         >
-                            {user.aboutMe}
+                            {userStatus}
                         </Typography>
                     }
-
                 </Grid>
             </Grid>
 

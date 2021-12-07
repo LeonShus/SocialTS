@@ -1,4 +1,4 @@
-import { v1 } from "uuid"
+import {v1} from "uuid"
 
 export type MessageType = {
     id: string | number
@@ -25,7 +25,7 @@ const initState = {
 
 export type DialogsInitStateType = typeof initState
 
-type DialogsReducerActionType = SendNewMessageActionCreatorTYpe
+type DialogsReducerActionType = SendNewMessageACT
 
 export const dialogsReducer = (state: DialogsInitStateType = initState, action: DialogsReducerActionType) => {
     switch (action.type) {
@@ -43,7 +43,7 @@ export const dialogsReducer = (state: DialogsInitStateType = initState, action: 
     }
 }
 
-type SendNewMessageActionCreatorTYpe = ReturnType<typeof sendNewMessageAC>
+type SendNewMessageACT = ReturnType<typeof sendNewMessageAC>
 export const sendNewMessageAC = (text: string) => ({
     type: "ADD-NEW-MESSAGE",
     text

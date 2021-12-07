@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
+import React, {memo, useEffect} from "react";
 import ProfileInfo from "./PrfileInfo/ProfileInfo";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {useDispatch, useSelector} from "react-redux";
-import {setProfileT} from "../../Redux/Reducers/ProfileReducer";
+import {setProfileT, setUserStatusT} from "../../Redux/Reducers/ProfileReducer";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid, Paper} from "@mui/material";
 import {withRouter} from "react-router-dom";
@@ -10,7 +10,7 @@ import MyPosts from "./MyPosts/MyPosts";
 import {WithAuthHOC} from "../../HOC/WithAuth";
 
 
-export const Profile = WithAuthHOC(withRouter((props: any) => {
+export const Profile = memo(WithAuthHOC(withRouter((props: any) => {
 
     let user = useSelector((state: AppStateType) => state.profilePage.user)
     let dispatch = useDispatch()
@@ -24,7 +24,8 @@ export const Profile = WithAuthHOC(withRouter((props: any) => {
 
     useEffect(() => {
         dispatch(setProfileT(userId))
-    }, [])
+        dispatch(setUserStatusT(userId))
+    }, [userId])
 
 
     if (!user) {
@@ -41,4 +42,4 @@ export const Profile = WithAuthHOC(withRouter((props: any) => {
             </Grid>
         </Paper>
     )
-}))
+})))

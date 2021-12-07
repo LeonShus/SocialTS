@@ -32,6 +32,7 @@ export type UserType = {
 
 let initState = {
     user: {} as UserType,
+    status: "",
     postsData: [
         {id: v1(), message: "Hello, Boy", likeCount: 10},
         {id: v1(), message: "Boy", likeCount: 33}
@@ -40,7 +41,7 @@ let initState = {
 
 export type ProfileInitStateType = typeof initState
 
-type ProfileReducerActionType = AddNewPostActionCreatorType | SetUserToProfilePageACType
+type ProfileReducerActionType = AddNewPostACT | SetUserToProfilePageACT | SetUserStatusACT
 
 export const profileReducer = (state: ProfileInitStateType = initState, action: ProfileReducerActionType): ProfileInitStateType => {
     switch (action.type) {
@@ -59,21 +60,27 @@ export const profileReducer = (state: ProfileInitStateType = initState, action: 
                 ...state,
                 user: action.user
             }
+        case "SET-USER-STATUS":
+            return {
+                ...state,
+                status: action.status
+            }
         default :
             return state
     }
 }
 
-export type AddNewPostActionCreatorType = ReturnType<typeof addNewPostAC>
+export type AddNewPostACT = ReturnType<typeof addNewPostAC>
 export const addNewPostAC = (text: string) => ({type: "ADD-NEW-POST", text: text} as const)
 
-export type SetUserToProfilePageACType = ReturnType<typeof setUserToProfilePageAC>
+export type SetUserToProfilePageACT = ReturnType<typeof setUserToProfilePageAC>
 export const setUserToProfilePageAC = (user: UserType) => ({
     type: "SET-USER-TO-PROFILE-PAGE",
     user
 } as const)
 
-// export const setUserAboutMe = (status: string) => ({ type:  })
+export type SetUserStatusACT = ReturnType<typeof setUserStatusAC>
+export const setUserStatusAC = (status: string) => ({type: "SET-USER-STATUS", status} as const)
 
 //THUNK
 
@@ -86,9 +93,19 @@ export const setProfileT = (userId: number): ProfileReducerThunkType => (dispatc
         })
 }
 
-export const changeAboutMeT = (status: string): ProfileReducerThunkType  => (dispatch) => {
-    profileAPI.changeAboutMe(status)
+export const setUserStatusT = (userId: number): ProfileReducerThunkType => (dispatch) => {
+    return profileAPI.getUserStatus(userId)
         .then(response => {
-            console.log(response)
+            console.log(response, "GET_STATUS")
+            dispatch(setUserStatusAC(response.data))
+        })
+}
+
+export const changeStatusT = (status: string): ProfileReducerThunkType => (dispatch) => {
+    profileAPI.changeStatus(status)
+        .then(response => {
+            if (response.status === 200) {
+                dispatch(setUserStatusAC(status))
+            }
         })
 }

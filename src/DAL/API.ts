@@ -53,13 +53,18 @@ type GetUserProfileType = {
     userId: number
     photos: UserPhotosType
 }
+
 export const profileAPI = {
     getUserProfile(id: number) {
         return instance.get<GetUserProfileType>(`profile/${id}`)
             .then(response => response.data)
     },
-    changeAboutMe(status: string){
-        return instance.put('status', {status})
+    getUserStatus(userId: number){
+        return instance.get(`profile/status/${userId}`)
+    },
+    changeStatus(status: string){
+        return instance.put('profile/status', {status})
+
     }
 }
 
