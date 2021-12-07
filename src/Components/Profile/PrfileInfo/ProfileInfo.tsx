@@ -13,9 +13,12 @@ type ProfileInfoPropsType = {
 const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
     const dispatch = useDispatch()
     const userStatus = useSelector((state: AppStateType) => state.profilePage.status)
+    const mainUser = useSelector((state: AppStateType) => state.authUser.id)
+
 
     const [status, setStatus] = useState(userStatus)
     const [editStatus, setEditStatus] = useState(false)
+
     console.log(user)
     console.log(userStatus)
 
@@ -23,6 +26,7 @@ const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
         return user.photos && user.photos.small ? user.photos.small : userDef
     }
     const editModeOn = () => {
+        mainUser === user.userId &&
         setEditStatus(true)
     }
     const editModeOff = (e: any) => {
