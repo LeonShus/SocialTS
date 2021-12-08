@@ -96,8 +96,9 @@ export const setProfileT = (userId: number): ProfileReducerThunkType => (dispatc
 export const setUserStatusT = (userId: number): ProfileReducerThunkType => (dispatch) => {
     return profileAPI.getUserStatus(userId)
         .then(response => {
-            // console.log(response, "GET_STATUS")
-            dispatch(setUserStatusAC(response.data))
+            if (response.status === 200) {
+                dispatch(setUserStatusAC(response.data))
+            }
         })
 }
 
