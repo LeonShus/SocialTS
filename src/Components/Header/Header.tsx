@@ -1,16 +1,22 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import classes from "./Header.module.css"
 import {AppBar, Button, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu"
 import {Chat, Home, PeopleAlt} from "@mui/icons-material";
 import {NavLink} from "react-router-dom";
 import SideNav from "../SideNav/SideNav";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/ReduxStore";
+import {getAuthUserT} from "../../Redux/Reducers/AuthReducer";
 
-type HeaderPropsType = {
-    userLogin: string | null
-}
 
-export const Header = (props: HeaderPropsType) => {
+export const Header = () => {
+    const dispatch = useDispatch()
+    const userLogin = useSelector((state: AppStateType) => state.authUser.login)
+
+    useEffect(() => {
+        dispatch(getAuthUserT())
+    }, [])
 
     const [isSideNavOpen, setSideNavOpen] = useState<boolean>(false)
 
@@ -66,7 +72,7 @@ export const Header = (props: HeaderPropsType) => {
                     </Grid>
 
                     {/*LoginName or LoginButton*/}
-                    {!props.userLogin
+                    {!userLogin
                         ?
                         <NavLink to={"/login"}>
                             <Button variant={"contained"} sx={{border: "1px solid white", color: "white"}}>
@@ -79,7 +85,7 @@ export const Header = (props: HeaderPropsType) => {
                             component={"span"}
 
                         >
-                            {props.userLogin}
+                            {userLogin}
                         </Typography>
                     }
 
