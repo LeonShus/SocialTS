@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter, Route} from "react-router-dom";
-import {UsersContainer} from "./Components/Users/UsersContainer";
+import {Users} from "./Components/Users/UsersContainer";
 import {Profile} from "./Components/Profile/Profile";
 import {Container} from "@mui/material";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
@@ -17,7 +17,7 @@ export const App = () => {
                 <main>
                     <Route path="/profile/:userId?" render={() => <Profile/>}/>
                     <Route path="/dialogs" render={() => <Dialogs/>}/>
-                    <Route path="/users" render={() => <UsersContainer/>}/>
+                    <Route path="/users" render={() => <Users/>}/>
                     <Route path="/login" render={() => <Login/>}/>
                 </main>
 

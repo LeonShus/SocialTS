@@ -1,14 +1,14 @@
 import React, {useEffect} from "react";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {useDispatch, useSelector} from "react-redux";
-import Users from "./Users";
+import {UsersContainer} from "./Users";
 import {followUserT, setCurrentPageAC, setUsersT, unfollowUserT} from "../../Redux/Reducers/UsersReducer";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid} from "@mui/material";
 
 
-export const UsersContainer = () => {
+export const Users = () => {
     const dispatch = useDispatch()
     const isFetching = useSelector((state: AppStateType) => state.usersPage.isFetching)
     const totalUsersCount = useSelector((state: AppStateType) => state.usersPage.totalUsersCount)
@@ -43,8 +43,8 @@ export const UsersContainer = () => {
 
 
             <Grid container spacing={2} columns={16}>
-                <Users followUserCallBack={followUserCallBack}
-                       unfollowUserCallBack={unfollowUserCallBack}
+                <UsersContainer followUserCallBack={followUserCallBack}
+                                unfollowUserCallBack={unfollowUserCallBack}
                 />
             </Grid>
         </>

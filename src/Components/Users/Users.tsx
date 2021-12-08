@@ -12,7 +12,7 @@ export type UsersPropsType = {
     unfollowUserCallBack: (id: number) => void
 }
 
-const Users = ({followUserCallBack, unfollowUserCallBack}: UsersPropsType) => {
+export const UsersContainer = ({followUserCallBack, unfollowUserCallBack}: UsersPropsType) => {
     const users = useSelector((state: AppStateType) => state.usersPage.users)
     const followInProgress = useSelector((state: AppStateType) => state.usersPage.followInProgress)
 
@@ -80,5 +80,3 @@ const Users = ({followUserCallBack, unfollowUserCallBack}: UsersPropsType) => {
         </>
     )
 }
-
-export default Users
