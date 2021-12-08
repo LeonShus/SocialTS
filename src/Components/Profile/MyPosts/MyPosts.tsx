@@ -4,41 +4,50 @@ import {Button, Grid, TextField} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../Redux/ReduxStore";
 import {addNewPostAC} from "../../../Redux/Reducers/ProfileReducer";
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 
 export const MyPosts = () => {
     const dispatch = useDispatch()
     const postsData = useSelector((state: AppStateType) => state.profilePage.postsData)
 
-    const [newPostText, SetNewPostText] = useState<string>("")
-
-    const changePostArea = (e: string) => {
-        SetNewPostText(e)
-    }
-
-    const addPost = () => {
-        if (newPostText.trim()) {   //Перед добавлением проверяем на пустую строку
-            dispatch(addNewPostAC(newPostText.trim()))
-            SetNewPostText("")
+    const addPost = (post: string) => {
+        if (post.trim()) {   //Перед добавлением проверяем на пустую строку
+            dispatch(addNewPostAC(post.trim()))
         }
     }
 
+    const formik = useFormik({
+        initialValues: {
+            newPost: "",
+        },
+        validationSchema: Yup.object({
+            newPost: Yup.string()
+                .max(5, "Max chars 5")
+        }),
+        onSubmit: values => {
+            addPost(values.newPost)
+        }
+    })
 
-    const changeArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        changePostArea(e.currentTarget.value)
-    }
     let posts = postsData.map((el) => <Post key={el.id} message={el.message} likeCount={el.likeCount}/>)
 
     return (
         <Grid container>
             <Grid item>
-                <TextField multiline
-                           rows={4}
-                           onChange={changeArea}
-                           value={newPostText}
-                />
-
-                <Button onClick={addPost} size={"small"} variant="contained">Send</Button>
+                <form onSubmit={formik.handleSubmit}>
+                    <TextField
+                        name={"newPost"}
+                        error={!!formik.errors.newPost}
+                        helperText={!!formik.errors.newPost && formik.errors.newPost}
+                        multiline
+                        rows={4}
+                        onChange={formik.handleChange}
+                        value={formik.values.newPost}
+                    />
+                    <Button type={"submit"} variant="contained">Send</Button>
+                </form>
             </Grid>
 
             <Grid container>

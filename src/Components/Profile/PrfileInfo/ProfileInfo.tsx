@@ -19,8 +19,6 @@ const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
     const [status, setStatus] = useState(userStatus)
     const [editStatus, setEditStatus] = useState(false)
 
-    console.log(user)
-    console.log(userStatus)
 
     const getUserPhoto = () => {
         return user.photos && user.photos.small ? user.photos.small : userDef
