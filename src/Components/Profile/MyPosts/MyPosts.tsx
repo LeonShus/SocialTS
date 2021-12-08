@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React from "react";
 import {Post} from "./Post/Post";
 import {Button, Grid, TextField} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";

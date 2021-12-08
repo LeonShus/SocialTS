@@ -7,6 +7,8 @@ import {Grid, Paper, TextField} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {WithAuthHOC} from "../../HOC/WithAuth";
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 export const Dialogs = WithAuthHOC(() => {
 
@@ -17,14 +19,24 @@ export const Dialogs = WithAuthHOC(() => {
     const usersArr = users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>)
     const messageArr = messages.map((el) => <Message key={el.id} message={el.message}/>)
 
-    const [newMessage, SetNewMessage] = useState("")
 
-    const messageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        SetNewMessage(e.currentTarget.value)
-    }
-    const send = () => {
+    const send = (newMessage: string) => {
         dispatch(sendNewMessageAC(newMessage))
     }
+    const formik = useFormik({
+        initialValues: {
+            message: "",
+        },
+        validationSchema: Yup.object({
+            message: Yup.string()
+                .max(10, "Max chars 10")
+
+        }),
+        onSubmit: values => {
+            send(values.message)
+        }
+    })
+
 
     return (
 
@@ -57,17 +69,24 @@ export const Dialogs = WithAuthHOC(() => {
                     </Grid>
                     {/*Send item*/}
                     <Grid item>
-                        <TextField
-                            multiline
-                            onChange={messageChange}
-                            rows={4}
-                            value={newMessage}
-                        />
+                        <form onSubmit={formik.handleSubmit}>
+                            <TextField
+                                multiline
+                                name={'message'}
+                                error={!!formik.errors.message}
+                                helperText={!!formik.errors.message && formik.errors.message}
+                                onChange={formik.handleChange}
+                                rows={4}
+                                value={formik.values.message}
 
-                        <Button onClick={send}
-                                size={"small"}
-                                variant="contained"
-                        >Send</Button>
+                            />
+                            <Button type={'submit'}
+                                    size={"small"}
+                                    variant="contained"
+                            >
+                                Send
+                            </Button>
+                        </form>
                     </Grid>
 
                 </Grid>
