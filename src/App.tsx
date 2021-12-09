@@ -1,7 +1,7 @@
 import React from "react";
 import {BrowserRouter, Route} from "react-router-dom";
 import {Users} from "./Components/Users/UsersContainer";
-import {Profile} from "./Components/Profile/Profile";
+import Profile from "./Components/Profile/Profile";
 import {Container} from "@mui/material";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Login} from "./Components/Login/Login";

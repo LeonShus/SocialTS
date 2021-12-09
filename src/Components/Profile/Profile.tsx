@@ -8,9 +8,10 @@ import {Grid, Paper} from "@mui/material";
 import {withRouter} from "react-router-dom";
 import MyPosts from "./MyPosts/MyPosts";
 import {WithAuthHOC} from "../../HOC/WithAuth";
+import {compose} from "redux";
 
 
-export const Profile = memo(WithAuthHOC(withRouter((props: any) => {
+const Profile = memo((props: any) => {
 
     let user = useSelector((state: AppStateType) => state.profilePage.user)
     let dispatch = useDispatch()
@@ -42,4 +43,6 @@ export const Profile = memo(WithAuthHOC(withRouter((props: any) => {
             </Grid>
         </Paper>
     )
-})))
+})
+
+export default compose(WithAuthHOC,withRouter)(Profile)
