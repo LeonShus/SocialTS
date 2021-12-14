@@ -12,7 +12,7 @@ import {compose} from "redux";
 
 
 const Profile = memo((props: any) => {
-
+    let myId = useSelector((state: AppStateType) => state.authUser.id)
     let user = useSelector((state: AppStateType) => state.profilePage.user)
     let dispatch = useDispatch()
 
@@ -20,7 +20,7 @@ const Profile = memo((props: any) => {
     let userId = props.match.params.userId
 
     if (!userId) {
-        userId = 19076
+        userId = myId
     }
 
     useEffect(() => {

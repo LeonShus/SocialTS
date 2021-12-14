@@ -1,6 +1,7 @@
 import {authAPI, ResultCodeEnum} from "../../DAL/API";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
+import * as console from "console";
 
 export type AuthStateType = {
     id: null | number
@@ -16,7 +17,7 @@ const initState: AuthStateType = {
     isAuth: false
 }
 
-type AuthReducerActionType = SetAuthACType
+type AuthReducerActionType = SetAuthACType | LogOutUserAT
 
 export const authReducer = (state: AuthStateType = initState, action: AuthReducerActionType) : AuthStateType => {
     switch (action.type) {
@@ -24,6 +25,13 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
             return {
                 ...state,
                 ...action.data
+            }
+        case "LOG-OUT-USER":
+            return {
+                email: null,
+                id: null,
+                login: null,
+                isAuth: false
             }
         default:
             return state
@@ -34,6 +42,8 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
 export type SetAuthACType = ReturnType<typeof setAuthAC>
 export const setAuthAC = (data: AuthStateType) => ({type: "SET-AUTH", data} as const)
 
+type LogOutUserAT = ReturnType<typeof logOutUserAC>
+export const logOutUserAC = () => ({ type: "LOG-OUT-USER" } as const)
 
 
 ///THUNK
@@ -48,4 +58,18 @@ export const getAuthUserT = (): AuthReducerThunkType => (dispatch) => {
                 dispatch(setAuthAC({email, id, login, isAuth: true}))
             }
         })
+}
+
+export const loginT = (email: string, password: string, rememberMe: boolean = false): AuthReducerThunkType => (dispatch) => {
+    authAPI.login(email, password, false)
+        .then(response => {
+            if(response.resultCode === ResultCodeEnum.Success){
+                dispatch(getAuthUserT())
+            }
+        })
+}
+
+export const logOutT = (): AuthReducerThunkType => (dispatch) => {
+    authAPI.logOut()
+        .then(response => { dispatch(logOutUserAC()) })
 }

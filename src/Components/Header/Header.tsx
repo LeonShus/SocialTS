@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 import SideNav from "../SideNav/SideNav";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
-import {getAuthUserT} from "../../Redux/Reducers/AuthReducer";
+import {getAuthUserT, logOutT} from "../../Redux/Reducers/AuthReducer";
 
 
 export const Header = () => {
@@ -75,18 +75,27 @@ export const Header = () => {
                     {!userLogin
                         ?
                         <NavLink to={"/login"}>
-                            <Button variant={"contained"} sx={{border: "1px solid white", color: "white"}}>
+                            <Button variant={"contained"}
+                                    sx={{border: "1px solid white", color: "white"}}>
                                 Login
                             </Button>
                         </NavLink>
                         :
-                        <Typography
-                            variant={"h6"}
-                            component={"span"}
+                        <>
+                            <Typography
+                                variant={"h6"}
+                                component={"span"}
 
-                        >
-                            {userLogin}
-                        </Typography>
+                            >
+                                {userLogin}
+                            </Typography>
+                            <Button variant={"contained"}
+                                    size={"small"}
+                                    onClick={() => dispatch(logOutT())}
+                                    sx={{border: "1px solid white", color: "white"}}
+                            >Out</Button>
+                        </>
+
                     }
 
                 </Toolbar>

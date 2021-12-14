@@ -77,9 +77,17 @@ type GetAuthMeType = {
     resultCode: ResultCodeEnum
     messages: Array<string>
 }
+
 export const authAPI = {
     getAuthMe(){
         return instance.get<GetAuthMeType>(`auth/me`)
             .then(response => response.data)
+    },
+    login(email: string, password: string, rememberMe: boolean = false){
+        return instance.post("auth/login", { email, password, rememberMe })
+            .then(response => response.data)
+    },
+    logOut(){
+        return instance.delete("auth/login")
     }
 }
