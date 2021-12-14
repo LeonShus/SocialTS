@@ -17,7 +17,7 @@ const initState: AuthStateType = {
     isAuth: false
 }
 
-type AuthReducerActionType = SetAuthACType | LogOutUserAT
+type AuthReducerActionType = SetAuthACType
 
 export const authReducer = (state: AuthStateType = initState, action: AuthReducerActionType) : AuthStateType => {
     switch (action.type) {
@@ -25,13 +25,6 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
             return {
                 ...state,
                 ...action.data
-            }
-        case "LOG-OUT-USER":
-            return {
-                email: null,
-                id: null,
-                login: null,
-                isAuth: false
             }
         default:
             return state
@@ -42,8 +35,6 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
 export type SetAuthACType = ReturnType<typeof setAuthAC>
 export const setAuthAC = (data: AuthStateType) => ({type: "SET-AUTH", data} as const)
 
-type LogOutUserAT = ReturnType<typeof logOutUserAC>
-export const logOutUserAC = () => ({ type: "LOG-OUT-USER" } as const)
 
 
 ///THUNK
@@ -71,5 +62,7 @@ export const loginT = (email: string, password: string, rememberMe: boolean = fa
 
 export const logOutT = (): AuthReducerThunkType => (dispatch) => {
     authAPI.logOut()
-        .then(response => { dispatch(logOutUserAC()) })
+        .then(response => {
+            dispatch(setAuthAC({email:null, id:null, login:null, isAuth: false}))
+        })
 }
