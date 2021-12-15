@@ -51,7 +51,8 @@ export const getAuthUserT = (): AuthReducerThunkType => (dispatch) => {
         })
 }
 
-export const loginT = (email: string, password: string, rememberMe: boolean = false): AuthReducerThunkType => (dispatch) => {
+export const loginT = (email: string, password: string, rememberMe: boolean = false): AuthReducerThunkType =>
+    (dispatch) => {
     authAPI.login(email, password, false)
         .then(response => {
             if(response.resultCode === ResultCodeEnum.Success){
