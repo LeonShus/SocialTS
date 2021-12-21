@@ -35,7 +35,8 @@ let initState = {
     status: "",
     postsData: [
         {id: v1(), message: "Hello, Boy", likeCount: 10},
-        {id: v1(), message: "Boy", likeCount: 33}
+        {id: v1(), message: "Boy", likeCount: 33},
+        {id: v1(), message: "Sup", likeCount: 21},
     ] as Array<PostDataType>,
 }
 
