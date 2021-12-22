@@ -14,10 +14,6 @@ export const Header = () => {
     const dispatch = useDispatch()
     const userLogin = useSelector<AppStateType,string | null>(state => state.authUser.login)
 
-    useEffect(() => {
-        dispatch(getAuthUserT())
-    }, [])
-
     const [isSideNavOpen, setSideNavOpen] = useState<boolean>(false)
 
     const openSideNav = () => {

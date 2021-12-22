@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {BrowserRouter, Route} from "react-router-dom";
 import {Users} from "./Components/Users/UsersContainer";
 import Profile from "./Components/Profile/Profile";
@@ -6,13 +6,20 @@ import {Container} from "@mui/material";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Login} from "./Components/Login/Login";
 import {Header} from "./Components/Header/Header";
+import {getAuthUserT} from "./Redux/Reducers/AuthReducer";
+import {useDispatch} from "react-redux";
 
 
 export const App = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAuthUserT())
+    }, [])
+
     return (
         <BrowserRouter>
             <Header/>
-
             <Container sx={{mt: "5.5rem"}}>
                 <main>
                     <Route path="/profile/:userId?" render={() => <Profile/>}/>

@@ -1,7 +1,6 @@
 import {authAPI, ResultCodeEnum} from "../../DAL/API";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
-import * as console from "console";
 
 export type AuthStateType = {
     id: null | number
@@ -16,22 +15,29 @@ const initState: AuthStateType = {
     id: null,
     login: null,
     isAuth: false,
-    loginServerError: ''
+    loginServerError: ""
 }
 
-type AuthReducerActionType = SetAuthACType | SetLoginServerErrorAT
+type AuthReducerActionType = SetAuthACType | SetLoginServerErrorAT | SetIsAuthAT
 
-export const authReducer = (state: AuthStateType = initState, action: AuthReducerActionType) : AuthStateType => {
+export const authReducer = (state: AuthStateType = initState, action: AuthReducerActionType): AuthStateType => {
     switch (action.type) {
         case "SET-AUTH":
             return {
                 ...state,
-                ...action.data
+                email: action.email,
+                login: action.login,
+                id: action.id
             }
         case "SET-LOGIN-SERVER-ERROR":
             return {
                 ...state,
                 loginServerError: action.error
+            }
+        case "SET-IS-AUTH":
+            return {
+                ...state,
+                isAuth: action.isAuth
             }
         default:
             return state
@@ -40,11 +46,18 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
 
 
 export type SetAuthACType = ReturnType<typeof setAuthAC>
-export const setAuthAC = (data: AuthStateType) => ({type: "SET-AUTH", data} as const)
+export const setAuthAC = (email: string | null, id: number | null, login: string | null) => ({
+    type: "SET-AUTH",
+    email,
+    id,
+    login
+} as const)
+
+export type SetIsAuthAT = ReturnType<typeof setIsAuthAC>
+export const setIsAuthAC = (isAuth: boolean) => ({ type: "SET-IS-AUTH", isAuth } as const)
 
 export type SetLoginServerErrorAT = ReturnType<typeof setLoginServerErrorAC>
-export const setLoginServerErrorAC = (error: string) => ({ type: "SET-LOGIN-SERVER-ERROR", error} as const)
-
+export const setLoginServerErrorAC = (error: string) => ({type: "SET-LOGIN-SERVER-ERROR", error} as const)
 
 
 ///THUNK
@@ -56,26 +69,29 @@ export const getAuthUserT = (): AuthReducerThunkType => (dispatch) => {
         .then(response => {
             if (response.resultCode === ResultCodeEnum.Success) {
                 const {email, id, login} = response.data
-                dispatch(setAuthAC({email, id, login, isAuth: true}))
+                dispatch(setAuthAC(email, id, login))
+                dispatch(setIsAuthAC(true))
             }
         })
 }
 
 export const loginT = (email: string, password: string, rememberMe: boolean = false): AuthReducerThunkType =>
     (dispatch) => {
-    authAPI.login(email, password, false)
-        .then(response => {
-            if(response.resultCode === ResultCodeEnum.Success){
-                dispatch(getAuthUserT())
-            } else {
-                dispatch(setLoginServerErrorAC(response.messages))
-            }
-        })
-}
+        authAPI.login(email, password, false)
+            .then(response => {
+                if (response.resultCode === ResultCodeEnum.Success) {
+                    dispatch(getAuthUserT())
+                    dispatch(setLoginServerErrorAC(""))
+                } else {
+                    dispatch(setLoginServerErrorAC(response.messages))
+                }
+            })
+    }
 
 export const logOutT = (): AuthReducerThunkType => (dispatch) => {
     authAPI.logOut()
         .then(response => {
-            dispatch(setAuthAC({email:null, id:null, login:null, isAuth: false}))
+            dispatch(setAuthAC(null, null, null))
+            dispatch(setIsAuthAC(false))
         })
 }
