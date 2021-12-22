@@ -10,10 +10,10 @@ import {Grid} from "@mui/material";
 
 export const Users = () => {
     const dispatch = useDispatch()
-    const isFetching = useSelector((state: AppStateType) => state.usersPage.isFetching)
-    const totalUsersCount = useSelector((state: AppStateType) => state.usersPage.totalUsersCount)
-    const pageSize = useSelector((state: AppStateType) => state.usersPage.pageSize)
-    const currentPage = useSelector((state: AppStateType) => state.usersPage.currentPage)
+    const isFetching = useSelector<AppStateType,boolean>(state => state.usersPage.isFetching)
+    const totalUsersCount = useSelector<AppStateType,number>(state => state.usersPage.totalUsersCount)
+    const pageSize = useSelector<AppStateType,number>(state => state.usersPage.pageSize)
+    const currentPage = useSelector<AppStateType,number>(state => state.usersPage.currentPage)
     const setCurrentPage = (page: number) => {
         dispatch(setCurrentPageAC(page))
     }

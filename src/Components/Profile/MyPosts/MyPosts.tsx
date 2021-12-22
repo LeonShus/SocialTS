@@ -3,14 +3,14 @@ import {Post} from "./Post/Post";
 import {Button, Grid, TextField} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../Redux/ReduxStore";
-import {addNewPostAC} from "../../../Redux/Reducers/ProfileReducer";
+import {addNewPostAC, PostDataType} from "../../../Redux/Reducers/ProfileReducer";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 
 
 export const MyPosts = () => {
     const dispatch = useDispatch()
-    const postsData = useSelector((state: AppStateType) => state.profilePage.postsData)
+    const postsData = useSelector<AppStateType, PostDataType[]>(state => state.profilePage.postsData)
 
     const addPost = (post: string) => {
         if (post.trim()) {   //Перед добавлением проверяем на пустую строку

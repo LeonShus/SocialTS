@@ -12,7 +12,7 @@ import {getAuthUserT, logOutT} from "../../Redux/Reducers/AuthReducer";
 
 export const Header = () => {
     const dispatch = useDispatch()
-    const userLogin = useSelector((state: AppStateType) => state.authUser.login)
+    const userLogin = useSelector<AppStateType,string | null>(state => state.authUser.login)
 
     useEffect(() => {
         dispatch(getAuthUserT())

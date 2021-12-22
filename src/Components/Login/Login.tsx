@@ -9,7 +9,7 @@ import {Redirect} from "react-router-dom";
 
 export const Login = () => {
     const dispatch = useDispatch()
-    const isAuth = useSelector((state: AppStateType) => state.authUser.isAuth)
+    const isAuth = useSelector<AppStateType,boolean>(state => state.authUser.isAuth)
 
     const formik = useFormik({
         initialValues: {

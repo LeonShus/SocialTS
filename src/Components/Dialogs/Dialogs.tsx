@@ -1,7 +1,7 @@
-import React, {ChangeEvent, useState} from "react";
+import React from "react";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {sendNewMessageAC} from "../../Redux/Reducers/DialogsReducer";
+import {MessageType, sendNewMessageAC, UsersType} from "../../Redux/Reducers/DialogsReducer";
 import Button from "@mui/material/Button";
 import {Grid, Paper, TextField} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,8 +12,8 @@ import * as Yup from "yup";
 
 export const Dialogs = WithAuthHOC(() => {
 
-    const users = useSelector((state: AppStateType) => state.dialogsPage.users)
-    const messages = useSelector((state: AppStateType) => state.dialogsPage.messages)
+    const users = useSelector<AppStateType, UsersType[]>(state => state.dialogsPage.users)
+    const messages = useSelector<AppStateType, MessageType[]>(state => state.dialogsPage.messages)
     const dispatch = useDispatch()
 
     const usersArr = users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>)
@@ -72,7 +72,7 @@ export const Dialogs = WithAuthHOC(() => {
                         <form onSubmit={formik.handleSubmit}>
                             <TextField
                                 multiline
-                                name={'message'}
+                                name={"message"}
                                 error={!!formik.errors.message}
                                 helperText={!!formik.errors.message && formik.errors.message}
                                 onChange={formik.handleChange}
@@ -80,7 +80,7 @@ export const Dialogs = WithAuthHOC(() => {
                                 value={formik.values.message}
 
                             />
-                            <Button type={'submit'}
+                            <Button type={"submit"}
                                     size={"small"}
                                     variant="contained"
                             >

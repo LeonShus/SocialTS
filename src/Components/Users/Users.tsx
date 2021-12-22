@@ -5,6 +5,8 @@ import {Avatar, ButtonBase, Grid, Paper, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
+import {UsersType} from "../../Redux/Reducers/DialogsReducer";
+import {UserType} from "../../Redux/Reducers/UsersReducer";
 
 
 export type UsersPropsType = {
@@ -13,8 +15,8 @@ export type UsersPropsType = {
 }
 
 export const UsersContainer = ({followUserCallBack, unfollowUserCallBack}: UsersPropsType) => {
-    const users = useSelector((state: AppStateType) => state.usersPage.users)
-    const followInProgress = useSelector((state: AppStateType) => state.usersPage.followInProgress)
+    const users = useSelector<AppStateType,UserType[]>(state => state.usersPage.users)
+    const followInProgress = useSelector<AppStateType,number[]>(state => state.usersPage.followInProgress)
 
 
     const usersJsxArray = users.map(u => {

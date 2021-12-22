@@ -8,13 +8,12 @@ import {AppStateType} from "../../../Redux/ReduxStore";
 
 type ProfileInfoPropsType = {
     user: UserType
+    mainUserId: number | null
 }
 
-const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
+const ProfileInfo = memo(({user, mainUserId}: ProfileInfoPropsType) => {
     const dispatch = useDispatch()
-    const userStatus = useSelector((state: AppStateType) => state.profilePage.status)
-    const mainUser = useSelector((state: AppStateType) => state.authUser.id)
-
+    const userStatus = useSelector<AppStateType,string>(state => state.profilePage.status)
 
     const [status, setStatus] = useState(userStatus)
     const [editStatus, setEditStatus] = useState(false)
@@ -24,7 +23,7 @@ const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
         return user.photos && user.photos.small ? user.photos.small : userDef
     }
     const editModeOn = () => {
-        mainUser === user.userId &&
+        mainUserId === user.userId &&
         setEditStatus(true)
     }
     const editModeOff = (e: any) => {
