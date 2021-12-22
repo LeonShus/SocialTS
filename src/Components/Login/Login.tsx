@@ -7,9 +7,16 @@ import {loginT} from "../../Redux/Reducers/AuthReducer";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {Redirect} from "react-router-dom";
 
+type LoginFormValues = {
+    email: string
+    pass: string
+}
+
 export const Login = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType,boolean>(state => state.authUser.isAuth)
+
+    const loginError = useSelector<AppStateType,string | undefined>(state => state.authUser.loginServerError)
 
     const formik = useFormik({
         initialValues: {
@@ -22,7 +29,7 @@ export const Login = () => {
             pass: Yup.string()
                 .required("Required"),
         }),
-        onSubmit: values => {
+        onSubmit: (values: LoginFormValues) => {
             dispatch(loginT(values.email, values.pass, false))
         }
     })
@@ -63,6 +70,7 @@ export const Login = () => {
                 >
                     login
                 </Button>
+                {loginError && <div>{loginError}</div>}
             </Paper>
         </form>
 

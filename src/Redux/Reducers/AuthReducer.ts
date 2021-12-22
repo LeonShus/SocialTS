@@ -8,16 +8,18 @@ export type AuthStateType = {
     email: null | string
     login: null | string
     isAuth: boolean
+    loginServerError?: string
 }
 
 const initState: AuthStateType = {
     email: null,
     id: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    loginServerError: ''
 }
 
-type AuthReducerActionType = SetAuthACType
+type AuthReducerActionType = SetAuthACType | SetLoginServerErrorAT
 
 export const authReducer = (state: AuthStateType = initState, action: AuthReducerActionType) : AuthStateType => {
     switch (action.type) {
@@ -25,6 +27,11 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
             return {
                 ...state,
                 ...action.data
+            }
+        case "SET-LOGIN-SERVER-ERROR":
+            return {
+                ...state,
+                loginServerError: action.error
             }
         default:
             return state
@@ -34,6 +41,9 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
 
 export type SetAuthACType = ReturnType<typeof setAuthAC>
 export const setAuthAC = (data: AuthStateType) => ({type: "SET-AUTH", data} as const)
+
+export type SetLoginServerErrorAT = ReturnType<typeof setLoginServerErrorAC>
+export const setLoginServerErrorAC = (error: string) => ({ type: "SET-LOGIN-SERVER-ERROR", error} as const)
 
 
 
@@ -57,6 +67,8 @@ export const loginT = (email: string, password: string, rememberMe: boolean = fa
         .then(response => {
             if(response.resultCode === ResultCodeEnum.Success){
                 dispatch(getAuthUserT())
+            } else {
+                dispatch(setLoginServerErrorAC(response.messages))
             }
         })
 }
