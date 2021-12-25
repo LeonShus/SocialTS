@@ -5,8 +5,10 @@ import {usersReducer} from "./Reducers/UsersReducer";
 import {authReducer} from "./Reducers/AuthReducer";
 import thunkMiddle from 'redux-thunk'
 import {composeWithDevTools} from "redux-devtools-extension";
+import {appReducer} from "./Reducers/AppReducer";
 
 let rootReducer = combineReducers({
+    app: appReducer,
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,

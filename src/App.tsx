@@ -7,16 +7,23 @@ import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Login} from "./Components/Login/Login";
 import {Header} from "./Components/Header/Header";
 import {getAuthUserT} from "./Redux/Reducers/AuthReducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "./Redux/ReduxStore";
+import {Preloader} from "./DefaultItems/Preloader/Preloader";
 
 
 export const App = () => {
     const dispatch = useDispatch()
+    const isInitialised = useSelector<AppStateType, boolean>(state => state.app.initialised)
 
     useEffect(() => {
         dispatch(getAuthUserT())
     }, [])
 
+
+    if(!isInitialised){
+        return <Preloader/>
+    }
     return (
         <BrowserRouter>
             <Header/>
