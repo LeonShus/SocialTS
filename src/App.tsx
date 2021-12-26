@@ -10,6 +10,7 @@ import {getAuthUserT} from "./Redux/Reducers/AuthReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./Redux/ReduxStore";
 import {Preloader} from "./DefaultItems/Preloader/Preloader";
+import {initialisedAppT} from "./Redux/Reducers/AppReducer";
 
 
 export const App = () => {
@@ -17,7 +18,7 @@ export const App = () => {
     const isInitialised = useSelector<AppStateType, boolean>(state => state.app.initialised)
 
     useEffect(() => {
-        dispatch(getAuthUserT())
+        dispatch(initialisedAppT())
     }, [])
 
 

@@ -54,7 +54,7 @@ export const setAuthAC = (email: string | null, id: number | null, login: string
 } as const)
 
 export type SetIsAuthAT = ReturnType<typeof setIsAuthAC>
-export const setIsAuthAC = (isAuth: boolean) => ({ type: "SET-IS-AUTH", isAuth } as const)
+export const setIsAuthAC = (isAuth: boolean) => ({type: "SET-IS-AUTH", isAuth} as const)
 
 export type SetLoginServerErrorAT = ReturnType<typeof setLoginServerErrorAC>
 export const setLoginServerErrorAC = (error: string) => ({type: "SET-LOGIN-SERVER-ERROR", error} as const)
@@ -65,7 +65,7 @@ export const setLoginServerErrorAC = (error: string) => ({type: "SET-LOGIN-SERVE
 export type AuthReducerThunkType = ThunkAction<any, AppStateType, unknown, AuthReducerActionType>
 
 export const getAuthUserT = (): AuthReducerThunkType => (dispatch) => {
-    authAPI.getAuthMe()
+    return authAPI.getAuthMe()
         .then(response => {
             if (response.resultCode === ResultCodeEnum.Success) {
                 const {email, id, login} = response.data
