@@ -1,14 +1,10 @@
 import React from "react";
-import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {MessageType, sendNewMessageAC, UsersType} from "../../Redux/Reducers/DialogsReducer";
-import Button from "@mui/material/Button";
-import {Grid, Paper, TextField} from "@mui/material";
+import {sendNewMessageAC, UsersType} from "../../Redux/Reducers/DialogsReducer";
+import {Grid, Paper} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {WithAuthHOC} from "../../HOC/WithAuth";
-import {useFormik} from "formik";
-import * as Yup from "yup";
 import {MessagesWindow} from "./MessagesWindow/MessagesWindow";
 
 export const Dialogs = WithAuthHOC(() => {
@@ -23,20 +19,6 @@ export const Dialogs = WithAuthHOC(() => {
     const send = (newMessage: string) => {
         dispatch(sendNewMessageAC(newMessage))
     }
-    const formik = useFormik({
-        initialValues: {
-            message: "",
-        },
-        validationSchema: Yup.object({
-            message: Yup.string()
-                .max(10, "Max chars 10")
-
-        }),
-        onSubmit: values => {
-            send(values.message)
-        }
-    })
-
 
     return (
 

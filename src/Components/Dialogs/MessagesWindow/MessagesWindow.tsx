@@ -12,7 +12,7 @@ type MessagesWindowPropsType = {
     send: (newMessage: string) => void
 }
 
-export const MessagesWindow = ({ send }:MessagesWindowPropsType) => {
+export const MessagesWindow = ({send}: MessagesWindowPropsType) => {
 
     const messages = useSelector<AppStateType, MessageType[]>(state => state.dialogsPage.messages)
 
