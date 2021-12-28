@@ -9,15 +9,15 @@ import {AppStateType} from "../../Redux/ReduxStore";
 import {WithAuthHOC} from "../../HOC/WithAuth";
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import {MessagesWindow} from "./MessagesWindow/MessagesWindow";
 
 export const Dialogs = WithAuthHOC(() => {
 
     const users = useSelector<AppStateType, UsersType[]>(state => state.dialogsPage.users)
-    const messages = useSelector<AppStateType, MessageType[]>(state => state.dialogsPage.messages)
+
     const dispatch = useDispatch()
 
     const usersArr = users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>)
-    const messageArr = messages.map((el) => <Message key={el.id} message={el.message}/>)
 
 
     const send = (newMessage: string) => {
@@ -58,36 +58,7 @@ export const Dialogs = WithAuthHOC(() => {
                       }}
                 >
                     {/*Messages window*/}
-                    <Grid container
-                          sx={{
-                              padding: "20px",
-                              border: "2px solid gray",
-                              borderRadius: "5px",
-                              mb: "10px"
-                          }}>
-                        {messageArr}
-                    </Grid>
-                    {/*Send item*/}
-                    <Grid item>
-                        <form onSubmit={formik.handleSubmit}>
-                            <TextField
-                                multiline
-                                name={"message"}
-                                error={!!formik.errors.message}
-                                helperText={!!formik.errors.message && formik.errors.message}
-                                onChange={formik.handleChange}
-                                rows={4}
-                                value={formik.values.message}
-
-                            />
-                            <Button type={"submit"}
-                                    size={"small"}
-                                    variant="contained"
-                            >
-                                Send
-                            </Button>
-                        </form>
-                    </Grid>
+                    <MessagesWindow send={send}/>
 
                 </Grid>
             </Paper>
