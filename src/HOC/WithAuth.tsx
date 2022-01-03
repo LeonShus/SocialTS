@@ -3,7 +3,8 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "../Redux/ReduxStore";
 import {Redirect} from "react-router-dom";
 
-// Must Typing Component
+
+//Must Typing Component
 export function WithAuthHOC(Component: any) {
 
     const ComponentWithAuth = () => {

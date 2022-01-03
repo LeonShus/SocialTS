@@ -10,24 +10,26 @@ import MyPosts from "./MyPosts/MyPosts";
 import {WithAuthHOC} from "../../HOC/WithAuth";
 import {compose} from "redux";
 
+type WithRouterPath = {
+    userId: string
+}
 
-
-const Profile = memo((props: RouteComponentProps<any>) => {
-    let mainUserId = useSelector<AppStateType,number | null>(state => state.authUser.id)
-    let user = useSelector<AppStateType,UserType>((state: AppStateType) => state.profilePage.user)
+const Profile = memo((props: RouteComponentProps<WithRouterPath>) => {
+    let mainUserId = useSelector<AppStateType, number | null>(state => state.authUser.id)
+    let user = useSelector<AppStateType, UserType>((state: AppStateType) => state.profilePage.user)
     let dispatch = useDispatch()
 
-
-    let userId = props.match.params.userId
-
-    if (!userId) {
-        userId = mainUserId
-    }
+    let userId = Number(props.match.params.userId)
 
     useEffect(() => {
-        dispatch(setProfileT(userId))
-        dispatch(setUserStatusT(userId))
-    }, [userId])
+        if (userId) {
+            dispatch(setProfileT(userId))
+            dispatch(setUserStatusT(userId))
+        } else if (mainUserId){
+            dispatch(setProfileT(mainUserId))
+            dispatch(setUserStatusT(mainUserId))
+        }
+    }, [userId, mainUserId])
 
 
     if (!user) {
@@ -46,4 +48,4 @@ const Profile = memo((props: RouteComponentProps<any>) => {
     )
 })
 
-export default compose(WithAuthHOC,withRouter)(Profile)
+export default compose(WithAuthHOC, withRouter)(Profile)
