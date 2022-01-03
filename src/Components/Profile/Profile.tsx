@@ -5,13 +5,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {setProfileT, setUserStatusT, UserType} from "../../Redux/Reducers/ProfileReducer";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid, Paper} from "@mui/material";
-import {withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import MyPosts from "./MyPosts/MyPosts";
 import {WithAuthHOC} from "../../HOC/WithAuth";
 import {compose} from "redux";
 
 
-const Profile = memo((props: any) => {
+
+const Profile = memo((props: RouteComponentProps<any>) => {
     let mainUserId = useSelector<AppStateType,number | null>(state => state.authUser.id)
     let user = useSelector<AppStateType,UserType>((state: AppStateType) => state.profilePage.user)
     let dispatch = useDispatch()
