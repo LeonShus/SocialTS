@@ -1,20 +1,17 @@
-import React from "react"
+import React, {ComponentType} from "react"
 import {useSelector} from "react-redux";
 import {AppStateType} from "../Redux/ReduxStore";
 import {Redirect} from "react-router-dom";
 
+export function WithAuthHOC <T>(Component: ComponentType<T>) {
 
-//Must Typing Component
-export function WithAuthHOC(Component: any) {
-
-    const ComponentWithAuth = () => {
-
+    const ComponentWithAuth = (props: any) => {
         let isAuth = useSelector((state: AppStateType) => state.authUser.isAuth)
 
         if (!isAuth) {
             return <Redirect to={"/login"}/>
         }
-        return <Component/>
+        return <Component {...props}/>
     }
     return ComponentWithAuth
 }

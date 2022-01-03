@@ -25,7 +25,7 @@ const Profile = memo((props: RouteComponentProps<WithRouterPath>) => {
         if (userId) {
             dispatch(setProfileT(userId))
             dispatch(setUserStatusT(userId))
-        } else if (mainUserId){
+        } else if (mainUserId) {
             dispatch(setProfileT(mainUserId))
             dispatch(setUserStatusT(mainUserId))
         }
@@ -48,4 +48,4 @@ const Profile = memo((props: RouteComponentProps<WithRouterPath>) => {
     )
 })
 
-export default compose(WithAuthHOC, withRouter)(Profile)
+export default compose<React.ComponentType>(WithAuthHOC, withRouter)(Profile)
