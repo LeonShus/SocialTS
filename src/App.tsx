@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {Users} from "./Components/Users/UsersContainer";
 import {Profile} from "./Components/Profile/Profile";
 import {Container} from "@mui/material";
@@ -16,6 +16,7 @@ export const App = () => {
     const dispatch = useDispatch()
     const isInitialised = useSelector<AppStateType, boolean>(state => state.app.initialised)
 
+
     useEffect(() => {
         dispatch(initialisedAppT())
     }, [])
@@ -24,20 +25,20 @@ export const App = () => {
     if (!isInitialised) {
         return <Preloader/>
     }
+
     return (
         <BrowserRouter>
             <Header/>
             <Container sx={{mt: "5.5rem"}}>
                 <main>
                     <Routes>
+                        <Route path="/" element={<Navigate to={"/login"}/>}/>
                         <Route path="/profile/:userId" element={<Profile/>}/>
                         <Route path="/dialogs" element={<Dialogs/>}/>
                         <Route path="/users" element={<Users/>}/>
                         <Route path="/login" element={<Login/>}/>
                     </Routes>
-
                 </main>
-
             </Container>
 
         </BrowserRouter>

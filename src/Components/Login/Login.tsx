@@ -15,6 +15,7 @@ type LoginFormValues = {
 export const Login = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.authUser.isAuth)
+    let mainUserId = useSelector<AppStateType, number | null>(state => state.authUser.id)
 
     const loginError = useSelector<AppStateType, string | undefined>(state => state.authUser.loginServerError)
 
@@ -35,7 +36,7 @@ export const Login = () => {
     })
     //Перенаправляем,если пользователь залогинен
     if (isAuth) {
-        return <Navigate to={"/profile"}/>
+        return <Navigate to={`/profile/${mainUserId}`}/>
     }
     return (
 

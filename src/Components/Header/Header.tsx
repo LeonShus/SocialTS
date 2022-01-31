@@ -14,6 +14,8 @@ export const Header = () => {
     const dispatch = useDispatch()
     const userLogin = useSelector<AppStateType,string | null>(state => state.authUser.login)
 
+    let mainUserId = useSelector<AppStateType, number | null>(state => state.authUser.id)
+
     const [isSideNavOpen, setSideNavOpen] = useState<boolean>(false)
 
     const openSideNav = () => {
@@ -48,7 +50,7 @@ export const Header = () => {
 
                     <Grid container sx={{ml: "30px"}}>
                         <IconButton>
-                            <NavLink to="/profile" >
+                            <NavLink to={`/profile/${mainUserId}`} >
                                 <Home fontSize={"large"}/>
                             </NavLink>
                         </IconButton>
