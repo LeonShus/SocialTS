@@ -1,5 +1,3 @@
-import {getAuthUserT} from "./AuthReducer";
-
 export type AppInitState = {
     initialised: boolean
 }
@@ -13,7 +11,7 @@ export const appReducer = (state: AppInitState = initState, action: IsInitialise
         case "IS-INITIALISED":
             return {
                 ...state,
-                initialised: true
+                initialised: action.isInitialised
             }
         default:
             return state
@@ -22,12 +20,4 @@ export const appReducer = (state: AppInitState = initState, action: IsInitialise
 }
 
 export type IsInitialisedAT = ReturnType<typeof isInitialisedAC>
-export const isInitialisedAC = () => ({type: "IS-INITIALISED"})
-
-
-//THUNK
-
-export const initialisedAppT = () => (dispatch: any) => {
-    dispatch(getAuthUserT())
-        .then(dispatch(isInitialisedAC()))
-}
+export const isInitialisedAC = (isInitialised: boolean) => ({type: "IS-INITIALISED", isInitialised} as const)

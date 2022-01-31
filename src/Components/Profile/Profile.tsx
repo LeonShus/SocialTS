@@ -22,9 +22,9 @@ export const Profile = memo(() => {
             dispatch(setProfileT(userToRender))
             dispatch(setUserStatusT(userToRender))
         }
-    }, [userToRender])
+    }, [userToRender, mainUserId])
 
-    if (!user) {
+    if (!user.userId) {
         return <Preloader/>
     }
 

@@ -1,6 +1,7 @@
 import {authAPI, ResultCodeEnum} from "../../DAL/API";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
+import {isInitialisedAC} from "./AppReducer";
 
 export type AuthStateType = {
     id: null | number
@@ -64,14 +65,16 @@ export const setLoginServerErrorAC = (error: string) => ({type: "SET-LOGIN-SERVE
 
 export type AuthReducerThunkType = ThunkAction<any, AppStateType, unknown, AuthReducerActionType>
 
-export const getAuthUserT = (): AuthReducerThunkType => (dispatch) => {
+export const getAuthUserT = (): AuthReducerThunkType => (dispatch: any) => {
     return authAPI.getAuthMe()
         .then(response => {
+            console.log(response)
             if (response.resultCode === ResultCodeEnum.Success) {
                 const {email, id, login} = response.data
                 dispatch(setAuthAC(email, id, login))
                 dispatch(setIsAuthAC(true))
             }
+            dispatch(isInitialisedAC(true))
         })
 }
 

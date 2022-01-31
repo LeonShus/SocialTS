@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import classes from "./Header.module.css"
 import {AppBar, Button, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu"
@@ -7,12 +7,12 @@ import {NavLink} from "react-router-dom";
 import SideNav from "../SideNav/SideNav";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
-import {getAuthUserT, logOutT} from "../../Redux/Reducers/AuthReducer";
+import {logOutT} from "../../Redux/Reducers/AuthReducer";
 
 
 export const Header = () => {
     const dispatch = useDispatch()
-    const userLogin = useSelector<AppStateType,string | null>(state => state.authUser.login)
+    const userLogin = useSelector<AppStateType, string | null>(state => state.authUser.login)
 
     let mainUserId = useSelector<AppStateType, number | null>(state => state.authUser.id)
 
@@ -24,6 +24,10 @@ export const Header = () => {
 
     const closeSideNav = () => {
         setSideNavOpen(false)
+    }
+
+    const btnLogOut = () => {
+        dispatch(logOutT())
     }
 
     return (
@@ -50,13 +54,20 @@ export const Header = () => {
 
                     <Grid container sx={{ml: "30px"}}>
                         <IconButton>
-                            <NavLink to={`/profile/${mainUserId}`} >
-                                <Home fontSize={"large"}/>
-                            </NavLink>
+                            {mainUserId
+                                ?
+                                <NavLink to={`/profile/${mainUserId}`}>
+                                    <Home fontSize={"large"}/>
+                                </NavLink>
+                                :
+                                <NavLink to={`/login`}>
+                                    <Home fontSize={"large"}/>
+                                </NavLink>
+                            }
                         </IconButton>
 
                         <IconButton>
-                            <NavLink to="/users" >
+                            <NavLink to="/users">
                                 <PeopleAlt fontSize={"large"}/>
                             </NavLink>
 
@@ -89,7 +100,7 @@ export const Header = () => {
                             </Typography>
                             <Button variant={"contained"}
                                     size={"small"}
-                                    onClick={() => dispatch(logOutT())}
+                                    onClick={btnLogOut}
                                     sx={{border: "1px solid white", color: "white"}}
                             >Out</Button>
                         </>

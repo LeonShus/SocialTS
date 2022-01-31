@@ -9,7 +9,7 @@ import {Header} from "./Components/Header/Header";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./Redux/ReduxStore";
 import {Preloader} from "./DefaultItems/Preloader/Preloader";
-import {initialisedAppT} from "./Redux/Reducers/AppReducer";
+import {getAuthUserT} from "./Redux/Reducers/AuthReducer";
 
 
 export const App = () => {
@@ -18,8 +18,8 @@ export const App = () => {
 
 
     useEffect(() => {
-        dispatch(initialisedAppT())
-    }, [])
+        dispatch(getAuthUserT())
+    }, [isInitialised])
 
 
     if (!isInitialised) {
