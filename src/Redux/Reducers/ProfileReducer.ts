@@ -3,6 +3,7 @@ import {UserPhotosType} from "./UsersReducer";
 import {profileAPI} from "../../DAL/API";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
+import {isFetchingAC} from "./AppReducer";
 
 export type PostDataType = {
     id: string | number
@@ -87,10 +88,12 @@ export const setUserStatusAC = (status: string) => ({type: "SET-USER-STATUS", st
 
 export type ProfileReducerThunkType = ThunkAction<any, AppStateType, unknown, ProfileReducerActionType>
 
-export const setProfileT = (userId: number): ProfileReducerThunkType => (dispatch) => {
+export const setProfileT = (userId: number): ProfileReducerThunkType => (dispatch: any) => {
+    dispatch(isFetchingAC(true))
     profileAPI.getUserProfile(userId)
         .then(response => {
             dispatch(setUserToProfilePageAC(response))
+            dispatch(isFetchingAC(false))
         })
 }
 

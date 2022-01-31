@@ -15,11 +15,12 @@ import {getAuthUserT} from "./Redux/Reducers/AuthReducer";
 export const App = () => {
     const dispatch = useDispatch()
     const isInitialised = useSelector<AppStateType, boolean>(state => state.app.initialised)
+    const isAuth = useSelector<AppStateType, boolean>(state => state.authUser.isAuth)
 
 
     useEffect(() => {
         dispatch(getAuthUserT())
-    }, [isInitialised])
+    }, [])
 
 
     if (!isInitialised) {

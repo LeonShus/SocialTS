@@ -66,7 +66,7 @@ export const setLoginServerErrorAC = (error: string) => ({type: "SET-LOGIN-SERVE
 export type AuthReducerThunkType = ThunkAction<any, AppStateType, unknown, AuthReducerActionType>
 
 export const getAuthUserT = (): AuthReducerThunkType => (dispatch: any) => {
-    return authAPI.getAuthMe()
+    authAPI.getAuthMe()
         .then(response => {
             console.log(response)
             if (response.resultCode === ResultCodeEnum.Success) {
@@ -74,6 +74,8 @@ export const getAuthUserT = (): AuthReducerThunkType => (dispatch: any) => {
                 dispatch(setAuthAC(email, id, login))
                 dispatch(setIsAuthAC(true))
             }
+        })
+        .finally(() => {
             dispatch(isInitialisedAC(true))
         })
 }

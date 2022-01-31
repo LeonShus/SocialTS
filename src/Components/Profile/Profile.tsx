@@ -24,7 +24,9 @@ export const Profile = memo(() => {
         }
     }, [userToRender, mainUserId])
 
-    if (!user.userId) {
+
+    let isFetching = useSelector<AppStateType, boolean>(state => state.app.fetching)
+    if (isFetching) {
         return <Preloader/>
     }
 
