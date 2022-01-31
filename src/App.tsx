@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Users} from "./Components/Users/UsersContainer";
-import Profile from "./Components/Profile/Profile";
+import {Profile} from "./Components/Profile/Profile";
 import {Container} from "@mui/material";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Login} from "./Components/Login/Login";
 import {Header} from "./Components/Header/Header";
-import {getAuthUserT} from "./Redux/Reducers/AuthReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./Redux/ReduxStore";
 import {Preloader} from "./DefaultItems/Preloader/Preloader";
@@ -22,7 +21,7 @@ export const App = () => {
     }, [])
 
 
-    if(!isInitialised){
+    if (!isInitialised) {
         return <Preloader/>
     }
     return (
@@ -30,10 +29,13 @@ export const App = () => {
             <Header/>
             <Container sx={{mt: "5.5rem"}}>
                 <main>
-                    <Route path="/profile/:userId?" render={() => <Profile/>}/>
-                    <Route path="/dialogs" render={() => <Dialogs/>}/>
-                    <Route path="/users" render={() => <Users/>}/>
-                    <Route path="/login" render={() => <Login/>}/>
+                    <Routes>
+                        <Route path="/profile/:userId" element={<Profile/>}/>
+                        <Route path="/dialogs" element={<Dialogs/>}/>
+                        <Route path="/users" element={<Users/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                    </Routes>
+
                 </main>
 
             </Container>

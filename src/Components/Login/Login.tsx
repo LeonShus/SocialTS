@@ -5,7 +5,7 @@ import {Button, Paper, TextField} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {loginT} from "../../Redux/Reducers/AuthReducer";
 import {AppStateType} from "../../Redux/ReduxStore";
-import {Redirect} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
 type LoginFormValues = {
     email: string
@@ -14,9 +14,9 @@ type LoginFormValues = {
 
 export const Login = () => {
     const dispatch = useDispatch()
-    const isAuth = useSelector<AppStateType,boolean>(state => state.authUser.isAuth)
+    const isAuth = useSelector<AppStateType, boolean>(state => state.authUser.isAuth)
 
-    const loginError = useSelector<AppStateType,string | undefined>(state => state.authUser.loginServerError)
+    const loginError = useSelector<AppStateType, string | undefined>(state => state.authUser.loginServerError)
 
     const formik = useFormik({
         initialValues: {
@@ -34,8 +34,8 @@ export const Login = () => {
         }
     })
     //Перенаправляем,если пользователь залогинен
-    if(isAuth){
-        return <Redirect to={'/profile'}/>
+    if (isAuth) {
+        return <Navigate to={"/profile"}/>
     }
     return (
 

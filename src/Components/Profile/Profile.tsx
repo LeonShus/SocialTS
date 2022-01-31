@@ -5,21 +5,25 @@ import {useDispatch, useSelector} from "react-redux";
 import {setProfileT, setUserStatusT, UserType} from "../../Redux/Reducers/ProfileReducer";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
 import {Grid, Paper} from "@mui/material";
-import {RouteComponentProps, withRouter} from "react-router-dom";
 import MyPosts from "./MyPosts/MyPosts";
 import {WithAuthHOC} from "../../HOC/WithAuth";
 import {compose} from "redux";
+import {useLocation, useMatch, useNavigate, useParams, useResolvedPath} from "react-router-dom";
 
 type WithRouterPath = {
     userId: string
 }
 
-const Profile = memo((props: RouteComponentProps<WithRouterPath>) => {
+export const Profile = memo(((props: any) => {
     let mainUserId = useSelector<AppStateType, number | null>(state => state.authUser.id)
     let user = useSelector<AppStateType, UserType>((state: AppStateType) => state.profilePage.user)
     let dispatch = useDispatch()
 
-    let userId = Number(props.match.params.userId)
+    let params = useParams()
+
+    console.log(params)
+
+    let userId = params.userId && +params.userId
 
     useEffect(() => {
         if (userId) {
@@ -46,6 +50,4 @@ const Profile = memo((props: RouteComponentProps<WithRouterPath>) => {
             </Grid>
         </Paper>
     )
-})
-
-export default compose<React.ComponentType>(WithAuthHOC, withRouter)(Profile)
+}))

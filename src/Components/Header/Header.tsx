@@ -48,20 +48,20 @@ export const Header = () => {
 
                     <Grid container sx={{ml: "30px"}}>
                         <IconButton>
-                            <NavLink to="/profile" activeClassName={classes.active}>
+                            <NavLink to="/profile" >
                                 <Home fontSize={"large"}/>
                             </NavLink>
                         </IconButton>
 
                         <IconButton>
-                            <NavLink to="/users" activeClassName={classes.active}>
+                            <NavLink to="/users" >
                                 <PeopleAlt fontSize={"large"}/>
                             </NavLink>
 
                         </IconButton>
 
                         <IconButton>
-                            <NavLink to="/dialogs" activeClassName={classes.active}>
+                            <NavLink to="/dialogs">
                                 <Chat fontSize={"large"}/>
                             </NavLink>
                         </IconButton>

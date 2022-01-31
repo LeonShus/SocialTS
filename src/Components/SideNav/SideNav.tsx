@@ -22,19 +22,19 @@ export const SideNav = ({isOpen, close}: SideNavPropsType) => {
                         <ListItemIcon>
                             <Home/>
                         </ListItemIcon>
-                        <NavLink to="/profile" activeClassName={classes.activeLink}>Profile</NavLink>
+                        <NavLink to="/profile">Profile</NavLink>
                     </ListItem>
                     <ListItem>
                         <ListItemIcon>
                             <PeopleAlt/>
                         </ListItemIcon>
-                        <NavLink to="/users" activeClassName={classes.activeLink}>Users</NavLink>
+                        <NavLink to="/users">Users</NavLink>
                     </ListItem>
                     <ListItem>
                         <ListItemIcon>
                             <Chat/>
                         </ListItemIcon>
-                        <NavLink to="/dialogs" activeClassName={classes.activeLink}>Dialogs</NavLink>
+                        <NavLink to="/dialogs">Dialogs</NavLink>
                     </ListItem>
                 </List>
             </div>
