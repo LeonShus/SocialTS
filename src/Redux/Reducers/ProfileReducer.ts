@@ -47,7 +47,7 @@ type ProfileReducerActionType = AddNewPostACT | SetUserToProfilePageACT | SetUse
 
 export const profileReducer = (state: ProfileInitStateType = initState, action: ProfileReducerActionType): ProfileInitStateType => {
     switch (action.type) {
-        case "ADD-NEW-POST":
+        case "PROFILE/ADD-NEW-POST":
             let newPost: PostDataType = {
                 id: v1(),
                 message: action.text,
@@ -57,12 +57,12 @@ export const profileReducer = (state: ProfileInitStateType = initState, action: 
                 ...state,
                 postsData: [...state.postsData, newPost]
             }
-        case "SET-USER-TO-PROFILE-PAGE":
+        case "PROFILE/SET-USER-TO-PROFILE-PAGE":
             return {
                 ...state,
                 user: action.user
             }
-        case "SET-USER-STATUS":
+        case "PROFILE/SET-USER-STATUS":
             return {
                 ...state,
                 status: action.status
@@ -73,16 +73,16 @@ export const profileReducer = (state: ProfileInitStateType = initState, action: 
 }
 
 export type AddNewPostACT = ReturnType<typeof addNewPostAC>
-export const addNewPostAC = (text: string) => ({type: "ADD-NEW-POST", text: text} as const)
+export const addNewPostAC = (text: string) => ({type: "PROFILE/ADD-NEW-POST", text: text} as const)
 
 export type SetUserToProfilePageACT = ReturnType<typeof setUserToProfilePageAC>
 export const setUserToProfilePageAC = (user: UserType) => ({
-    type: "SET-USER-TO-PROFILE-PAGE",
+    type: "PROFILE/SET-USER-TO-PROFILE-PAGE",
     user
 } as const)
 
 export type SetUserStatusACT = ReturnType<typeof setUserStatusAC>
-export const setUserStatusAC = (status: string) => ({type: "SET-USER-STATUS", status} as const)
+export const setUserStatusAC = (status: string) => ({type: "PROFILE/SET-USER-STATUS", status} as const)
 
 //THUNK
 

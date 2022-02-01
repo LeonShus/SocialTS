@@ -3,8 +3,6 @@ import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../ReduxStore";
 
 
-const SET_FOLLOW_PROGRESS_END = "SET-FOLLOW-PROGRESS-END"
-
 export type UserPhotosType = {
     large: null | string
     small: null | string
@@ -42,34 +40,34 @@ export type UsersReducerActionType =
 
 export const usersReducer = (state: UsersReducerInitType = initState, action: UsersReducerActionType): UsersReducerInitType => {
     switch (action.type) {
-        case "FOLLOW":
+        case "USERS/FOLLOW":
             return {
                 ...state,
                 users: state.users.map(el => {
                     return el.id === action.id ? {...el, followed: true} : el
                 })
             }
-        case "UNFOLLOW":
+        case "USERS/UNFOLLOW":
             return {
                 ...state,
                 users: state.users.map(el => {
                     return el.id === action.id ? {...el, followed: false} : el
                 })
             }
-        case "SET-USERS":
+        case "USERS/SET-USERS":
             return {...state, users: action.users}
-        case "SET-TOTAL-USERS-COUNT":
+        case "USERS/SET-TOTAL-USERS-COUNT":
             return {...state, totalUsersCount: action.totalUsersCount}
-        case "SET-CURRENT-PAGE":
+        case "USERS/SET-CURRENT-PAGE":
             return {...state, currentPage: action.currentPage}
-        case "SET-IS-FETCHING":
+        case "USERS/SET-IS-FETCHING":
             return {...state, isFetching: action.isFetching}
-        case "SET-FOLLOW-PROGRESS-START":
+        case "USERS/SET-FOLLOW-PROGRESS-START":
             return {
                 ...state,
                 followInProgress: [...state.followInProgress, action.id]
             }
-        case "SET-FOLLOW-PROGRESS-END":
+        case "USERS/SET-FOLLOW-PROGRESS-END":
             return {
                 ...state,
                 followInProgress: state.followInProgress.filter(el => el !== action.id)
@@ -81,34 +79,34 @@ export const usersReducer = (state: UsersReducerInitType = initState, action: Us
 
 
 export type FollowACT = ReturnType<typeof followAC>
-export const followAC = (id: string | number) => ({type: "FOLLOW", id} as const)
+export const followAC = (id: string | number) => ({type: "USERS/FOLLOW", id} as const)
 
 export type UnFollowACT = ReturnType<typeof unfollowAC>
-export const unfollowAC = (id: string | number) => ({type: "UNFOLLOW", id} as const)
+export const unfollowAC = (id: string | number) => ({type: "USERS/UNFOLLOW", id} as const)
 
 export type SetUsersACT = ReturnType<typeof setUsersAC>
-export const setUsersAC = (users: Array<UserType>) => ({type: "SET-USERS", users} as const)
+export const setUsersAC = (users: Array<UserType>) => ({type: "USERS/SET-USERS", users} as const)
 
 export type SetTotalUsersCountACT = ReturnType<typeof setTotalUsersCountAC>
 export const setTotalUsersCountAC = (totalUsersCount: number) => ({
-    type: "SET-TOTAL-USERS-COUNT",
+    type: "USERS/SET-TOTAL-USERS-COUNT",
     totalUsersCount
 } as const)
 
 export type SetCurrentPageACT = ReturnType<typeof setCurrentPageAC>
-export const setCurrentPageAC = (currentPage: number) => ({type: "SET-CURRENT-PAGE", currentPage} as const)
+export const setCurrentPageAC = (currentPage: number) => ({type: "USERS/SET-CURRENT-PAGE", currentPage} as const)
 
 export type SetIsFetchingACT = ReturnType<typeof setIsFetchingAC>
-export const setIsFetchingAC = (isFetching: boolean) => ({type: "SET-IS-FETCHING", isFetching} as const)
+export const setIsFetchingAC = (isFetching: boolean) => ({type: "USERS/SET-IS-FETCHING", isFetching} as const)
 
 export type SetFollowProgressStartACT = ReturnType<typeof setFollowProgressStartAC>
 export const setFollowProgressStartAC = (id: number) => ({
-    type: "SET-FOLLOW-PROGRESS-START",
+    type: "USERS/SET-FOLLOW-PROGRESS-START",
     id
 } as const)
 
 export type SetFollowProgressEndACT = ReturnType<typeof setFollowProgressEndAC>
-export const setFollowProgressEndAC = (id: number) => ({type: SET_FOLLOW_PROGRESS_END, id} as const)
+export const setFollowProgressEndAC = (id: number) => ({type: "USERS/SET-FOLLOW-PROGRESS-END", id} as const)
 
 
 //THUNK

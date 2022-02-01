@@ -29,7 +29,7 @@ type DialogsReducerActionType = SendNewMessageACT
 
 export const dialogsReducer = (state: DialogsInitStateType = initState, action: DialogsReducerActionType) => {
     switch (action.type) {
-        case "ADD-NEW-MESSAGE":
+        case "DIALOGS/ADD-NEW-MESSAGE":
             const newMes: MessageType = {
                 id: v1(),
                 message: action.text
@@ -45,6 +45,6 @@ export const dialogsReducer = (state: DialogsInitStateType = initState, action: 
 
 type SendNewMessageACT = ReturnType<typeof sendNewMessageAC>
 export const sendNewMessageAC = (text: string) => ({
-    type: "ADD-NEW-MESSAGE",
+    type: "DIALOGS/ADD-NEW-MESSAGE",
     text
 } as const)

@@ -23,19 +23,19 @@ type AuthReducerActionType = SetAuthACType | SetLoginServerErrorAT | SetIsAuthAT
 
 export const authReducer = (state: AuthStateType = initState, action: AuthReducerActionType): AuthStateType => {
     switch (action.type) {
-        case "SET-AUTH":
+        case "AUTH/SET-AUTH":
             return {
                 ...state,
                 email: action.email,
                 login: action.login,
                 id: action.id
             }
-        case "SET-LOGIN-SERVER-ERROR":
+        case "AUTH/SET-LOGIN-SERVER-ERROR":
             return {
                 ...state,
                 loginServerError: action.error
             }
-        case "SET-IS-AUTH":
+        case "AUTH/SET-IS-AUTH":
             return {
                 ...state,
                 isAuth: action.isAuth
@@ -48,17 +48,17 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
 
 export type SetAuthACType = ReturnType<typeof setAuthAC>
 export const setAuthAC = (email: string | null, id: number | null, login: string | null) => ({
-    type: "SET-AUTH",
+    type: "AUTH/SET-AUTH",
     email,
     id,
     login
 } as const)
 
 export type SetIsAuthAT = ReturnType<typeof setIsAuthAC>
-export const setIsAuthAC = (isAuth: boolean) => ({type: "SET-IS-AUTH", isAuth} as const)
+export const setIsAuthAC = (isAuth: boolean) => ({type: "AUTH/SET-IS-AUTH", isAuth} as const)
 
 export type SetLoginServerErrorAT = ReturnType<typeof setLoginServerErrorAC>
-export const setLoginServerErrorAC = (error: string) => ({type: "SET-LOGIN-SERVER-ERROR", error} as const)
+export const setLoginServerErrorAC = (error: string) => ({type: "AUTH/SET-LOGIN-SERVER-ERROR", error} as const)
 
 
 ///THUNK
