@@ -5,7 +5,7 @@ import {UsersContainer} from "./Users";
 import {followUserT, setCurrentPageAC, setUsersT, unfollowUserT} from "../../Redux/Reducers/UsersReducer";
 import {Paginator} from "../../DefaultItems/Paginator/Paginator";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
-import {Grid} from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 
 export const Users = () => {

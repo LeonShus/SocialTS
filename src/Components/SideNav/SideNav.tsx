@@ -1,7 +1,10 @@
 import React from "react";
 import classes from './SideNav.module.css'
 import {NavLink} from "react-router-dom";
-import {Drawer, List, ListItem, ListItemIcon} from "@mui/material";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import {Chat, Home, PeopleAlt} from "@mui/icons-material";
 
 type  SideNavPropsType = {

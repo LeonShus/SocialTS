@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {Pagination} from "@mui/material";
+import Pagination from "@mui/material/Pagination";
 
 
 export type PaginatorPropsType = {

@@ -2,7 +2,9 @@ import React from "react";
 import classes from "./DialogItem.module.css";
 import userDef from "../../../DefaultItems/Img/userDef.png";
 import {NavLink} from "react-router-dom";
-import {Avatar, Grid, Paper} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
 type DialogItemPropsType = {
     name: string

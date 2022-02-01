@@ -1,7 +1,8 @@
 import React from "react";
 import DialogItem from "./DialogItem/DialogItem";
 import {sendNewMessageAC, UsersType} from "../../Redux/Reducers/DialogsReducer";
-import {Grid, Paper} from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {WithAuthHOC} from "../../HOC/WithAuth";

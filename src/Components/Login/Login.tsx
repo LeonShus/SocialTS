@@ -1,7 +1,9 @@
 import {useFormik} from "formik"
 import React from "react"
 import * as Yup from "yup"
-import {Button, Paper, TextField} from "@mui/material";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
 import {useDispatch, useSelector} from "react-redux";
 import {loginT} from "../../Redux/Reducers/AuthReducer";
 import {AppStateType} from "../../Redux/ReduxStore";

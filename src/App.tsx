@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import {Users} from "./Components/Users/UsersContainer";
 import {Profile} from "./Components/Profile/Profile";
-import {Container} from "@mui/material";
+import Container from "@mui/material/Container";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Login} from "./Components/Login/Login";
 import {Header} from "./Components/Header/Header";
@@ -15,6 +15,7 @@ import {getAuthUserT} from "./Redux/Reducers/AuthReducer";
 export const App = () => {
     const dispatch = useDispatch()
     const isInitialised = useSelector<AppStateType, boolean>(state => state.app.initialised)
+
     const isAuth = useSelector<AppStateType, boolean>(state => state.authUser.isAuth)
 
 
@@ -28,7 +29,7 @@ export const App = () => {
     }
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Header/>
             <Container sx={{mt: "5.5rem"}}>
                 <main>
@@ -41,8 +42,6 @@ export const App = () => {
                     </Routes>
                 </main>
             </Container>
-
-        </BrowserRouter>
-
+        </HashRouter>
     );
 }

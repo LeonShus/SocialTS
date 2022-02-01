@@ -1,5 +1,6 @@
 import React from "react"
-import {Grid, TextField} from "@mui/material";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Message from "../Message/Message";
 import {useSelector} from "react-redux";

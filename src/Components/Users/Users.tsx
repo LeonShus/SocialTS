@@ -1,11 +1,14 @@
 import React from "react";
 import userDef from "../../DefaultItems/Img/userDef.png"
 import Button from "@mui/material/Button";
-import {Avatar, ButtonBase, Grid, Paper, Typography} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import ButtonBase from "@mui/material/ButtonBase";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
-import {UsersType} from "../../Redux/Reducers/DialogsReducer";
 import {UserType} from "../../Redux/Reducers/UsersReducer";
 
 
@@ -15,8 +18,8 @@ export type UsersPropsType = {
 }
 
 export const UsersContainer = ({followUserCallBack, unfollowUserCallBack}: UsersPropsType) => {
-    const users = useSelector<AppStateType,UserType[]>(state => state.usersPage.users)
-    const followInProgress = useSelector<AppStateType,number[]>(state => state.usersPage.followInProgress)
+    const users = useSelector<AppStateType, UserType[]>(state => state.usersPage.users)
+    const followInProgress = useSelector<AppStateType, number[]>(state => state.usersPage.followInProgress)
 
 
     const usersJsxArray = users.map(u => {

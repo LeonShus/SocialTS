@@ -1,6 +1,11 @@
 import React, {useState} from "react";
 import classes from "./Header.module.css"
-import {AppBar, Button, Grid, IconButton, Toolbar, Typography} from "@mui/material";
+import AppBar from "@mui/material/AppBar"
+import Button from "@mui/material/Button"
+import Grid from "@mui/material/Grid"
+import IconButton from "@mui/material/IconButton"
+import Toolbar from "@mui/material/Toolbar"
+import Typography from "@mui/material/Typography"
 import MenuIcon from "@mui/icons-material/Menu"
 import {Chat, Home, PeopleAlt} from "@mui/icons-material";
 import {NavLink} from "react-router-dom";

@@ -4,7 +4,8 @@ import {AppStateType} from "../../Redux/ReduxStore";
 import {useDispatch, useSelector} from "react-redux";
 import {setProfileT, setUserStatusT, UserType} from "../../Redux/Reducers/ProfileReducer";
 import {Preloader} from "../../DefaultItems/Preloader/Preloader";
-import {Grid, Paper} from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import MyPosts from "./MyPosts/MyPosts";
 import {useParams} from "react-router-dom";
 
