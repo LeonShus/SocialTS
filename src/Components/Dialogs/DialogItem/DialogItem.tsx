@@ -11,7 +11,9 @@ type DialogItemPropsType = {
     id: string | number
 }
 
-const DialogItem: React.FC<DialogItemPropsType> = (props) => {
+export const DialogItem = (props: DialogItemPropsType) => {
+
+
     return (
         <Paper sx={{minWidth: "200px", mb: "15px"}}
                elevation={3}
@@ -28,5 +30,3 @@ const DialogItem: React.FC<DialogItemPropsType> = (props) => {
 
     )
 }
-
-export default DialogItem

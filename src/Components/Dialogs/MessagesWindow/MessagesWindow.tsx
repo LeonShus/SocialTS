@@ -1,19 +1,23 @@
-import React from "react"
+import React, {memo} from "react"
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Message from "../Message/Message";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../Redux/ReduxStore";
-import {MessageType} from "../../../Redux/Reducers/DialogsReducer";
+import {MessageType, sendNewMessageAC} from "../../../Redux/Reducers/DialogsReducer";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 
-type MessagesWindowPropsType = {
-    send: (newMessage: string) => void
-}
 
-export const MessagesWindow = ({send}: MessagesWindowPropsType) => {
+//Убрать лишние перерисовки
+export const MessagesWindow = memo(() => {
+
+    const dispatch = useDispatch()
+
+    const send = (newMessage: string) => {
+        dispatch(sendNewMessageAC(newMessage))
+    }
 
     const messages = useSelector<AppStateType, MessageType[]>(state => state.dialogsPage.messages)
 
@@ -32,6 +36,8 @@ export const MessagesWindow = ({send}: MessagesWindowPropsType) => {
             send(values.message)
         }
     })
+
+    console.log("MessagesWindow")
     return (
         <>
             <Grid container
@@ -66,4 +72,4 @@ export const MessagesWindow = ({send}: MessagesWindowPropsType) => {
             </Grid>
         </>
     )
-}
+})

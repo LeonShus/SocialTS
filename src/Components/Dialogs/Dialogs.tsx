@@ -1,25 +1,19 @@
-import React from "react";
-import DialogItem from "./DialogItem/DialogItem";
-import {sendNewMessageAC, UsersType} from "../../Redux/Reducers/DialogsReducer";
+import React, {memo} from "react";
+import {DialogItem} from "./DialogItem/DialogItem";
+import {UsersType} from "../../Redux/Reducers/DialogsReducer";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
 import {WithAuthHOC} from "../../HOC/WithAuth";
 import {MessagesWindow} from "./MessagesWindow/MessagesWindow";
 
-export const Dialogs = WithAuthHOC(() => {
+export const Dialogs = memo(WithAuthHOC(() => {
 
     const users = useSelector<AppStateType, UsersType[]>(state => state.dialogsPage.users)
 
-    const dispatch = useDispatch()
-
     const usersArr = users.map((el) => <DialogItem key={el.id} name={el.name} id={el.id}/>)
 
-
-    const send = (newMessage: string) => {
-        dispatch(sendNewMessageAC(newMessage))
-    }
 
     return (
 
@@ -41,7 +35,7 @@ export const Dialogs = WithAuthHOC(() => {
                       }}
                 >
                     {/*Messages window*/}
-                    <MessagesWindow send={send}/>
+                    <MessagesWindow/>
 
                 </Grid>
             </Paper>
@@ -49,4 +43,4 @@ export const Dialogs = WithAuthHOC(() => {
         </Grid>
 
     )
-})
+}))
