@@ -1,87 +1,53 @@
-import React from "react";
-import userDef from "../../DefaultItems/Img/userDef.png"
-import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
-import ButtonBase from "@mui/material/ButtonBase";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
+import React, {memo, useCallback, useEffect} from "react";
 import {AppStateType} from "../../Redux/ReduxStore";
-import {UserType} from "../../Redux/Reducers/UsersReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {UsersCont} from "./UsersCont";
+import {followUserT, setCurrentPageAC, setUsersT, unfollowUserT} from "../../Redux/Reducers/UsersReducer";
+import {Paginator} from "../../DefaultItems/Paginator/Paginator";
+import {Preloader} from "../../DefaultItems/Preloader/Preloader";
+import Grid from "@mui/material/Grid";
 
 
-export type UsersPropsType = {
-    followUserCallBack: (id: number) => void
-    unfollowUserCallBack: (id: number) => void
-}
+export const Users = memo(() => {
+    const dispatch = useDispatch()
+    const isFetching = useSelector<AppStateType,boolean>(state => state.usersPage.isFetching)
+    const totalUsersCount = useSelector<AppStateType,number>(state => state.usersPage.totalUsersCount)
+    const pageSize = useSelector<AppStateType,number>(state => state.usersPage.pageSize)
+    const currentPage = useSelector<AppStateType,number>(state => state.usersPage.currentPage)
 
-export const UsersContainer = ({followUserCallBack, unfollowUserCallBack}: UsersPropsType) => {
-    const users = useSelector<AppStateType, UserType[]>(state => state.usersPage.users)
-    const followInProgress = useSelector<AppStateType, number[]>(state => state.usersPage.followInProgress)
+    const setCurrentPage = useCallback((page: number) => {
+        dispatch(setCurrentPageAC(page))
+    },[dispatch])
 
+    //Получаем пользователей
+    useEffect(() => {
+        dispatch(setUsersT(currentPage, pageSize))
+    }, [dispatch, currentPage, pageSize])
 
-    const usersJsxArray = users.map(u => {
-
-        const followButton = !u.followed
-            ? <Button disabled={followInProgress.some(el => el === u.id)}
-                      onClick={() => followUserCallBack(u.id)}
-                      size={"small"}
-                      variant="contained">follow</Button>
-            : <Button disabled={followInProgress.some(el => el === u.id)}
-                      onClick={() => unfollowUserCallBack(u.id)}
-                      size={"small"}
-                      variant="contained">Unfollow</Button>
-
-        return (
-            <Grid item xs={8} key={u.id}>
-                <Paper elevation={3} sx={{p: 2, maxWidth: 400, flexGrow: 1, mt: 2}}>
-                    <Grid container spacing={3}>
-
-                        <Grid item>
-                            <ButtonBase sx={{width: 80, height: 80, position: "relative", top: 10}}>
-                                <NavLink to={`/profile/${u.id}`}>
-                                    <Avatar alt={u.name ? u.name : undefined}
-                                            src={!u.photos.small ? userDef : u.photos.small}
-                                            sx={{width: 80, height: 80}}
-                                    />
-                                </NavLink>
-                            </ButtonBase>
-                        </Grid>
-
-                        <Grid item xs={12} sm container>
-                            <Grid item xs container direction="column" spacing={2}>
-                                <Grid item xs>
-
-                                    <Typography
-                                        gutterBottom
-                                        variant={"subtitle1"}
-                                        component={"div"}
-                                        sx={{fontSize: "1.3rem"}}
-                                    >
-                                        {u.name}
-                                    </Typography>
-
-                                    <Typography variant={"body2"}>
-                                        {u.status}
-                                    </Typography>
-
-                                </Grid>
-                                <Grid item>
-                                    {followButton}
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Paper>
-            </Grid>
-        )
-    })
+    //Подписываемся на поьзователя
+    const followUserCallBack = useCallback((id: number) => {
+        dispatch(followUserT(id))
+    },[dispatch])
+    //Отписываемся от пользователя
+    const unfollowUserCallBack = useCallback((id: number) => {
+        dispatch(unfollowUserT(id))
+    },[dispatch])
 
     return (
         <>
-            {usersJsxArray}
+            {isFetching && <Preloader/>}
+            <Paginator totalUsersCount={totalUsersCount}
+                       pageSize={pageSize}
+                       currentPage={currentPage}
+                       setCurrentPage={setCurrentPage}
+            />
+
+
+            <Grid container spacing={2} columns={16}>
+                <UsersCont followUserCallBack={followUserCallBack}
+                                unfollowUserCallBack={unfollowUserCallBack}
+                />
+            </Grid>
         </>
     )
-}
+})

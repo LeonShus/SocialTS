@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {memo, useState} from "react"
 import Pagination from "@mui/material/Pagination";
 
 
@@ -9,7 +9,7 @@ export type PaginatorPropsType = {
     setCurrentPage: (currentPage: number) => void
 }
 
-export const Paginator = ({totalUsersCount, pageSize, currentPage, setCurrentPage}: PaginatorPropsType) => {
+export const Paginator = memo(({totalUsersCount, pageSize, currentPage, setCurrentPage}: PaginatorPropsType) => {
 
     const [page, setPage] = useState<number>(currentPage)
 
@@ -19,6 +19,7 @@ export const Paginator = ({totalUsersCount, pageSize, currentPage, setCurrentPag
         setPage(value)
         setCurrentPage(value)
     }
+
 
     return (
 
@@ -31,4 +32,4 @@ export const Paginator = ({totalUsersCount, pageSize, currentPage, setCurrentPag
 
 
     )
-}
+})

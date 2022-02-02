@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
-import {Users} from "./Components/Users/UsersContainer";
+import {Users} from "./Components/Users/Users";
 import {Profile} from "./Components/Profile/Profile";
 import Container from "@mui/material/Container";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
