@@ -1,43 +1,20 @@
 import classes from "./ProfileInfo.module.css";
 import userDef from "../../../DefaultItems/Img/userDef.png";
-import React, {ChangeEvent, memo, useState} from "react";
-import {changeStatusT, UserType} from "../../../Redux/Reducers/ProfileReducer";
-import {Avatar, Grid, TextField, Typography} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../Redux/ReduxStore";
+import React, {memo} from "react";
+import {UserType} from "../../../Redux/Reducers/ProfileReducer";
+import Avatar from "@mui/material/Avatar";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import {Status} from "./Status/Status";
 
 type ProfileInfoPropsType = {
     user: UserType
-    mainUserId: number | null
 }
 
-const ProfileInfo = memo(({user, mainUserId}: ProfileInfoPropsType) => {
-    const dispatch = useDispatch()
-    const userStatus = useSelector<AppStateType,string>(state => state.profilePage.status)
-
-    const [status, setStatus] = useState(userStatus)
-    const [editStatus, setEditStatus] = useState(false)
-
+export const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
 
     const getUserPhoto = () => {
         return user.photos && user.photos.small ? user.photos.small : userDef
-    }
-    const editModeOn = () => {
-        mainUserId === user.userId &&
-        setEditStatus(true)
-    }
-    const editModeOff = (e: any) => {
-        if (e.charCode === 13) {
-            setEditStatus(false)
-            dispatch(changeStatusT(status))
-        }
-    }
-    const onBlurHandler = () => {
-        setEditStatus(false)
-        dispatch(changeStatusT(status))
-    }
-    const changeStatusText = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setStatus(e.currentTarget.value)
     }
 
     return (
@@ -61,29 +38,10 @@ const ProfileInfo = memo(({user, mainUserId}: ProfileInfoPropsType) => {
                     {user.fullName}
                 </Typography>
 
-                <Grid container>
-                    {editStatus
-                        ? <TextField autoFocus
-                                     size={"small"}
-                                     variant={"outlined"}
-                                     onKeyPress={editModeOff}
-                                     onChange={changeStatusText}
-                                     onBlur={onBlurHandler}
-                        />
-
-                        : <Typography
-                            onDoubleClick={editModeOn}
-                            sx={{fontSize: "1.2rem"}}
-                        >
-                            {userStatus}
-                        </Typography>
-                    }
-                </Grid>
+                <Status user={user}/>
             </Grid>
 
 
         </Grid>
     )
 })
-
-export default ProfileInfo

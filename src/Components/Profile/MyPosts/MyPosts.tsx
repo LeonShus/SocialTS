@@ -1,6 +1,8 @@
-import React from "react";
+import React, {memo} from "react";
 import {Post} from "./Post/Post";
-import {Button, Grid, TextField} from "@mui/material";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../Redux/ReduxStore";
 import {addNewPostAC, PostDataType} from "../../../Redux/Reducers/ProfileReducer";
@@ -8,7 +10,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 
 
-export const MyPosts = () => {
+export const MyPosts = memo(() => {
     const dispatch = useDispatch()
     const postsData = useSelector<AppStateType, PostDataType[]>(state => state.profilePage.postsData)
 
@@ -59,6 +61,4 @@ export const MyPosts = () => {
 
         </Grid>
     )
-}
-
-export default MyPosts
+})

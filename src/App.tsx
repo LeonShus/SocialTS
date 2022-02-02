@@ -16,18 +16,19 @@ export const App = () => {
     const dispatch = useDispatch()
     const isInitialised = useSelector<AppStateType, boolean>(state => state.app.initialised)
 
-    const isAuth = useSelector<AppStateType, boolean>(state => state.authUser.isAuth)
+    // const isAuth = useSelector<AppStateType, boolean>(state => state.authUser.isAuth)
 
 
     useEffect(() => {
         dispatch(getAuthUserT())
-    }, [])
+    }, [dispatch])
 
 
     if (!isInitialised) {
         return <Preloader/>
     }
 
+    console.log('APP')
     return (
         <HashRouter>
             <Header/>
