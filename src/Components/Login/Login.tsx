@@ -1,5 +1,5 @@
 import {useFormik} from "formik"
-import React from "react"
+import React, {memo} from "react"
 import * as Yup from "yup"
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -14,7 +14,7 @@ type LoginFormValues = {
     pass: string
 }
 
-export const Login = () => {
+export const Login = memo(() => {
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.authUser.isAuth)
     let mainUserId = useSelector<AppStateType, number | null>(state => state.authUser.id)
@@ -78,4 +78,4 @@ export const Login = () => {
         </form>
 
     )
-}
+})

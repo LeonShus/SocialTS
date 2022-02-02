@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {memo, useState} from "react";
 import classes from "./Header.module.css"
 import AppBar from "@mui/material/AppBar"
 import Button from "@mui/material/Button"
@@ -15,7 +15,7 @@ import {AppStateType} from "../../Redux/ReduxStore";
 import {logOutT} from "../../Redux/Reducers/AuthReducer";
 
 
-export const Header = () => {
+export const Header = memo(() => {
     const dispatch = useDispatch()
     const userLogin = useSelector<AppStateType, string | null>(state => state.authUser.login)
 
@@ -116,4 +116,4 @@ export const Header = () => {
             </AppBar>
         </header>
     )
-}
+})
