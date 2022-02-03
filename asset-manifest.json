@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/SocialTS/static/css/main.0f61526c.chunk.css",
-    "main.js": "/SocialTS/static/js/main.dea4d14d.chunk.js",
-    "main.js.map": "/SocialTS/static/js/main.dea4d14d.chunk.js.map",
-    "runtime-main.js": "/SocialTS/static/js/runtime-main.d30a6924.js",
-    "runtime-main.js.map": "/SocialTS/static/js/runtime-main.d30a6924.js.map",
-    "static/js/2.1777772e.chunk.js": "/SocialTS/static/js/2.1777772e.chunk.js",
-    "static/js/2.1777772e.chunk.js.map": "/SocialTS/static/js/2.1777772e.chunk.js.map",
-    "static/js/3.574c34b5.chunk.js": "/SocialTS/static/js/3.574c34b5.chunk.js",
-    "static/js/3.574c34b5.chunk.js.map": "/SocialTS/static/js/3.574c34b5.chunk.js.map",
+    "main.js": "/SocialTS/static/js/main.3f6aaf10.chunk.js",
+    "main.js.map": "/SocialTS/static/js/main.3f6aaf10.chunk.js.map",
+    "runtime-main.js": "/SocialTS/static/js/runtime-main.b3f4bc08.js",
+    "runtime-main.js.map": "/SocialTS/static/js/runtime-main.b3f4bc08.js.map",
+    "static/js/2.0b6e8927.chunk.js": "/SocialTS/static/js/2.0b6e8927.chunk.js",
+    "static/js/2.0b6e8927.chunk.js.map": "/SocialTS/static/js/2.0b6e8927.chunk.js.map",
+    "static/js/3.67ce9f6c.chunk.js": "/SocialTS/static/js/3.67ce9f6c.chunk.js",
+    "static/js/3.67ce9f6c.chunk.js.map": "/SocialTS/static/js/3.67ce9f6c.chunk.js.map",
     "index.html": "/SocialTS/index.html",
-    "precache-manifest.ce2b6ceae8952d18e66f522a5acc0f2f.js": "/SocialTS/precache-manifest.ce2b6ceae8952d18e66f522a5acc0f2f.js",
+    "precache-manifest.dfa2bd9b60ed709670f7c491eb646eee.js": "/SocialTS/precache-manifest.dfa2bd9b60ed709670f7c491eb646eee.js",
     "service-worker.js": "/SocialTS/service-worker.js",
     "static/css/main.0f61526c.chunk.css.map": "/SocialTS/static/css/main.0f61526c.chunk.css.map",
-    "static/js/2.1777772e.chunk.js.LICENSE.txt": "/SocialTS/static/js/2.1777772e.chunk.js.LICENSE.txt",
+    "static/js/2.0b6e8927.chunk.js.LICENSE.txt": "/SocialTS/static/js/2.0b6e8927.chunk.js.LICENSE.txt",
     "static/media/userDef.png": "/SocialTS/static/media/userDef.80d35342.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.d30a6924.js",
-    "static/js/2.1777772e.chunk.js",
+    "static/js/runtime-main.b3f4bc08.js",
+    "static/js/2.0b6e8927.chunk.js",
     "static/css/main.0f61526c.chunk.css",
-    "static/js/main.dea4d14d.chunk.js"
+    "static/js/main.3f6aaf10.chunk.js"
   ]
 }
