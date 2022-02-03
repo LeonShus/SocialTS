@@ -59,12 +59,21 @@ export const profileAPI = {
         return instance.get<GetUserProfileType>(`profile/${id}`)
             .then(response => response.data)
     },
-    getUserStatus(userId: number){
+    getUserStatus(userId: number) {
         return instance.get(`profile/status/${userId}`)
     },
-    changeStatus(status: string){
-        return instance.put('profile/status', {status})
+    changeStatus(status: string) {
+        return instance.put("profile/status", {status})
 
+    },
+    uploadPhoto(photoObj: any) {
+        let filePhoto = new FormData()
+        filePhoto.append("image", photoObj[0])
+        return instance.put("profile/photo", filePhoto, {
+            headers: {
+                "Content-Type": 'multipart/form-data'
+            }
+        })
     }
 }
 
@@ -79,15 +88,15 @@ type GetAuthMeType = {
 }
 
 export const authAPI = {
-    getAuthMe(){
+    getAuthMe() {
         return instance.get<GetAuthMeType>(`auth/me`)
             .then(response => response.data)
     },
-    login(email: string, password: string, rememberMe: boolean = false){
-        return instance.post("auth/login", { email, password, rememberMe })
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post("auth/login", {email, password, rememberMe})
             .then(response => response.data)
     },
-    logOut(){
+    logOut() {
         return instance.delete("auth/login")
     }
 }
