@@ -1,6 +1,6 @@
 import classes from "./ProfileInfo.module.css";
 import userDef from "../../../DefaultItems/Img/userDef.png";
-import React, {ChangeEvent, ChangeEventHandler, memo} from "react";
+import React, {ChangeEvent, memo} from "react";
 import {photosChangeT, UserType} from "../../../Redux/Reducers/ProfileReducer";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
@@ -19,10 +19,10 @@ export const ProfileInfo = memo(({user}: ProfileInfoPropsType) => {
     }
 
     const uploadPhoto = (event: ChangeEvent<HTMLInputElement>) => {
-            dispatch(photosChangeT(event.currentTarget.files))
-            console.log(event.currentTarget.files)
+        dispatch(photosChangeT(event.currentTarget.files))
+        console.log(event.currentTarget.files)
     }
-
+    console.log(user)
     return (
         <Grid container
               sx={{
